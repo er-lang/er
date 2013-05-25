@@ -6,9 +6,17 @@ An attempt to resolve the syntax & horrible compile error reports issues.
 * Unicode source code support.
 * Support of Joe's quotes: ‘’, “”
 * Implement ideas:
-    * ' instead of $ for chars
+    * Keep lowercase as atoms, same for variables
+    * ‘=’ instead of ‘->’ ; ie add context not to confuse w/ pattern matching?
+    * ‘'’ instead of ‘$’ for chars: 'a, 'b, '\', '\\, '\ .
     * Module name is filename
     * Explicit language support for behaviors and other OTP principles
+    * Get rid of ‘,’ ‘.’ ‘;’ with maybe the help of ‘end’. Ruby?
+    * Haskell-style type spec (ie ‘-type new_name :: old_name’: rm ‘-type’)
+    * -export([Fun|…]). -> export Fun … end
+    * Possibility following context to use keywords as atoms, like in C++.
+    * A look-alike syntax for named & λ functions
+    * Get rid of legacy rust: ‘=<<’, …
 * Compile to Erlang. clang level of expressivity.
 
 Inspirations: haskell, ruby ?
