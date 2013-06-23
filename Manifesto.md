@@ -16,7 +16,11 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * -export([Fun|…]). -> export Fun … end
     * Possibility following context to use keywords as atoms, like in C++.
     * A look-alike syntax for named & λ functions
-    * Get rid of legacy rust: ‘=<<’, …
+    * Get rid of legacy rust: ‘=<<’, ‘.’, ‘..’, ‘...’, …
+    * ‘#[^\r\n]*[\r\n]+’ comments; multiligne using macros
+    * There is no need to put a ‘#’ char when using records
+    * Throw a warning when exported functions aren't spec-ed
+    * Support #warning, #ifdef and the like
 * Compile to Erlang. clang level of expressivity.
 
 Inspirations: haskell, ruby ?
