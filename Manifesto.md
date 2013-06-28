@@ -17,10 +17,12 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Possibility following context to use keywords as atoms, like in C++.
     * A look-alike syntax for named & λ functions
     * Get rid of legacy rust: ‘=<<’, ‘.’, ‘..’, ‘...’, …
-    * ‘#[^\r\n]*[\r\n]+’ comments; multiligne using macros
+    * ‘#[^\r\n]*[\r\n]+’ comments; multiline using macros(uh, see other functional p.l.'s m.c.)
     * There is no need to put a ‘#’ char when using records
     * Throw a warning when exported functions aren't spec-ed
     * Support #warning, #ifdef and the like
+    * Use Haskell's way of setting per-file compile options
+    * Call behaviou?rs interfaces (same concept, helps user to feel she can make her own behaviors)
 * Compile to Erlang. clang level of expressivity.
 
 Inspirations: haskell, ruby ?
