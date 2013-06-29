@@ -23,7 +23,9 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Support #warning, #ifdef and the like
     * Use Haskell's way of setting per-file compile options
     * Call behaviou?rs interfaces (same concept, helps user to feel she can make her own behaviors)
-* Compile to Erlang. clang level of expressivity.
+    * EOL can match ‘;’ or ‘,’
+    * Some Unicode code points can match graphically similar operators, eg. ‘->’ and ‘↦’
+* Compile to Erlang. clang level of expressivity in errors.
 
 Inspirations: haskell, ruby ?
 
