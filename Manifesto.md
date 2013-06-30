@@ -25,6 +25,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Call behaviou?rs interfaces (same concept, helps user to feel she can make her own behaviors)
     * EOL can match ‘;’ or ‘,’
     * Some Unicode code points can match graphically similar operators, eg. ‘->’ and ‘↦’
+    * As ‘-callback’ isn't backward-OK, provide different release of Erlang to compile to
 * Compile to Erlang. clang level of expressivity in errors.
 
 Inspirations: haskell, ruby ?
