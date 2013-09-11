@@ -19,7 +19,6 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Get rid of legacy rust: ‘=<<’, ‘.’, ‘..’, ‘...’, …
     * ‘#[^\r\n]*[\r\n]+’ comments; multiline using macros(uh, see other functional p.l.'s m.c.)
     * There is no need to put a ‘#’ char when using records
-    * Throw a warning when exported functions aren't spec-ed
     * Support #warning, #ifdef and the like
     * Use Haskell's way of setting per-file compile options
     * Call behaviou?rs interfaces (same concept, helps user to feel she can make her own behaviors)
@@ -27,6 +26,8 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Some Unicode code points can match graphically similar operators, eg. ‘->’ and ‘↦’
     * As ‘-callback’ isn't backward-OK, provide different release of Erlang to compile to
     * Add ‘R16’ and ‘R16B01’ macros for backward-compatible code
+    * Request Dialyzer type-specs on every exported function, implement a --less-pedantic mode, have all functions exported when debugging
+    * Have Dialyzer check on compile (such as to catch -behavior issues)
 * Compile to Erlang. clang level of expressivity in errors.
 
 Inspirations: haskell, ruby ?
