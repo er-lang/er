@@ -29,6 +29,8 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Request Dialyzer type-specs on every exported function, implement a --less-pedantic mode, have all functions exported when debugging
     * Have Dialyzer check on compile (such as to catch -behavior issues)
     * Rlang's -spec also adds the guards to spec-ed function
+    * http://bugs.ruby-lang.org/issues/5054
+    * Simpler namespacing using Erlang's library applications?
 * Compile to Erlang. clang level of expressivity in errors.
 
 Inspirations: haskell, ruby ?
