@@ -7,7 +7,8 @@ An attempt to resolve the syntax & horrible compile error reports issues.
 * Support of Joe's quotes: ‘’, “”
 * Implement ideas:
     * Keep lowercase as atoms, same for variables
-    * ‘=’ instead of ‘->’ ; ie add context not to confuse w/ pattern matching?
+    * ‘=’ instead of ‘->’ when defining a function (does that work with funs?)
+    * Differenciate Erlang's multiple meanings of ‘=’ with other shape-like tokens.
     * ‘'’ instead of ‘$’ for chars: 'a, 'b, '\', '\\, '\ .
     * Module name is filename (still only one per file)
     * Explicit language support for behaviors and other OTP principles
