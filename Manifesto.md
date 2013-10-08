@@ -1,4 +1,4 @@
-# rlang • A BEAM language featuring an edible syntax
+# kju • A BEAM language featuring an edible syntax
 An attempt to resolve the syntax & horrible compile error reports issues.
 
 ## Step 1
@@ -30,7 +30,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Define ‘R16’ and ‘R16B01’ -style macros for backward-compatible code
     * Request Dialyzer type-specs on every exported function, implement a --less-pedantic mode, have all functions exported when debugging
     * Have Dialyzer check on compile (such as to catch -behavior issues)
-    * Rlang's -spec also adds the guards to spec-ed function
+    * KJu's -spec also adds the guards to spec-ed function
     * http://bugs.ruby-lang.org/issues/5054
     * Simpler namespacing using Erlang's library applications?
     * Somehow bundle all Unicode sugaring as a whole
