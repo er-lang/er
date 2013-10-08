@@ -40,6 +40,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Add ‘FUNCTION’ macro (same idea as ‘MODULE’)
     * Allow ‘:my_fun()’ calls. Sugar for ‘?MODULE:my_fun()’ calls.
     * Change ‘||’ to ‘|’ in * comprehensions (‘<-’ desambiguates). Maybe also ‘|’ to ‘:’ (M:F calls hinder that)…
+    * In kju * comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
