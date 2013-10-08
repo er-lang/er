@@ -3,6 +3,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
 
 ## Step 1
 * The whole point is to make Erlang/OTP look postmodern, readable and elegant.
+* The main point of a high-level programming language is powerful short programs.
 * A new Grammar, fit for both worlds.
 * Unicode source code support.
 * Support of Joe's quotes: ‘’, “”. ‘’=[] (?) and “”=<<>>.
@@ -41,6 +42,8 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Allow ‘:my_fun()’ calls. Sugar for ‘?MODULE:my_fun()’ calls.
     * Change ‘||’ to ‘|’ in * comprehensions (‘<-’ desambiguates). Maybe also ‘|’ to ‘:’ (M:F calls hinder that)…
     * In kju * comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
+    * Keep ‘!’ for sending messages.
+    * No more Erlang's ‘if’ nonsense. Only functional if…then…else…end and case…of…end.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
