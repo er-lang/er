@@ -30,17 +30,16 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Define ‘R16’ and ‘R16B01’ -style macros for backward-compatible code
     * Request Dialyzer type-specs on every exported function, implement a --less-pedantic mode, have all functions exported when debugging
     * Have Dialyzer check on compile (such as to catch -behavior issues)
-    * KJu's -spec also adds the guards to spec-ed function
+    * KJu's -spec also adds the guards to spec-ed function (or a case…of…end inside fun's clause)
     * http://bugs.ruby-lang.org/issues/5054
     * Simpler namespacing using Erlang's library applications?
     * Somehow bundle all Unicode sugaring as a whole
     * Workout if ‘infix{,r,l} ‹0..9› ‹atom›’ is possible with a visitor. (largs) atom (rargs) -> … . could do!
     * Replace -spec types (like ‘any()’, ‘[integer()]’) with better: ‘‹any›’, ‘[‹integer›]’
-    * Add ‘..’ operator. Meaning different inside -spec (does not produce a list there).
+    * Add ‘..’ operator. Meaning different inside -spec (does not produce a list there) 0..2 = 0|1|2 ?
     * Add ‘FUNCTION’ macro (same idea as ‘MODULE’)
     * Allow ‘:my_fun()’ calls. Sugar for ‘?MODULE:my_fun()’ calls.
     * Change ‘||’ to ‘|’ in * comprehensions (‘<-’ desambiguates). Maybe also ‘|’ to ‘:’ (M:F calls hinder that)…
-    * 
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
