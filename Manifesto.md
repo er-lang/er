@@ -3,6 +3,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
 
 ## Step 1
 * The whole point is to make Erlang/OTP look postmodern, readable and elegant.
+* Programs must be written for people to read, and only incidentally for machines to execute. — Abelson & Sussman, Structure and Interpretation of Computer Programs
 * The main point of a high-level programming language is powerful short programs.
 * A new Grammar, fit for both worlds.
 * Unicode source code support.
