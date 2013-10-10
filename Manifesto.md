@@ -45,6 +45,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * In kju * comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
     * Keep ‘!’ for sending messages.
     * No more Erlang's ‘if’ nonsense. Only functional if…then…else…end and case…of…end.
+    * Every Unicode (non-standard-keyboard-writable) thing is ASCII-compatible with something.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
