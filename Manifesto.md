@@ -32,11 +32,11 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Define ‘R16’ and ‘R16B01’ -style macros for backward-compatible code
     * Request Dialyzer type-specs on every exported function, implement a --less-pedantic mode, have all functions exported when debugging
     * Have Dialyzer check on compile (such as to catch -behavior issues)
-    * KJu's -spec also adds the guards to spec-ed function (or a case…of…end inside fun's clause)
+    * KJu's -spec also adds the guards to spec-ed function (or a case…of…end inside fun's clause) Eg: is_string/1 “guard”.
     * http://bugs.ruby-lang.org/issues/5054
-    * Simpler namespacing using Erlang's library applications?
+    * Simpler namespacing using Erlang's “library applications”?
     * Somehow bundle all Unicode sugaring as a whole
-    * Workout if ‘infix{,r,l} ‹0..9› ‹atom›’ is possible with a visitor. (largs) atom (rargs) -> … . could do!
+    * Workout if ‘infix{,r,l} ‹0..9› ‹atom›’ is possible with a visitor. (larg0, larg1) atom (rargs) -> … . could do!
     * Replace -spec types (like ‘any()’, ‘[integer()]’) with better: ‘‹any›’, ‘[‹integer›]’
     * Add ‘..’ operator. Meaning different inside -spec (does not produce a list there) 0..2 = 0|1|2 ?
     * Add ‘FUNCTION’ macro (same idea as ‘MODULE’)
@@ -46,6 +46,9 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Keep ‘!’ for sending messages.
     * No more Erlang's ‘if’ nonsense. Only functional if…then…else…end and case…of…end.
     * Every Unicode (non-standard-keyboard-writable) thing is ASCII-compatible with something.
+    * Extend Erlang's equality operators to work with underscores: ‘where,_,_,_,_} =:= element(3,E)’
+    * Support new (upcoming EEP) fun syntax: ‘fun io:format("~p\n")/1’  === ‘fun (X) -> io:format("~p\n", X) end’
+    * Support new (upcoming EEP) comprehensions: ‘[… | … <- …]’, ‘<<… | … <- …>>’, ‘{… | … <- …}’.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
