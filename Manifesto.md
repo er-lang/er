@@ -49,6 +49,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Extend Erlang's equality operators to work with underscores: ‘where,_,_,_,_} =:= element(3,E)’
     * Support new (upcoming EEP) fun syntax: ‘fun io:format("~p\n")/1’  === ‘fun (X) -> io:format("~p\n", X) end’
     * Support new (upcoming EEP) comprehensions: ‘[… | … <- …]’, ‘<<… | … <- …>>’, ‘{… | … <- …}’.
+    * Support primes names (‘'’ suffixes) at least for variables. Common case of Var0/Var.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
