@@ -6,6 +6,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
 * Programs must be written for people to read, and only incidentally for machines to execute. — Abelson & Sussman, Structure and Interpretation of Computer Programs
 * The main point of a high-level programming language is powerful short programs.
 * A new Grammar, fit for both worlds.
+* Main point: get rid of ‘, ; . end’ mess while not doing indentation-based parsing.
 * Unicode source code support.
 * Support of Joe's quotes: ‘’, “”. ‘’=[] (?) and “”=<<>>.
 * Implement ideas:
@@ -36,7 +37,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * http://bugs.ruby-lang.org/issues/5054
     * Simpler namespacing using Erlang's “library applications”?
     * Somehow bundle all Unicode sugaring as a whole
-    * Workout if ‘infix{,r,l} ‹0..9› ‹atom›’ is possible with a visitor. (larg0, larg1) atom (rargs) -> … . could do!
+    * See if ‘infix{,r,l} ‹0..9› ‹atom›’ is possible with a visitor. (larg0, larg1) atom (rargs) -> … . could do!
     * Replace -spec types (like ‘any()’, ‘[integer()]’) with better: ‘‹any›’, ‘[‹integer›]’
     * Add ‘..’ operator. Meaning different inside -spec (does not produce a list there) 0..2 = 0|1|2 ?
     * Add ‘FUNCTION’ macro (same idea as ‘MODULE’)
@@ -51,6 +52,7 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Support new (upcoming EEP) comprehensions: ‘[… | … <- …]’, ‘<<… | … <- …>>’, ‘{… | … <- …}’.
     * Support primes names (‘'’ suffixes) at least for variables. Common case of Var0/Var.
     * ‹funNameAndArgs› ‹guard›* ‹| guarded-clause›* ‹end› could describe a function. Like Haskell, yes.
+    * Type specs = its own DSL. Needs variables, atoms, type names, ranges… Haskells' = very nice.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
