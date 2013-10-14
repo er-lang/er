@@ -53,6 +53,8 @@ An attempt to resolve the syntax & horrible compile error reports issues.
     * Support primes names (‘'’ suffixes) at least for variables. Common case of Var0/Var.
     * ‹funNameAndArgs› ‹guard›* ‹| guarded-clause›* ‹end› could describe a function. Like Haskell, yes.
     * Type specs = its own DSL. Needs variables, atoms, type names, ranges… Haskells' = very nice.
+    * Support https://en.wikipedia.org/wiki/SI_prefix#List_of_prefixes as: ‹number› ‹SI letter›
+    * Support separating digits with ‘_’ as in 1_000 and 100_000.42
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
