@@ -1,6 +1,12 @@
 # kju • A BEAM language featuring an edible syntax
 An attempt to resolve the syntax & horrible compile error reports issues.
 
+    kju K-ju Kaiju
+    Le monstre magnifique
+    The magnificent monster
+
+Maybe Kim Jong-Un in that it is a merciless tool.
+
 ## Step 1
 * The whole point is to make Erlang/OTP look postmodern, readable and elegant.
 * Programs must be written for people to read, and only incidentally for machines to execute. — Abelson & Sussman, Structure and Interpretation of Computer Programs
