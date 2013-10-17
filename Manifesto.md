@@ -61,6 +61,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Type specs = its own DSL. Needs variables, atoms, type names, ranges… Haskells' = very nice.
     * Support https://en.wikipedia.org/wiki/SI_prefix#List_of_prefixes as: ‹number› ‹SI letter›
     * Support separating digits with ‘_’ as in 1_000 and 100_000.42
+    * Allow using ‘<-’ instead of the ‘receive’ keyword. This gives a more dynamic impression of an agent receiving messages.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
