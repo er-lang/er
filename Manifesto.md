@@ -11,9 +11,11 @@ Maybe Kim Jong-Un in that it is a merciless tool.
 * The whole point is to make Erlang/OTP look postmodern, readable and elegant.
 * Programs must be written for people to read, and only incidentally for machines to execute. — Abelson & Sussman, Structure and Interpretation of Computer Programs
 * The main point of a high-level programming language is powerful short programs.
+* The sole job of a programming language is to bridge the gap between ugly, but efficent, object code, and beautiful source code. -- slidetocode
 * A new Grammar, fit for both worlds.
 * Main point: get rid of ‘, ; . end’ mess while not doing indentation-based parsing.
 * Unicode source code support.
+* This also fixes the things you may have taken for granted if you come from another landscape.
 * Support of Joe's quotes: ‘’, “”. ‘’=[] (?) and “”=<<>>.
 * Implement ideas:
     * Keep lowercase as atoms, same for variables
