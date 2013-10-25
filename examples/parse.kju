@@ -1,0 +1,11 @@
+## +hipe +'{parse_transform,inline}'
+# -*- kju, coding: utf-8 -*-
+export string/1 end
+
+string :: (‹string›) → {ok | error, ‹term›}
+string (Str) =
+    {ok, Tokens} = xrl_scanner:string(Str)
+    case yrl_parser:parse(Tokens) of
+        {ok, Tree} → {ok, Tree}
+        Error → {error, Error} # MAY print stuff
+    end.
