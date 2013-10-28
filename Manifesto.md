@@ -67,6 +67,8 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Add a keyword that refers to the name of the function being defined. Maybe a macro. I think ‘fun()’ is a good compromise.
     * ‘#{k => v}’ and ‘#k_v{k => v}’ are both maps but the second is statically checked.
     * ‘#{k =  v}’ and ‘#k_v{k =  v}’ are records. The first is anonymous and maps to just ‘{v}’ (not pretty).
+    * Current Erlang's records/maps syntax prevent removal of commas in funs' exprs.
+    * Besides, Erlang allows just-variables in fun-exprs, which is ignored, funny and sad.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
