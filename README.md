@@ -1,4 +1,4 @@
-# kju • A BEAM language featuring an edible syntax
+# kju • [A BEAM language featuring an edible syntax](https://github.com/fenollp/kju)
 An attempt to resolve the syntax & horrible compile error reports issues.
 
     kju K-ju Kaiju
@@ -84,8 +84,3 @@ Maybe Kim Jong-Un in that it is a merciless tool.
 
 ## Step -1
 * World domination.
-
-# Compiling
-`make` should do.
-## Testing compiled code
-`make check`
