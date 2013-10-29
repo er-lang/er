@@ -48,15 +48,15 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * See if ‘infix{,r,l} ‹0..9› ‹atom›’ is possible with a visitor. (larg0, larg1) atom (rargs) -> … . could do!
     * Replace -spec types (like ‘any()’, ‘[integer()]’) with better: ‘‹any›’, ‘[‹integer›]’
     * Add ‘..’ operator. Meaning different inside -spec (does not produce a list there) 0..2 = 0|1|2 ?
-    * Add ‘FUNCTION’ macro (same idea as ‘MODULE’)
+    * Add ‘FUNCTION’ macro (same idea as ‘MODULE’). What about ‘''’, the empty fun name?
     * Allow ‘:my_fun()’ calls. Sugar for ‘?MODULE:my_fun()’ calls.
     * Change ‘||’ to ‘|’ in * comprehensions (‘<-’ desambiguates). Maybe also ‘|’ to ‘:’ (M:F calls hinder that)…
     * In kju * comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
     * Keep ‘!’ for sending messages.
     * No more Erlang's ‘if’ nonsense. Only functional if…then…else…end and case…of…end.
     * Every Unicode (non-standard-keyboard-writable) thing is ASCII-compatible with something.
-    * Extend Erlang's equality operators to work with underscores: ‘where,_,_,_,_} =:= element(3,E)’
-    * Support new (upcoming EEP) fun syntax: ‘fun io:format("~p\n")/1’  === ‘fun (X) -> io:format("~p\n", X) end’
+    * Extend Erlang's equality operators to work with underscores: ‘{where,_,_,_,_} =:= element(3,E)’
+    * Support new (upcoming EEP) fun syntax: ‘fun io:format("~p\n")/1’ = ‘fun (X) -> io:format("~p\n", X) end’
     * Support new (upcoming EEP) comprehensions: ‘[… | … <- …]’, ‘<<… | … <- …>>’, ‘{… | … <- …}’.
     * Support primes names (‘'’ suffixes) at least for variables. Common case of Var0/Var.
     * ‹funNameAndArgs› ‹guard›* ‹| guarded-clause›* ‹end› could describe a function. Like Haskell, yes.
