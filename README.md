@@ -48,7 +48,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * See if ‘infix{,r,l} ‹0..9› ‹atom›’ is possible with a visitor. (larg0, larg1) atom (rargs) -> … . could do!
     * Replace -spec types (like ‘any()’, ‘[integer()]’) with better: ‘‹any›’, ‘[‹integer›]’
     * Add ‘..’ operator. Meaning different inside -spec (does not produce a list there) 0..2 = 0|1|2 ?
-    * Add ‘FUNCTION’ macro (same idea as ‘MODULE’). What about ‘''’, the empty fun name?
+    * Add ‘FUNCTION’ macro (same idea as ‘MODULE’). What about ‘''’, the empty fun name? Just ‘:’ makes more sense!
     * Allow ‘:my_fun()’ calls. Sugar for ‘?MODULE:my_fun()’ calls.
     * Change ‘||’ to ‘|’ in * comprehensions (‘<-’ desambiguates). Maybe also ‘|’ to ‘:’ (M:F calls hinder that)…
     * In kju * comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
