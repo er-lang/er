@@ -1,0 +1,25 @@
+## A process whose only job is to keep a counter.
+## First version
+visible
+         start/0
+    codeswitch/1
+end
+
+start () =
+    loop(0).
+
+loop (Sum) =
+    <-
+    | {increment, Count} ->
+        :(Sum + Count)
+    | {counter, Pid} ->
+        Pid ! {counter, Sum}
+        :(Sum)
+    | code_switch ->
+        :codeswitch(Sum)
+        ## Force the use of 'codeswitch/1' from the latest ?MODULE version
+    .
+.
+
+codeswitch /1 =
+    fun loop/1.
