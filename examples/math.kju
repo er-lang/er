@@ -1,0 +1,22 @@
+## Copyright © 2013 Pierre Fenoll ‹pierrefenoll@gmail.com›
+## See LICENSE for licensing information.
+## -*- kju coding: utf-8 -*-
+
+## math: some ubiquitous math functions.
+
+visible fac/1 fib/1.
+
+## API
+
+fac (0) = 1.
+fac (N) when N > 0, ‹integer N› =
+    N * :(N -1).
+
+fib (0) = 0.
+fib (1) = 1.
+fib (N) =
+    :(N -1) + :(N -2).
+
+## Internals
+
+## End of Module.
