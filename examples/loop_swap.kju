@@ -1,6 +1,6 @@
 ## A process whose only job is to keep a counter.
 ## First version
-visible
+export
          start/0
     codeswitch/1
 end

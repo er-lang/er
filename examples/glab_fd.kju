@@ -5,7 +5,7 @@
 ##      async bully algorithm used in gl_async_bully.
 ## @end
 ###-------------------------------------------------------------------
-visible
+export
             new/1
           start/2
            stop/2
@@ -20,7 +20,7 @@ end
 
 opaque ‹fd_set› :: ‹fd›{}.
 
-visible ‹fd_set› 0.
+export ‹fd_set› 0.
 
 ##====================================================================
 ## API

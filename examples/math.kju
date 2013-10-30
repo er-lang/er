@@ -4,7 +4,7 @@
 
 ## math: some ubiquitous math functions.
 
-visible fac/1 fib/1.
+export fac/1 fib/1.
 
 ## API
 
