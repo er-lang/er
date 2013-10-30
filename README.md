@@ -56,9 +56,9 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * No more Erlang's ‘if’ nonsense. Only functional if…then…else…end and case…of…end.
     * Every Unicode (non-standard-keyboard-writable) thing is ASCII-compatible with something.
     * Extend Erlang's equality operators to work with underscores: ‘{where,_,_,_,_} =:= element(3,E)’
-    * Support new (upcoming EEP) fun syntax: ‘fun io:format("~p\n")/1’ = ‘fun (X) -> io:format("~p\n", X) end’
+    * Support new (upcoming EEP) fun syntax: ‘fun io:format("~p\n")/1’ = ‘fun (X) -> io:format("~p\n", X) end’. May allow ‘fun lotsOfArgs(Arg1)/3(Arg4)/12’
     * Support new (upcoming EEP) comprehensions: ‘[… | … <- …]’, ‘<<… | … <- …>>’, ‘{… | … <- …}’.
-    * Support primes names (‘'’ suffixes) at least for variables. Common case of Var0/Var.
+    * Support primes names (‘'’ suffixes) for atoms & variables. Common case of Var0/Var and f/f2.
     * ‹funNameAndArgs› ‹guard›* ‹| guarded-clause›* ‹end› could describe a function. Like Haskell, yes.
     * Type specs = its own DSL. Needs variables, atoms, type names, ranges… Haskells' = very nice.
     * Support https://en.wikipedia.org/wiki/SI_prefix#List_of_prefixes as: ‹number› ‹SI letter›
@@ -69,6 +69,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * ‘#{k =  v}’ and ‘#k_v{k =  v}’ are records. The first is anonymous and maps to just ‘{v}’ (not pretty).
     * Current Erlang's records/maps syntax prevent removal of commas in funs' exprs.
     * Besides, Erlang allows just-variables in fun-exprs, which is ignored, funny and sad.
+    * Allow fundef: “‹atom Name› ‘/’ ‹arity N› ‘=’ …” for wrappers. Think about guards though. Can combine with EEP on fun.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
