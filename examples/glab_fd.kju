@@ -18,7 +18,7 @@ record fd of
     nodes :: ‹orddict:orddict› = orddict:new()
 end
 
-opaque ‹fd_set› :: fd{}.
+opaque ‹fd_set› :: ‹fd›{}.
 
 visible ‹fd_set› 0.
 
@@ -27,30 +27,30 @@ visible ‹fd_set› 0.
 ##====================================================================
 
 new :: (‹atom›) -> ‹fd_set›
-new (Name) =
-    fd{name = Name}.
+new (Name) =  ## Note: ‘when is_atom(Name)’ is automatically added.
+    ‹fd›{name = Name}.  ## Note: the ‘=’ desambiguates record/map.
 
 start :: (‹node›, ‹fd_set›) -> ‹fd_set›
-start (Node, FD = fd{name = Name, nodes = Nodes}) =
+start (Node, FD = ‹fd›{name = Name, nodes = Nodes}) =  ## Note: ‹› syntax too much in matches?
     if orddict:is_key(Node, Nodes)
     then FD
     else
         Ref = erlang:monitor(process, {Name, Node})
-        fd::FD{nodes = orddict:store(Node, Ref, Nodes)}
+        ‹fd FD›{nodes = orddict:store(Node, Ref, Nodes)}
     end
 end
 
 filter_DOWN :: ({'DOWN', ‹reference›, _, _, Info}, ‹fd_set›)
-    -> {'down', {‹atom›, ‹node›, Info}, ‹fd_set›}
-     | {'ignore', ‹atom Reason›, ‹fd_set›}
+            -> {'down',   {‹atom›, ‹node›, Info}, ‹fd_set›}
+             | {'ignore', ‹atom Reason›,          ‹fd_set›}  ## Note: <=> ‘Reason::atom()’ ≠ ‘atom(Reason)’.
 filter_DOWN ({'DOWN', Ref, process, {Name, Node}, Info},
-             FD = fd{name = Name, nodes = Nodes}) =
+             FD = ‹fd›{name = Name, nodes = Nodes}) =
     case orddict:find(Node, Nodes)
-    | {ok, Ref} ->
+    | {ok, Ref} ->  ## Note: if ambiguity separating expressions is solved, ‘,’ useless in {} and []!
         {down
         , {Name, Node, Info}
-        , fd::FD{nodes = orddict:erase(Node, Nodes)}}
-    | {ok, WrongRef} when ‹reference WrongRef› ->
+        , ‹fd FD›{nodes = orddict:erase(Node, Nodes)}}  ## Note: FD is already known to be ‹fd›…
+    | {ok, WrongRef} when ‹reference WrongRef› ->  ## Note: <=> ‘when is_reference(WrongRef)’
         {ignore, stale, FD}
     | error ->
         {ignore, not_monitored, FD}
@@ -60,18 +60,18 @@ filter_DOWN ({'DOWN', _Ref, Type, _Obj, _Info}, FD) =
 end
 
 stop :: (‹node›, ‹fd_set›) -> ‹fd_set›
-stop (Node, FD = fd{nodes = Nodes}) =
+stop (Node, FD = ‹fd›{nodes = Nodes}) =
     case orddict:find(Node, Nodes) of
     {ok, Ref} ->
         erlang:demonitor(Ref, [flush])
-        fd::FD{nodes = orddict:erase(Node, Nodes)}
+        ‹fd FD›{nodes = orddict:erase(Node, Nodes)}
     error ->
         FD
     .
 .
 
 set :: ([‹node›], ‹fd_set›) -> ‹fd_set›
-set (NewNodes, FD = fd{nodes = Nodes}) =
+set (NewNodes, FD = ‹fd›{nodes = Nodes}) =
     lists:foldl(fun :start/2,
                 lists:foldl(fun :stop/2, FD,
                             orddict:fetch_keys(Nodes)),
