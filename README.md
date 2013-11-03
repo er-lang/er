@@ -63,13 +63,14 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Type specs = its own DSL. Needs variables, atoms, type names, ranges… Haskells' = very nice.
     * Support https://en.wikipedia.org/wiki/SI_prefix#List_of_prefixes as: ‹number› ‹SI letter›
     * Support separating digits with ‘_’ as in 1_000 and 100_000.42
-    * Allow using ‘<-’ instead of the ‘receive’ keyword. This gives a more dynamic impression of an agent receiving messages.
+    * MAY allow using ‘<-’ instead of the ‘receive’ keyword. This gives a more dynamic impression of an agent receiving messages.
     * Add a keyword that refers to the name of the function being defined. Maybe a macro. I think ‘fun()’ is a good compromise.
     * ‘#{k => v}’ and ‘#k_v{k => v}’ are both maps but the second is statically checked.
     * ‘#{k =  v}’ and ‘#k_v{k =  v}’ are records. The first is anonymous and maps to just ‘{v}’ (not pretty).
     * Current Erlang's records/maps syntax prevent removal of commas in funs' exprs.
     * Besides, Erlang allows just-variables in fun-exprs, which is ignored, funny and sad.
     * Allow fundef: “‹atom Name› ‘/’ ‹arity N› ‘=’ …” for wrappers. Think about guards though. Can combine with EEP on fun.
+    * Allow * ‘then ‹fun of arity ≥ 1›’ in *-comprehensions such that: ‘[ x * 10 | x <- lst, x > 2, then sortWith by x ]’
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
