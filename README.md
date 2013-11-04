@@ -71,7 +71,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Besides, Erlang allows just-variables in fun-exprs, which is ignored, funny and sad.
     * Allow fundef: “‹atom Name› ‘/’ ‹arity N› ‘=’ …” for wrappers. Think about guards though. Can combine with EEP on fun.
     * Allow * ‘then ‹fun of arity ≥ 1›’ in *-comprehensions such that: ‘[ x * 10 | x <- lst, x > 2, then sortWith by x ]’.
-    * API should put smaller data first for Currying purposes. ‘[modif(Str) || Str <- Strs, then fun string:join(“, ”)/1]’.
+    * API should put smaller data first for Currying purposes. ‘[modif(Str) || Str <- Strs, then fun string:join(“, ”)/1]’ ‘[F(X) || X<-Xs, then '++'/2]’.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
