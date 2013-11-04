@@ -13,6 +13,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
 * The main point of a high-level programming language is powerful short programs.
 * The sole job of a programming language is to bridge the gap between ugly, but efficent, object code, and beautiful source code. -- slidetocode
 * A new Grammar, fit for both worlds.
+* An evolution, translation: somewhat backwards compatible since intersection is empty or harmless.
 * Main point: get rid of ‘, ; . end’ mess while not doing indentation-based parsing.
 * Unicode source code support.
 * This also fixes the things you may have taken for granted if you come from another landscape.
