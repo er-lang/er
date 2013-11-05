@@ -1,0 +1,58 @@
+## @author Magnus Klaar <magnus.klaar@sgsstudentbostader.se>
+## @doc This module provides few helpers and supervise the DHT processes.
+## Starts two workers: {@link etorrent_dht_state} and {@link etorrent_dht_net}.
+## @end
+export
+    integer_id/1
+       list_id/1
+     random_id/0
+    closest_to/3
+      distance/2
+     find_self/0
+end
+
+type nodeinfo :: ‹etorrent_type:nodeinfo›  # Note: ‘::’ says homogenous, ‘=’ says *is*.
+type nodeid   :: ‹etorrent_type:nodeid›
+
+find_self () =
+    Self = etorrent_dht_state:node_id()
+    etorrent_dht_net:find_node_search(Self).
+
+integer_id :: (‹binary›) -> ‹nodeid›
+integer_id (<<ID:160>>) =  # Binary needs better syntax?
+    ID.
+integer_id :: (‹list ‹byte››) -> ‹nodeid›  # Still, beware of discontiguous funs.
+integer_id (StrID) =
+    :(list_to_binary(StrID)).
+
+list_id :: (‹nodeid›) -> ‹list ‹byte››
+list_id (ID) when ‹integer ID› =
+    binary_to_list(<<ID:160>>).
+
+random_id :: () -> ‹nodeid›  # ‘()’ kinda means unit.
+random_id () =
+    Byte = fun () -> random:uniform(256) - 1 end
+    Bytes = [Byte() | _ <- 1..20]
+    integer_id(Bytes)
+end
+
+closest_to :: (‹nodeid›, ‹list ‹nodeinfo››, ‹integer›) -> ‹list ‹nodeinfo››
+closest_to (InfoHash, NodeList, NumNodes) =
+    WithDist = [{distance(ID, InfoHash), ID, IP, Port}
+               | {ID, IP, Port} <- NodeList]  # Note: ‘<-’ desambiguates ‘|’
+    Sorted = lists:sort(WithDist)
+    Limited = if length(Sorted) =< NumNodes
+              then Sorted
+              else
+                  {Head, _Tail} = lists:split(NumNodes, Sorted)
+                  Head
+              end
+    [{NID, NIP, NPort} | {_, NID, NIP, NPort} <- Limited].
+
+distance :: (‹nodeid›, ‹nodeid›) -> ‹nodeid›
+distance (BID0, BID1) when ‹binary BID0 BID1› =  # Note: an Erlang singular type can check multiple things.
+    <<ID0:160>> = BID0
+    <<ID1:160>> = BID1
+    ID0 bxor ID1.
+distance (ID0, ID1) when ‹integer ID0›, ‹integer ID1› =  # Note: commas still in guards. Hope in EEP14.
+    ID0 bxor ID1.
