@@ -74,6 +74,8 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Allow * ‘then ‹fun of arity ≥ 1›’ in *-comprehensions such that: ‘[ x * 10 | x <- lst, x > 2, then sortWith by x ]’.
     * API should put smaller data first for Currying purposes. ‘[modif(Str) || Str <- Strs, then fun string:join(“, ”)/1]’ ‘[F(X) || X<-Xs, then '++'/2]’.
     * Should be possible to deftype a -spec and then just ‘myfun :: ‹funspec1›. myfun (…) = ….’
+    * Better lexing overall: allow hyphens to happen in atom names such as ‘tree-sum’
+    * Add rev/1 (for lists) like hd/1 or tail/1. Recursion and linked lists often make use of lists:reverse/1.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
