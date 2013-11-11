@@ -76,6 +76,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Should be possible to deftype a -spec and then just ‘myfun :: ‹funspec1›. myfun (…) = ….’
     * Better lexing overall: allow hyphens to happen in atom names such as ‘tree-sum’
     * Add rev/1 (for lists) like hd/1 or tail/1. Recursion and linked lists often make use of lists:reverse/1.
+    * May allow position of generator be swapped regarding ‘|’ (or ‘||’)
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
