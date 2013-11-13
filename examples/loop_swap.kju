@@ -9,7 +9,7 @@ start () =
     loop(0).
 
 loop (Sum) =
-    <-
+    <-  # ‘receive’ is much better on many levels.
     | {increment, Count} ->
         :(Sum + Count)
     | {counter, Pid} ->
@@ -18,8 +18,7 @@ loop (Sum) =
     | code_switch ->
         :codeswitch(Sum)
         ## Force the use of 'codeswitch/1' from the latest ?MODULE version
-    .
-.
+    end.
 
 codeswitch /1 =
-    fun loop/1.
+    loop/1. # Not ‘fun loop/1’ which is a fun-value. Wrapper notation.

@@ -18,7 +18,7 @@ record fd of
     nodes :: ‹orddict:orddict› = orddict:new()
 end
 
-opaque ‹fd_set› :: ‹fd›{}.
+opaque ‹fd_set› :: ‹fd›{}. # ‘‹fd›{}’ or just ‘‹fd›’?
 
 export ‹fd_set› 0.
 
@@ -67,8 +67,7 @@ stop (Node, FD = ‹fd›{nodes = Nodes}) =
         ‹fd FD›{nodes = orddict:erase(Node, Nodes)}
     error ->
         FD
-    .
-.
+    end.
 
 set :: ([‹node›], ‹fd_set›) -> ‹fd_set›
 set (NewNodes, FD = ‹fd›{nodes = Nodes}) =
