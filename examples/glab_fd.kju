@@ -31,12 +31,13 @@ new (Name) =  ## Note: ‘when is_atom(Name)’ is automatically added.
     ‹fd›{name = Name}.  ## Note: the ‘=’ desambiguates record/map.
 
 start :: (‹node›, ‹fd_set›) -> ‹fd_set›
-start (Node, FD = ‹fd›{name = Name, nodes = Nodes}) =  ## Note: ‹› syntax too much in matches?
+start (Node, FD = ‹fd›{name = Name, nodes = Nodes}) =
     if orddict:is_key(Node, Nodes)
     then FD
     else
         Ref = erlang:monitor(process, {Name, Node})
         ‹fd FD›{nodes = orddict:store(Node, Ref, Nodes)}
+         ## Note: ‘FD#fd.nodes’ = ‘‹fd FD›{nodes}’ or the weird but widespread ‘‹fd FD›[nodes]’
     end
 end
 
