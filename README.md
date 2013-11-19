@@ -77,7 +77,8 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Better lexing overall: allow hyphens to happen in atom names such as ‘tree-sum’
     * Add rev/1 (for lists) like hd/1 or tail/1. Recursion and linked lists often make use of lists:reverse/1.
     * May allow position of generator be swapped regarding ‘|’ (or ‘||’)
-    * Add Go-channels/ObjC-[]: a new operator that sends then immediately receives with uniqueness of Ref.
+    * Add Go-channels/ObjC-[]: a new operator that sends then immediately receives using unique Ref.
+    * ‘-compile(export_all).’ not a language construct. Only the compile option. (Bad use is bad)
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
