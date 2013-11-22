@@ -80,6 +80,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Add Go-channels/ObjC-[]: a new operator that sends then immediately receives using unique Ref.
     * ‘-compile(export_all).’ not a language construct. Only the compile option. (Bad use is bad)
     * To counter EEP38-like problems, --pedantic would warn about funclauses appart from each other.
+    * ‘--static’ MAY suggest to use lists:flatmap/2 when it finds lists:foldr(F,[])/1 ◊ lists:append/2, …
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
