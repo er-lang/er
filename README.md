@@ -58,7 +58,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Every Unicode (non-standard-keyboard-writable) thing is ASCII-compatible with something.
     * Extend Erlang's equality operators to work with underscores: ‘{where,_,_,_,_} =:= element(3,E)’
     * Support new (upcoming EEP) fun syntax: ‘fun io:format("~p\n")/1’ = ‘fun (X) -> io:format("~p\n", X) end’. May allow ‘fun lotsOfArgs(Arg1)/3(Arg4)/12’
-    * Support new (upcoming EEP) comprehensions: ‘[… | … <- …]’, ‘<<… | … <- …>>’, ‘{… | … <- …}’.
+    * Support new (upcoming EEP) comprehensions: ‘[… | … <- …]’, ‘<<… | … <= …>>’, ‘{… | … <~ …}’.
     * Support primes names (‘'’ suffixes) for atoms & variables. Common case of Var0/Var and f/f2.
     * ‹funNameAndArgs› ‹guard›* ‹| guarded-clause›* ‹end› could describe a function. Like Haskell, yes.
     * Type specs = its own DSL. Needs variables, atoms, type names, ranges… Haskells' = very nice.
