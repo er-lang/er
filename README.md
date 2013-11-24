@@ -51,8 +51,8 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Add ‘..’ operator. Meaning different inside -spec (does not produce a list there) 0..2 = 0|1|2 ?
     * Allow ‘:my_fun()’ calls. Sugar for ‘?MODULE:my_fun()’ calls.
     * Add ‘FUNCTION’ macro (same idea as ‘MODULE’). Also ‘:’ makes a lot of sense befor parenthesis: ‘:(I -1, [V|Acc])’
-    * Change ‘||’ to ‘|’ in * comprehensions (‘<-’ desambiguates). Maybe also ‘|’ to ‘:’ (M:F calls hinder that)…
-    * In kju * comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
+    * Change ‘||’ to ‘|’ in *-comprehensions (no ambiguity). Maybe also ‘|’ to ‘:’ (‘M:F’ hinders that)…
+    * In kju *-comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
     * Keep ‘!’ for sending messages.
     * No more Erlang's ‘if’ nonsense. Only functional if…then…else…end and case…of…end.
     * Every Unicode (non-standard-keyboard-writable) thing is ASCII-compatible with something.
