@@ -71,14 +71,15 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * ‘‹varT Id›{Key}’ fetches key ‘Key’ of record|map ‘Id’ defined as a ‘varT’.
     * ‘ArgV[2]’ | ‘ArgV[3..]’ could be sugar for lists match-assign. Type for lists? Dialyzer? seems no…
     * ‘MsgA[2]’ | ‘MsgA[3..]’ could be sugar for tuple match-assign as well. For maps? no ordering, so no.
-    * {}-comprehensions and ‘[X..Y]’ would put forth usage of tuples as immutable arrays as opposed to bins. Binaries can be thought of mutable when they're >64bits. Bad point: they need specificating type of cell when extracting (though bins of integers don't). Good point: tuples don't need that spec. Bad points: bins are more clever for now so should be faster, and there are nothing in R16B02 helping the use of tuples in that way.
+    * {}-comprehensions and ‘[X..Y]’ would put forth usage of tuples as immutable arrays as opposed to arrays and bins. Binaries can be thought of mutable when they're >64bits. Bad point: they need specificating type of cell when extracting (though bins of integers don't). Good point: tuples don't need that spec. Bad points: bins are more clever for now so should be faster, and there are nothing in R16B02 helping the use of tuples in that way. Good point: tuples are faster than arrays and they demonstrate the API tuples need.
     * Current Erlang's records/maps syntax prevent removal of commas in funs' exprs.
     * Besides, Erlang allows just-variables in fun-exprs, which is ignored, funny and sad.
     * Allow fundef: “‹atom Name› ‘/’ ‹arity N› ‘=’ …” for wrappers. Think about guards though. Can combine with EEP on fun.
     * Allow * ‘then ‹fun of arity ≥ 1›’ in *-comprehensions such that: ‘[ x * 10 | x <- lst, x > 2, then sortWith by x ]’.
-    * API should put smaller data first for Currying purposes. ‘[modif(Str) || Str <- Strs, then fun string:join(“, ”)/1]’ ‘[F(X) || X<-Xs, then '++'/2]’.
+    * API should put smaller data first for Currying purposes. ‘[modif(Str) || Str <- Strs, then fun string:join(“, ”)/1]’ ‘[F(X) || X<-Xs, then fun '++'/2]’.
+    * STDlib funs get mapped without modulename when possible. Error on conflicts. eg: ‘fun '++'/2’ sugars ‘fun erlang:'++'/2’. No import needed then. Lines shorter. Local defs > STDlib's.
     * Should be possible to deftype a -spec and then just ‘myfun :: ‹funspec1›. myfun (…) = ….’
-    * Better lexing overall: allow hyphens to happen in atom names such as ‘tree-sum’
+    * Better lexing overall: allow hyphens/others to happen in atom names such as ‘tree-sum’
     * Add rev/1 (for lists) like hd/1 or tail/1. Recursion and linked lists often make use of lists:reverse/1.
     * May allow position of generator be swapped regarding ‘|’ (or ‘||’)
     * Add Go-channels/ObjC-[]: a new operator that sends then immediately receives using unique Ref.
