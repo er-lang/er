@@ -68,6 +68,10 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Add a keyword that refers to the name of the function being defined. Maybe a macro. I think ‘fun()’ is a good compromise.
     * ‘#{k => v}’ and ‘#k_v{k => v}’ are both maps but the second is statically checked.
     * ‘#{k =  v}’ and ‘#k_v{k =  v}’ are records. The first is anonymous and maps to just ‘{v}’ (not pretty).
+    * ‘‹varT Id›{Key}’ fetches key ‘Key’ of record|map ‘Id’ defined as a ‘varT’.
+    * ‘ArgV[2]’ | ‘ArgV[3..]’ could be sugar for lists match-assign. Type for lists? Dialyzer? seems no…
+    * ‘MsgA[2]’ | ‘MsgA[3..]’ could be sugar for tuple match-assign as well. For maps? no ordering, so no.
+    * {}-comprehensions and ‘[X..Y]’ would put forth usage of tuples as immutable arrays as opposed to bins. Binaries can be thought of mutable when they're >64bits. Bad point: they need specificating type of cell when extracting (though bins of integers don't). Good point: tuples don't need that spec. Bad points: bins are more clever for now so should be faster, and there are nothing in R16B02 helping the use of tuples in that way.
     * Current Erlang's records/maps syntax prevent removal of commas in funs' exprs.
     * Besides, Erlang allows just-variables in fun-exprs, which is ignored, funny and sad.
     * Allow fundef: “‹atom Name› ‘/’ ‹arity N› ‘=’ …” for wrappers. Think about guards though. Can combine with EEP on fun.
