@@ -72,8 +72,8 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * ‘ArgV[2]’ | ‘ArgV[3..]’ could be sugar for lists match-assign. Type for lists? Dialyzer? seems no…
     * ‘MsgA[2]’ | ‘MsgA[3..]’ could be sugar for tuple match-assign as well. For maps? no ordering, so no.
     * {}-comprehensions and ‘[X..Y]’ would put forth usage of tuples as immutable arrays as opposed to arrays and bins. Binaries can be thought of mutable when they're >64bits. Bad point: they need specificating type of cell when extracting (though bins of integers don't). Good point: tuples don't need that spec. Bad points: bins are more clever for now so should be faster, and there are nothing in R16B02 helping the use of tuples in that way. Good point: tuples are faster than arrays and they demonstrate the API tuples need.
-    * Current Erlang's records/maps syntax prevent removal of commas in funs' exprs.
-    * Besides, Erlang allows just-variables in fun-exprs, which is ignored, funny and sad.
+    * !! s/,//g prevented by ‘B = A, (B)’. ‘B = A (B)’ is a function call!
+    * !! s/,//g prevented by ‘B = A, #{b=B}’. ‘B = A #{b=B}’ is a record creation!
     * Allow fundef: “‹atom Name› ‘/’ ‹arity N› ‘=’ …” for wrappers. Think about guards though. Can combine with EEP on fun.
     * Allow * ‘then ‹fun of arity ≥ 1›’ in *-comprehensions such that: ‘[ x * 10 | x <- lst, x > 2, then sortWith by x ]’.
     * API should put smaller data first for Currying purposes. ‘[modif(Str) || Str <- Strs, then fun string:join(“, ”)/1]’ ‘[F(X) || X<-Xs, then fun '++'/2]’.
