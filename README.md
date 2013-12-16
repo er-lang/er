@@ -100,6 +100,3 @@ Maybe Kim Jong-Un in that it is a merciless tool.
 
 ## Step 3
 * ???
-
-## Step -1
-* World domination.
