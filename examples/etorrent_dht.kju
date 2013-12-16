@@ -12,7 +12,7 @@ export
 end
 
 type nodeinfo :: ‹etorrent_type:nodeinfo›  # Note: ‘::’ says homogenous, ‘=’ says *is*.
-type nodeid   :: ‹etorrent_type:nodeid›
+type nodeid   :: ‹etorrent_type:nodeid›  # Note: ‘type ’ not really needed.
 
 find_self () =
     Self = etorrent_dht_state:node_id()
