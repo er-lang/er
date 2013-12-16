@@ -156,79 +156,66 @@ create_program_with_binary /3 = cl:create_program_with_binary/3.
 release_program /1 = cl:release_program/1.
 retain_program /1 = cl:retain_program/1.
 build_program /3 = cl:build_program/3.
-async_build_program(A1,A2,A3) -> cl:async_build_program(A1,A2,A3).
-unload_platform_compiler(A1) -> cl:unload_platform_compiler(A1).
-program_info() -> cl:program_info().
-get_program_info(A1) -> cl:get_program_info(A1).
-get_program_info(A1,A2) -> cl:get_program_info(A1,A2).
-program_build_info() -> cl:program_build_info().
-get_program_build_info(A1,A2) -> cl:get_program_build_info(A1,A2).
-get_program_build_info(A1,A2,A3) -> cl:get_program_build_info(A1,A2,A3).
-create_kernel(A1,A2) -> cl:create_kernel(A1,A2).
-create_kernels_in_program(A1) -> cl:create_kernels_in_program(A1).
-set_kernel_arg(A1,A2,A3) -> cl:set_kernel_arg(A1,A2,A3).
-set_kernel_arg_size(A1,A2,A3) -> cl:set_kernel_arg_size(A1,A2,A3).
-release_kernel(A1) -> cl:release_kernel(A1).
-retain_kernel(A1) -> cl:retain_kernel(A1).
-kernel_info() -> cl:kernel_info().
-get_kernel_info(A1) -> cl:get_kernel_info(A1).
-get_kernel_info(A1,A2) -> cl:get_kernel_info(A1,A2).
-kernel_workgroup_info() -> cl:kernel_workgroup_info().
-get_kernel_workgroup_info(A1,A2) -> cl:get_kernel_workgroup_info(A1,A2).
-get_kernel_workgroup_info(A1,A2,A3) -> cl:get_kernel_workgroup_info(A1,A2,A3).
-enqueue_task(A1,A2,A3) -> cl:enqueue_task(A1,A2,A3). 
-enqueue_task(A1,A2,A3,A4) -> cl:enqueue_task(A1,A2,A3,A4).
-nowait_enqueue_task(A1,A2,A3) -> cl:nowait_enqueue_task(A1,A2,A3).
-enqueue_nd_range_kernel(A1,A2,A3,A4,A5) -> 
-    cl:enqueue_nd_range_kernel(A1,A2,A3,A4,A5).
-enqueue_nd_range_kernel(A1,A2,A3,A4,A5,A6) ->
-    cl:enqueue_nd_range_kernel(A1,A2,A3,A4,A5,A6).
-nowait_enqueue_nd_range_kernel(A1,A2,A3,A4,A5) ->
-    cl:nowait_enqueue_nd_range_kernel(A1,A2,A3,A4,A5).
-enqueue_marker_with_wait_list(A1,A2) -> 
-    cl:enqueue_marker_with_wait_list(A1,A2).
-enqueue_barrier_with_wait_list(A1,A2) ->
-    cl:enqueue_barrier_with_wait_list(A1,A2).
-enqueue_wait_for_events(A1,A2) -> 
-    cl:enqueue_wait_for_events(A1,A2).
-enqueue_read_buffer(A1,A2,A3,A4,A5) ->
-    cl:enqueue_read_buffer(A1,A2,A3,A4,A5).
-enqueue_write_buffer(A1,A2,A3,A4,A5,A6) ->
-    cl:enqueue_write_buffer(A1,A2,A3,A4,A5,A6).
-enqueue_write_buffer(A1,A2,A3,A4,A5,A6,A7) ->
-    cl:enqueue_write_buffer(A1,A2,A3,A4,A5,A6,A7).
-nowait_enqueue_write_buffer(A1,A2,A3,A4,A5,A6) ->
-    cl:nowait_enqueue_write_buffer(A1,A2,A3,A4,A5,A6).
-enqueue_read_image(A1,A2,A3,A4,A5,A6,A7) ->
-    cl:enqueue_read_image(A1,A2,A3,A4,A5,A6,A7).
-enqueue_write_image(A1,A2,A3,A4,A5,A6,A7,A8) ->
-    cl:enqueue_write_image(A1,A2,A3,A4,A5,A6,A7,A8).
-enqueue_write_image(A1,A2,A3,A4,A5,A6,A7,A8,A9) ->
-    cl:enqueue_write_image(A1,A2,A3,A4,A5,A6,A7,A8,A9).
-nowait_enqueue_write_image(A1,A2,A3,A4,A5,A6,A7,A8) ->
-    cl:nowait_enqueue_write_image(A1,A2,A3,A4,A5,A6,A7,A8).
-enqueue_copy_image(A1,A2,A3,A4,A5,A6) ->
-    cl:enqueue_copy_image(A1,A2,A3,A4,A5,A6).
-enqueue_copy_image_to_buffer(A1,A2,A3,A4,A5,A6,A7) ->
-    cl:enqueue_copy_image_to_buffer(A1,A2,A3,A4,A5,A6,A7).
-enqueue_copy_buffer_to_image(A1,A2,A3,A4,A5,A6,A7) ->
-    cl:enqueue_copy_buffer_to_image(A1,A2,A3,A4,A5,A6,A7).
-enqueue_map_buffer(A1,A2,A3,A4,A5,A6) ->
-    cl:enqueue_map_buffer(A1,A2,A3,A4,A5,A6).
-enqueue_map_image(A1,A2,A3,A4,A5,A6) ->
-    cl:enqueue_map_image(A1,A2,A3,A4,A5,A6).
-enqueue_unmap_mem_object(A1,A2,A3) ->
-    cl:enqueue_unmap_mem_object(A1,A2,A3).
-release_event(A1) -> cl:release_event(A1).
-retain_event(A1) -> cl:retain_event(A1).
-event_info() -> cl:event_info().
-get_event_info(A1) -> cl:get_event_info(A1).
-get_event_info(A1,A2) -> cl:get_event_info(A1,A2).
-wait(A1) -> cl:wait(A1).
-wait(A1,A2) -> cl:wait(A1,A2).
-async_flush(A1) -> cl:async_flush(A1).
-flush(A1) -> cl:flush(A1).
-async_finish(A1) -> cl:async_finish(A1).
-finish(A1) -> cl:finish(A1).
-async_wait_for_event(A1) -> cl:async_wait_for_event(A1).
-wait_for_event(A1) -> cl:wait_for_event(A1).
+async_build_program /3 = cl:async_build_program/3.
+unload_platform_compiler /1 = cl:unload_platform_compiler/3.
+program_info /0 = cl:program_info/0.
+get_program_info /1,2 = cl:get_program_info/1,2.
+program_build_info/0 = cl:program_build_info/0.
+get_program_build_info /2,3 = cl:get_program_build_info/2,3.
+create_kernel /2 = cl:create_kernel/2.
+create_kernels_in_program /1 = cl:create_kernels_in_program/1.
+set_kernel_arg /3 = cl:set_kernel_arg/3.
+set_kernel_arg_size /3 = cl:set_kernel_arg_size/3.
+release_kernel /1 = cl:release_kernel/1.
+retain_kernel /1 = cl:retain_kernel/1.
+kernel_info /0 = cl:kernel_info/0.
+get_kernel_info /1,2 = cl:get_kernel_info/1,2.
+kernel_workgroup_info /0 = cl:kernel_workgroup_info/0.
+get_kernel_workgroup_info /2,3 = cl:get_kernel_workgroup_info/2.
+enqueue_task /3,4 = cl:enqueue_task/3,4.
+nowait_enqueue_task /3 = cl:nowait_enqueue_task/3.
+enqueue_nd_range_kernel /5,6 =
+    cl:enqueue_nd_range_kernel/5,6.
+nowait_enqueue_nd_range_kernel /5 =
+    cl:nowait_enqueue_nd_range_kernel/5.
+enqueue_marker_with_wait_list /2 =
+    cl:enqueue_marker_with_wait_list/2.
+enqueue_barrier_with_wait_list /2 =
+    cl:enqueue_barrier_with_wait_list/2.
+enqueue_wait_for_events /2 =
+    cl:enqueue_wait_for_events/2.
+enqueue_read_buffer /5 =
+    cl:enqueue_read_buffer/5.
+enqueue_write_buffer /6,7 =
+    cl:enqueue_write_buffer/6,7.
+nowait_enqueue_write_buffer /6 =
+    cl:nowait_enqueue_write_buffer/6.
+enqueue_read_image /7 =
+    cl:enqueue_read_image/7.
+enqueue_write_image /8,9 =
+    cl:enqueue_write_image/8,9.
+nowait_enqueue_write_image /8 =
+    cl:nowait_enqueue_write_image/8.
+enqueue_copy_image /6 =
+    cl:enqueue_copy_image/6.
+enqueue_copy_image_to_buffer /7 =
+    cl:enqueue_copy_image_to_buffer/7.
+enqueue_copy_buffer_to_image /7 =
+    cl:enqueue_copy_buffer_to_image/7.
+enqueue_map_buffer /6 =
+    cl:enqueue_map_buffer/6.
+enqueue_map_image /6 =
+    cl:enqueue_map_image/6.
+enqueue_unmap_mem_object /3 =
+    cl:enqueue_unmap_mem_object/3.
+release_event /1 = cl:release_event/1.
+retain_event /1 = cl:retain_event/1.
+event_info /0 = cl:event_info/0.
+get_event_info /1,2 = cl:get_event_info/1,2.
+wait /1,2 = cl:wait/1,2.
+async_flush /1 = cl:async_flush/1.
+flush /1 = cl:flush/1.
+async_finish /1 = cl:async_finish/1.
+finish /1 = cl:finish/1.
+async_wait_for_event /1 = cl:async_wait_for_event/1.
+wait_for_event /1 = cl:wait_for_event/1.
