@@ -52,7 +52,7 @@ WS : [ \t\r\n]+ -> skip ;
 
 funDef : tokAtom args guard? '=' seqExprs tokEnd ;
 
-args : '(' exprs? ')' ;
+args : '(' allowedLasts? ')' ;
 
 exprs :         expr  (',' expr )* ;
 
@@ -81,6 +81,8 @@ exprMax : atomic
 allowedLast : tokVar
             | '(' (expr|allowedLast) ')'
             ;
+
+allowedLasts : allowedLast (',' allowedLasts) ;
 
 seqExprs : expr* allowedLast? ;
 // f () = B = A (B). #=> ok
