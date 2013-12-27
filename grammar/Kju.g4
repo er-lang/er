@@ -39,6 +39,8 @@ atomic : tokChar
 
 tokEnd : 'end' | '.' ;
 
+tokWhen : 'when' | '|' ;
+
 /// Blanks
 
 Comment : '#' ~[\r\n]* '\r'? '\n' -> skip ;
@@ -52,9 +54,9 @@ funDef : tokAtom args guard? '=' seqExprs tokEnd ;
 
 args : '(' exprs? ')' ;
 
-exprs :        expr  (',' expr )* ;
+exprs :         expr  (',' expr )* ;
 
-guard : 'when' exprs (';' exprs)* ;
+guard : tokWhen exprs (';' exprs)* ;
 
 // expr | seqExprs
 
