@@ -82,7 +82,7 @@ allowedLast : tokVar
             | '(' (expr|allowedLast) ')'
             ;
 
-allowedLasts : allowedLast (',' allowedLasts) ;
+allowedLasts : allowedLast (',' allowedLasts)* ;
 
 seqExprs : expr* allowedLast? ;
 // f () = B = A (B). #=> ok
