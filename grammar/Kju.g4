@@ -4,11 +4,17 @@ root : block+ EOF ;
 
 block : funDef ;
 
+/// Blanks
+
+Comment : '#' ~[\r\n]* '\r'? '\n' -> skip ;
+
+WS : [ \t\r\n]+ -> skip ;
+
 
 /// Tokens
 
 tokAtom : TokAtom ;
-TokAtom : [a-z]~[\s()\[\]{}:]*
+TokAtom : [a-z]~[ \t\r\n()\[\]{}:]*
     | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
 
@@ -40,12 +46,6 @@ atomic : tokChar
 tokEnd : 'end' | '.' ;
 
 tokWhen : 'when' | '|' ;
-
-/// Blanks
-
-Comment : '#' ~[\r\n]* '\r'? '\n' -> skip ;
-
-WS : [ \t\r\n]+ -> skip ;
 
 
 /// funDef
