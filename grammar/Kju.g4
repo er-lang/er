@@ -41,7 +41,7 @@ tokEnd : 'end' | '.' ;
 
 /// Blanks
 
-Comment : '%' ~[\r\n]* '\r'? '\n' -> skip ;
+Comment : '#' ~[\r\n]* '\r'? '\n' -> skip ;
 
 WS : [ \t\r\n]+ -> skip ;
 
