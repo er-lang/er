@@ -8,8 +8,12 @@ block : funDef ;
 /// Tokens
 
 tokAtom : TokAtom ;
-TokAtom : [a-z@][0-9a-zA-Z_@]*
+TokAtom : [a-z]~[\s()\[\]{}:]*
     | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
+    // Add A-Z to the negative match to forbid camelCase
+
+// When using negative match, be sure to also negative match
+//   previously-defined rules.
 
 tokVar : TokVar ;
 TokVar : [A-Z_][0-9a-zA-Z_]* ;
