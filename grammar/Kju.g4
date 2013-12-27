@@ -60,7 +60,7 @@ guard : tokWhen exprs (';' exprs)* ;
 
 // expr | seqExprs
 
-expr    : (expr150|allowedLast) '=' (expr|allowedLast)
+expr    : (expr150|allowedLast) '=' (expr150|allowedLast)
         | expr150 ;
 
 expr150 : (expr160|allowedLast) 'orelse' (expr150|allowedLast)
