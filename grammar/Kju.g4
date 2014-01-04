@@ -60,20 +60,34 @@ guard : tokWhen exprs (';' exprs)* ;
 
 // expr | seqExprs
 
-expr    : (expr150|allowedLast) '=' (expr150|allowedLast)
-        | expr150 ;
+expr    : (expr150|allowedLast) ('='|'!') (expr150|allowedLast)
+        |  expr150 ;
 
-expr150 : (expr160|allowedLast) 'orelse' (expr150|allowedLast)
-        | expr160 ;
+expr150 : (expr160|allowedLast) 'orelse'  (expr150|allowedLast)
+        |  expr160 ;
 
 expr160 : (expr200|allowedLast) 'andalso' (expr160|allowedLast)
-        | expr200 ;
+        |  expr200 ;
 
-expr200 : (exprMax|allowedLast) ':' (exprMax|allowedLast) args
-        |                       ':' (exprMax|allowedLast) args
-        |                       ':'                       args
-        |                           (exprMax|allowedLast) args
-        | exprMax ;
+expr200 : (expr300|allowedLast) CompOp    (expr200|allowedLast)
+        |  expr300 ;
+
+expr300 : (expr400|allowedLast) ListOp    (expr300|allowedLast)
+        |  expr400 ;
+
+expr400 : (expr500|allowedLast) AddOp     (expr400|allowedLast)
+        |  expr500 ;
+
+expr500 : (expr600|allowedLast) MulOp     (expr500|allowedLast)
+        |  expr600 ;
+
+expr600 :                       PrefixOp  (expr700|allowedLast)
+        |                                  expr700 ;
+
+expr700 : functionCall
+        | recordExpr
+        | exprMax
+        ;
 
 exprMax : atomic
         ;
@@ -87,3 +101,11 @@ allowedLasts : allowedLast (',' allowedLasts)* ;
 seqExprs : expr* allowedLast? ;
 // f () = B = A (B). #=> ok
 // f () = (B) B = A. #=> line 1:11 mismatched input 'B' expecting {'.', 'end'}
+
+
+functionCall : (exprMax|allowedLast) ':' (exprMax|allowedLast) args
+             |                           (exprMax|allowedLast) args
+             |                       ':' (exprMax|allowedLast) args
+             |                       ':'                       args ;
+
+recordExpr : 
