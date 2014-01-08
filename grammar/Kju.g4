@@ -117,10 +117,10 @@ exprAll : expr | allowedLast ;
 
 /// Detailed expressions
 
-functionCall : exprAll ':' exprAll args
-             |             exprAll args
-             |         ':' exprAll args
-             |         ':'         args ;
+functionCall : (exprMax|allowedLast) ':' (exprMax|allowedLast) args
+             |                           (exprMax|allowedLast) args
+             |                       ':' (exprMax|allowedLast) args
+             |                       ':'                       args ;
 
 //recordExpr : '‹'
 
