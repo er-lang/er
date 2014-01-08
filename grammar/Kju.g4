@@ -144,7 +144,7 @@ tail :               ']'
 
 tuple : '{' exprAlls? '}' ;
 
-case_ : 'case' exprM 'of' clauses end ;
+case_ : 'case' expr 'of' clauses end ;
 
 /// Utils
 
