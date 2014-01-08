@@ -13,52 +13,46 @@ WS : [ \t\r\n]+ -> skip ;
 
 /// Tokens
 
-tokAtom : TokAtom ;
-TokAtom : [a-z]~[ \t\r\n()\[\]{}:.]*
-    | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
+Atom : [a-z]~[ \t\r\n()\[\]{}:.]*
+     | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
 
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
 
-tokVar : TokVar ;
-TokVar : [A-Z_][0-9a-zA-Z_]* ;
+Var : [A-Z_][0-9a-zA-Z_]* ;
 
-tokFloat : TokFloat ;
-TokFloat : '-'? [0-9]+ '.' [0-9]+  ([Ee] [+-]? [0-9]+)? ;
+Float : '-'? [0-9]+ '.' [0-9]+  ([Ee] [+-]? [0-9]+)? ;
 
-tokInteger : TokInteger ;
-TokInteger : '-'? [0-9]+ ('#' [0-9a-zA-Z]+)? ;
+Integer : '-'? [0-9]+ ('#' [0-9a-zA-Z]+)? ;
 
-tokChar : TokChar ;
-TokChar : '$' ('\\'? ~[\r\n] | '\\' [0-9] [0-9] [0-9]) ;
+Char : '$' ('\\'? ~[\r\n] | '\\' [0-9] [0-9] [0-9]) ;
 
-tokString : TokString ;
-TokString : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
+String : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
 
-atomic : tokChar
-       | tokInteger
-       | tokFloat
-       | tokAtom
-       | (tokString)+
+atomic : Char
+       | Integer
+       | Float
+       | Atom
+       | String+
        ;
 
-tokEnd : 'end' | '.' ;
+End : 'end' | '.' ;
 
-tokWhen : 'when' | '|' ;
+When : 'when' | '|' ;
 
 
 /// funDef
 
-funDef : tokAtom args guard? '=' seqExprs tokEnd ;
+funDef : Atom args guard? '=' seqExprs End ;
 
 args : '(' allowedLasts? ')' ;
 
 exprs :         expr  (',' expr )* ;
 
-guard : tokWhen exprs (';' exprs)* ;
+guard : When exprs (';' exprs)* ;
 
-// expr | seqExprs
+/// expr | seqExprs
 
 expr    : (expr150|allowedLast) ('='|'!') (expr150|allowedLast)
         |  expr150 ;
@@ -85,14 +79,14 @@ expr600 :                       PrefixOp  (expr700|allowedLast)
         |                                  expr700 ;
 
 expr700 : functionCall
-        | recordExpr
+        //| recordExpr
         | exprMax
         ;
 
 exprMax : atomic
         ;
 
-allowedLast : tokVar
+allowedLast : Var
             | '(' (expr|allowedLast) ')'
             ;
 
@@ -108,4 +102,4 @@ functionCall : (exprMax|allowedLast) ':' (exprMax|allowedLast) args
              |                       ':' (exprMax|allowedLast) args
              |                       ':'                       args ;
 
-recordExpr : 
+//recordExpr : '‹'
