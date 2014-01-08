@@ -41,6 +41,18 @@ End : 'end' | '.' ;
 
 When : 'when' | '|' ;
 
+/// Ops
+
+CompOp : '<' | '=<' | '==' | '=>' | '>' | '/=' | '=/=' | '=:=' ;
+
+ListOp : '++' | '--' ;
+
+AddOp : '+' | '-' | 'bsl' | 'bsr'
+      | 'or' | 'xor' | 'bor' | 'bxor' ;
+
+MulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
+
+PrefixOp : '+' | '-' | 'not' | 'bnot' ;
 
 /// funDef
 
