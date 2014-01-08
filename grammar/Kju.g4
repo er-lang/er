@@ -142,3 +142,12 @@ tail :               ']'
 // binary : '<<'
 
 tuple : '{' exprAlls? '}' ;
+
+case : 'case' exprM 'of' clauses end ;
+
+/// Utils
+
+clauses : clause+ ;
+clause : exprM guard? body ;
+
+body : '->' seqExprs ;
