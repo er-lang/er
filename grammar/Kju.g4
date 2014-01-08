@@ -13,20 +13,20 @@ WS : [ \t\r\n]+ -> skip ;
 
 /// Ops
 
-CompOp : '<' | '=<' | '==' | '=>' | '>' | '/=' | '=/=' | '=:=' ;
+compOp : '<' | '=<' | '==' | '=>' | '>' | '/=' | '=/=' | '=:=' ;
 
-ListOp : '++' | '--' ;
+listOp : '++' | '--' ;
 
-AddOp : '+' | '-' | 'bsl' | 'bsr'
+addOp : '+' | '-' | 'bsl' | 'bsr'
       | 'or' | 'xor' | 'bor' | 'bxor' ;
 
-MulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
+mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
 
-PrefixOp : 'not' ;//'+' | '-' | 'not' | 'bnot' ;
+prefixOp : 'not' ;//'+' | '-' | 'not' | 'bnot' ;
 
-End : 'end' | '.' ;
+end : 'end' | '.' ;
 
-When : 'when' | '|' ;
+when : 'when' | '|' ;
 
 /// Tokens
 
@@ -56,11 +56,11 @@ atomic : Char
 
 /// funDef
 
-funDef : Atom args guard? '=' seqExprs End ;
+funDef : Atom args guard? '=' seqExprs end ;
 
 args : '(' allowedLasts? ')' ;
 
-guard : When exprs (';' exprs)* ;
+guard : when exprs (';' exprs)* ;
 
 /// expr | seqExprs | exprAll
 
@@ -74,19 +74,19 @@ expr150 : (expr160|allowedLast) 'orelse'  (expr150|allowedLast)
 expr160 : (expr200|allowedLast) 'andalso' (expr160|allowedLast)
         |  expr200 ;
 
-expr200 : (expr300|allowedLast) CompOp    (expr200|allowedLast)
+expr200 : (expr300|allowedLast) compOp    (expr200|allowedLast)
         |  expr300 ;
 
-expr300 : (expr400|allowedLast) ListOp    (expr300|allowedLast)
+expr300 : (expr400|allowedLast) listOp    (expr300|allowedLast)
         |  expr400 ;
 
-expr400 : (expr500|allowedLast) AddOp     (expr400|allowedLast)
+expr400 : (expr500|allowedLast) addOp     (expr400|allowedLast)
         |  expr500 ;
 
-expr500 : (expr600|allowedLast) MulOp     (expr500|allowedLast)
+expr500 : (expr600|allowedLast) mulOp     (expr500|allowedLast)
         |  expr600 ;
 
-expr600 :                       PrefixOp  (expr700|allowedLast)
+expr600 :                       prefixOp  (expr700|allowedLast)
         |                                  expr700 ;
 
 expr700 : functionCall
