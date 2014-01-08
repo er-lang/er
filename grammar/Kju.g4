@@ -58,7 +58,7 @@ atomic : Char
 
 funDef : Atom args guard? '=' seqExprs end ;
 
-args : '(' allowedLasts? ')' ;
+args : '(' exprM? ')' ;
 
 guard : when exprs (';' exprs)* ;
 
@@ -115,12 +115,15 @@ seqExprs : expr* allowedLast? ;
 exprAlls : exprAll  (',' exprAll)* ;
 exprAll : expr | allowedLast ;
 
+exprMs : exprM  (',' exprM)* ;
+exprM : exprMax | allowedLast ;
+
 /// Detailed expressions
 
-functionCall : (exprMax|allowedLast) ':' (exprMax|allowedLast) args
-             |                           (exprMax|allowedLast) args
-             |                       ':' (exprMax|allowedLast) args
-             |                       ':'                       args ;
+functionCall : exprM ':' exprM args
+             |           exprM args
+             |       ':' exprM args
+             |       ':'       args ;
 
 //recordExpr : '‹'
 
