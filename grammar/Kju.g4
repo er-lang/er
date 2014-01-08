@@ -22,7 +22,7 @@ addOp : '+' | '-' | 'bsl' | 'bsr'
 
 mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
 
-prefixOp : 'not' ;//'+' | '-' | 'not' | 'bnot' ;
+prefixOp : '+' | '-' | 'not' | 'bnot' ;
 
 end : 'end' | '.' ;
 
