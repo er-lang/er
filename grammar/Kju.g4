@@ -114,7 +114,8 @@ allowedLast : Var
             | '(' (expr|allowedLast) ')'
             ;
 
-seqExprs : expr* allowedLast? ;
+seqExprs : expr+ allowedLast?
+         | expr* allowedLast ;
 // f () = B = A (B). #=> ok
 // f () = (B) B = A. #=> line 1:11 mismatched input 'B' expecting {'.', 'end'}
 
