@@ -60,12 +60,11 @@ funDef : Atom args guard? '=' seqExprs End ;
 
 args : '(' allowedLasts? ')' ;
 
-exprs :         expr  (',' expr )* ;
-
 guard : When exprs (';' exprs)* ;
 
-/// expr | seqExprs
+/// expr | seqExprs | exprAll
 
+exprs : expr  (',' expr)* ;
 expr    : (expr150|allowedLast) ('='|'!') (expr150|allowedLast)
         |  expr150 ;
 
@@ -96,22 +95,41 @@ expr700 : functionCall
         ;
 
 exprMax : atomic
+        | list
+        //| binary
+        | tuple
+        //| lc
+        //| bc
+        //| tc
         ;
 
+allowedLasts : allowedLast (',' allowedLasts)* ;
 allowedLast : Var
             | '(' (expr|allowedLast) ')'
             ;
-
-allowedLasts : allowedLast (',' allowedLasts)* ;
 
 seqExprs : expr* allowedLast? ;
 // f () = B = A (B). #=> ok
 // f () = (B) B = A. #=> line 1:11 mismatched input 'B' expecting {'.', 'end'}
 
+exprAlls : exprAll  (',' exprAll)* ;
+exprAll : expr | allowedLast ;
 
-functionCall : (exprMax|allowedLast) ':' (exprMax|allowedLast) args
-             |                           (exprMax|allowedLast) args
-             |                       ':' (exprMax|allowedLast) args
-             |                       ':'                       args ;
+/// Detailed expressions
+
+functionCall : exprAll ':' exprAll args
+             |             exprAll args
+             |         ':' exprAll args
+             |         ':'         args ;
 
 //recordExpr : '‹'
+
+list : '['           ']'
+     | '[' exprAll tail ;
+tail :               ']'
+     | '|' exprAll   ']'
+     | ',' exprAll tail ;
+
+// binary : '<<'
+
+tuple : '{' exprAlls? '}' ;
