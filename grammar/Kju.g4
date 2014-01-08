@@ -103,7 +103,7 @@ exprMax : atomic
         //| tc
         //| begin
         //| if
-        | case
+        | case_
         //| receive
         //| fun
         //| try
@@ -143,7 +143,7 @@ tail :               ']'
 
 tuple : '{' exprAlls? '}' ;
 
-case : 'case' exprM 'of' clauses end ;
+case_ : 'case' exprM 'of' clauses end ;
 
 /// Utils
 
