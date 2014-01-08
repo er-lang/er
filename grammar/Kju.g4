@@ -101,6 +101,12 @@ exprMax : atomic
         //| lc
         //| bc
         //| tc
+        //| begin
+        //| if
+        | case
+        //| receive
+        //| fun
+        //| try
         ;
 
 allowedLasts : allowedLast (',' allowedLasts)* ;
