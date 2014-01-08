@@ -89,6 +89,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * `--static` MAY suggest to use `lists:flatmap/2` when it finds `lists:foldr(F,[])/1 ◊ lists:append/2`, …
     + Make so that types can be defined in whatever order, like functions.
     * Use `finally` in a `receive…end` in place of `after 0`.
+    + Have a real prepocessor (¬ https://gist.github.com/fenollp/8315947#file-ifdef_in_fun-erl)
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
