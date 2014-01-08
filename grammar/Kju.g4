@@ -11,6 +11,23 @@ Comment : '#' ~[\r\n]* '\r'? '\n' -> skip ;
 WS : [ \t\r\n]+ -> skip ;
 
 
+/// Ops
+
+CompOp : '<' | '=<' | '==' | '=>' | '>' | '/=' | '=/=' | '=:=' ;
+
+ListOp : '++' | '--' ;
+
+AddOp : '+' | '-' | 'bsl' | 'bsr'
+      | 'or' | 'xor' | 'bor' | 'bxor' ;
+
+MulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
+
+PrefixOp : 'not' ;//'+' | '-' | 'not' | 'bnot' ;
+
+End : 'end' | '.' ;
+
+When : 'when' | '|' ;
+
 /// Tokens
 
 Atom : [a-z]~[ \t\r\n()\[\]{}:.]*
@@ -36,23 +53,6 @@ atomic : Char
        | Atom
        | String+
        ;
-
-End : 'end' | '.' ;
-
-When : 'when' | '|' ;
-
-/// Ops
-
-CompOp : '<' | '=<' | '==' | '=>' | '>' | '/=' | '=/=' | '=:=' ;
-
-ListOp : '++' | '--' ;
-
-AddOp : '+' | '-' | 'bsl' | 'bsr'
-      | 'or' | 'xor' | 'bor' | 'bxor' ;
-
-MulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
-
-PrefixOp : '+' | '-' | 'not' | 'bnot' ;
 
 /// funDef
 
