@@ -30,6 +30,9 @@ t () =
         error:Reason -> {'EXIT',{Reason,erlang:get_stacktrace()}}
     end.
 
+i (Arg1) =
+    if not Arg1 then false else false end.
+
 len (A) =
     case A of
         L when is_list(L) ->

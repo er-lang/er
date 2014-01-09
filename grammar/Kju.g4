@@ -101,7 +101,7 @@ exprMax : atomic
         //| bc
         //| tc
         //| begin
-        //| if
+        | if_
         | case_
         | receive
         //| fun
@@ -142,6 +142,8 @@ tail :               ']'
 // binary : '<<'
 
 tuple : '{' exprAs? '}' ;
+
+if_ : 'if' exprA 'then' seqExprs 'else' seqExprs end ;
 
 case_ : 'case' exprA 'of' clauses end ;
 
