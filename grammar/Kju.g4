@@ -62,7 +62,7 @@ args : '(' exprM? ')' ;
 
 guard : when exprs (';' exprs)* ;
 
-/// expr | seqExprs | exprAll
+/// expr | seqExprs | exprA
 
 exprs : expr  (',' expr)* ;
 expr    : (expr150|allowedLast) ('='|'!') (expr150|allowedLast)
@@ -119,11 +119,11 @@ seqExprs : expr+ allowedLast?
 // f () = B = A (B). #=> ok
 // f () = (B) B = A. #=> line 1:11 mismatched input 'B' expecting {'.', 'end'}
 
-exprAlls : exprAll  (',' exprAll)* ;
-exprAll : expr | allowedLast ;
+exprAs : exprA  (',' exprA)* ;
+exprA : allowedLast | expr ;
 
 exprMs : exprM  (',' exprM)* ;
-exprM : exprMax | allowedLast ;
+exprM : allowedLast | exprMax ;
 
 /// Detailed expressions
 
@@ -142,9 +142,9 @@ tail :               ']'
 
 // binary : '<<'
 
-tuple : '{' exprAlls? '}' ;
+tuple : '{' exprAs? '}' ;
 
-case_ : 'case' expr 'of' clauses end ;
+case_ : 'case' exprA 'of' clauses end ;
 
 /// Utils
 
