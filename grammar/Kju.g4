@@ -104,7 +104,7 @@ exprMax : atomic
         | case_
         | receive
         | fun
-        //| try
+        | try_
         ;
 
 allowedLasts : allowedLast (',' allowedLasts)* ;
@@ -158,6 +158,10 @@ fun : 'fun' mf      '/' exprM
     | 'fun' mf args '/' exprM
     | 'fun' args guard? '=' seqExprs end ;
 
+try_ : 'try' seqExprs ('of' clauses)? 'catch' catchClauses                  end
+     | 'try' seqExprs ('of' clauses)? 'catch' catchClauses 'after' seqExprs end
+     | 'try' seqExprs ('of' clauses)?                      'after' seqExprs end ;
+
 /// Utils
 
 clauses : (clause | clauseGuard)+ ;
@@ -170,3 +174,6 @@ mf :           exprM
 
 gen : exprM
     | exprM ('<-'|'<='|'<~') exprM ;
+
+catchClauses : catchClause+ ;
+catchClause : exprM? ':'? (clause|clauseGuard) ;

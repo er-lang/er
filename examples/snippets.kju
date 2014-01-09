@@ -62,6 +62,19 @@ p&to_list (Arg) =
 
 map (F, A) | is_tuple(A) = {F(X) | X <~ A}.
 
+try…catch () =
+    try Expression of
+        SuccessfulPattern1 ->
+            Expression1
+        SuccessfulPattern2 ->
+            Expression2
+    catch
+        TypeOfError:ExceptionPattern1 ->
+            Expression3
+        TypeOfError:ExceptionPattern2 ->
+            Expression4
+    end.
+
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L).
 len (T) | is_tuple(T) = size(T).
