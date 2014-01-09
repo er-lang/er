@@ -90,6 +90,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     + Make so that types can be defined in whatever order, like functions.
     * Use `finally` in a `receive…end` in place of `after 0`.
     + Have a real prepocessor (¬ https://gist.github.com/fenollp/8315947#file-ifdef_in_fun-erl)
+    * `{·,1}` be `fun (_1) -> {_1,1} end` like in `||·||` and such.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
