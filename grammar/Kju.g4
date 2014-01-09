@@ -6,10 +6,9 @@ block : funDef ;
 
 /// Blanks
 
-Comment : '#' ~[\r\n]* '\r'? '\n' -> skip ;
+Comment : '#' ~[\r\n]* '\r'? '\n' -> channel(HIDDEN) ;
 
-WS : [ \t\r\n]+ -> skip ;
-
+WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 
 /// Ops
 
@@ -30,7 +29,7 @@ when : 'when' | '|' ;
 
 /// Tokens
 
-Atom : [a-z]~[ \t\r\n()\[\]{}:.]*
+Atom : [a-z] ~[ \t\r\n()\[\]{}:;,.''"]* //[_a-zA-Z0-9]*
      | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
 
@@ -104,7 +103,7 @@ exprMax : atomic
         //| begin
         //| if
         | case_
-        //| receive
+        | receive
         //| fun
         //| try
         ;
@@ -146,9 +145,12 @@ tuple : '{' exprAs? '}' ;
 
 case_ : 'case' exprA 'of' clauses end ;
 
+receive : 'receive' clauses                end
+        | 'receive'         'after' clause end
+        | 'receive' clauses 'after' clause end ;
+
 /// Utils
 
-clauses : clause+ ;
-clause : exprM guard? body ;
-
-body : '->' seqExprs ;
+clauses : (clause | guardedClause)+ ;
+clause :        exprM       '->' seqExprs ;
+guardedClause : exprM guard '->' seqExprs ;

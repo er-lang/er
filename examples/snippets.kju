@@ -15,6 +15,13 @@ f () =
     .
 .
 
+'f' () =
+    receive
+#       {'ok', Ref} -> 'do_somth'('arg1', 2) {'down', 'node', Ref}
+        {'ok', WrongRef} when 'is_reference'(WrongRef) -> 'smth'() 'not the one'
+        'error' ->     {'ignore', 'not_monitored', FD}
+    end.
+
 t () =
     try Expr
     catch
