@@ -135,10 +135,10 @@ functionCall : exprM ':' exprM args
 //recordExpr : '‹'
 
 list : '['           ']'
-     | '[' exprAll tail ;
+     | '[' exprA tail ;
 tail :               ']'
-     | '|' exprAll   ']'
-     | ',' exprAll tail ;
+     | '|' exprA   ']'
+     | ',' exprA tail ;
 
 // binary : '<<'
 
