@@ -156,9 +156,9 @@ fun : 'fun' mf      '/' exprM
 
 /// Utils
 
-clauses : (clause | guardedClause)+ ;
-clause :        exprM       '->' seqExprs ;
-guardedClause : exprM guard '->' seqExprs ;
+clauses : (clause | clauseGuard)+ ;
+clause :      exprM       '->' seqExprs ;
+clauseGuard : exprM guard '->' seqExprs ;
 
 mf :           exprM
    |       ':' exprM
