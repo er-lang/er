@@ -41,6 +41,11 @@ len (A) =
             size(T)
     end.
 
+p (Str) =
+    F = fun io:format("~p\n")/1
+    F(Str)
+end
+
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L).
 len (T) | is_tuple(T) = size(T).

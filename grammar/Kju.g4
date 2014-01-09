@@ -104,7 +104,7 @@ exprMax : atomic
         | if_
         | case_
         | receive
-        //| fun
+        | fun
         //| try
         ;
 
@@ -126,10 +126,8 @@ exprM : allowedLast | exprMax ;
 
 /// Detailed expressions
 
-functionCall : exprM ':' exprM args
-             |           exprM args
-             |       ':' exprM args
-             |       ':'       args ;
+functionCall : mf  args
+             | ':' args ;
 
 //recordExpr : '‹'
 
@@ -151,8 +149,16 @@ receive : 'receive' clauses                end
         | 'receive'         'after' clause end
         | 'receive' clauses 'after' clause end ;
 
+fun : 'fun' mf      '/' exprM
+    | 'fun' mf args '/' exprM
+    | 'fun' args guard? '=' seqExprs end ;
+
 /// Utils
 
 clauses : (clause | guardedClause)+ ;
 clause :        exprM       '->' seqExprs ;
 guardedClause : exprM guard '->' seqExprs ;
+
+mf :           exprM
+   |       ':' exprM
+   | exprM ':' exprM ;
