@@ -60,6 +60,8 @@ p&to_list (Arg) =
         B | is_binary(B) -> [p(X) X | X <= B]
     end.
 
+map (F, A) | is_tuple(A) = {F(X) | X <~ A}.
+
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L).
 len (T) | is_tuple(T) = size(T).
