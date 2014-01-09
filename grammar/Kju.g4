@@ -57,7 +57,7 @@ atomic : Char
 
 funDef : Atom args guard? '=' seqExprs end ;
 
-args : '(' exprM? ')' ;
+args : '(' (exprM (',' exprM)*)? ')' ;
 
 guard : when exprA ;
 
