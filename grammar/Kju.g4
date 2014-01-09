@@ -59,11 +59,10 @@ funDef : Atom args guard? '=' seqExprs end ;
 
 args : '(' exprM? ')' ;
 
-guard : when exprs (';' exprs)* ;
+guard : when exprA ;
 
 /// expr | seqExprs | exprA
 
-exprs : expr  (',' expr)* ;
 expr    : (expr150|allowedLast) ('='|'!') (expr150|allowedLast)
         |  expr150 ;
 
