@@ -1,0 +1,36 @@
+exemples
+
+
+len (L) | is_list(L)  = length(L).
+len (T) | is_tuple(T) = size(T).
+
+length ([])             = 0.
+length (L) | is_list(L) = 1 + :(L).
+
+f () =
+    case orddict:find(Node, Nodes) of
+        {ok, Ref} -> {down, node, Ref}
+        {ok, WrongRef} | is_reference(WrongRef) -> 'not the one'
+        error ->     {ignore, not_monitored, FD}
+    .
+.
+
+t () =
+    try Expr
+    catch
+        throw:Term -> Term
+        exit:Reason -> {'EXIT',Reason}
+        error:Reason -> {'EXIT',{Reason,erlang:get_stacktrace()}}
+    end.
+
+len (A) =
+    case A of
+        L when is_list(L) ->
+            length(L)
+        T | is_tuple(T) ->
+            size(T)
+    end.
+
+len :: (‹term›) -> ‹pos_integer›
+len (L) | is_list(L)  = length(L).
+len (T) | is_tuple(T) = size(T).
