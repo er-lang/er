@@ -53,6 +53,13 @@ b () =
         stuff
     end.
 
+p&to_list (Arg) =
+    case Arg of
+        T | is_tuple(T) ->  [p(X) X | X <~ T]
+        L | is_list(L) ->   [p(X) X | X <- L]
+        B | is_binary(B) -> [p(X) X | X <= B]
+    end.
+
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L).
 len (T) | is_tuple(T) = size(T).

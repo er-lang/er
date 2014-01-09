@@ -96,7 +96,7 @@ exprMax : atomic
         | list
         //| binary
         | tuple
-        //| lc
+        | lc
         //| bc
         //| tc
         | begin
@@ -140,6 +140,8 @@ tail :               ']'
 
 tuple : '{' exprAs? '}' ;
 
+lc : '[' seqExprs '|' gen+ ']' ;
+
 begin : 'begin' seqExprs 'end' ;
 
 if_ : 'if' exprA 'then' seqExprs 'else' seqExprs end ;
@@ -163,3 +165,6 @@ clauseGuard : exprM guard '->' seqExprs ;
 mf :           exprM
    |       ':' exprM
    | exprM ':' exprM ;
+
+gen : exprM
+    | exprM ('<-'|'<='|'<~') exprM ;
