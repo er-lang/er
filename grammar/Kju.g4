@@ -2,7 +2,8 @@ grammar Kju;
 
 root : block+ EOF ;
 
-block : funDef ;
+block : export
+      | funDef ;
 
 /// Blanks
 
@@ -29,7 +30,7 @@ when : 'when' | '|' ;
 
 /// Tokens
 
-Atom : [a-z] ~[ \t\r\n()\[\]{}:;,.''"]* //[_a-zA-Z0-9]*
+Atom : [a-z] ~[ \t\r\n()\[\]{}:;,.''"/]* //[_a-zA-Z0-9]*
      | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
 
@@ -52,6 +53,12 @@ atomic : Char
        | Atom
        | String+
        ;
+
+/// export
+
+export : 'export' fa* end ;
+
+fa : Atom '/' Integer ;
 
 /// funDef
 
