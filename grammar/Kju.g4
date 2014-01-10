@@ -30,6 +30,7 @@ when : 'when' | '|' ;
 
 /// Tokens
 
+atom : Atom ;
 Atom : [a-z] ~[ \t\r\n()\[\]{}:;,.''"/]* //[_a-zA-Z0-9]*
      | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
@@ -37,32 +38,37 @@ Atom : [a-z] ~[ \t\r\n()\[\]{}:;,.''"/]* //[_a-zA-Z0-9]*
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
 
+var : Var ;
 Var : [A-Z_][0-9a-zA-Z_]* ;
 
+float_ : Float ;
 Float : '-'? [0-9]+ '.' [0-9]+  ([Ee] [+-]? [0-9]+)? ;
 
+integer : Integer ;
 Integer : '-'? [0-9]+ ('#' [0-9a-zA-Z]+)? ;
 
+char_ : Char ;
 Char : '$' ('\\'? ~[\r\n] | '\\' [0-9] [0-9] [0-9]) ;
 
+string : String ;
 String : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
 
-atomic : Char
-       | Integer
-       | Float
-       | Atom
-       | String+
+atomic : char_
+       | integer
+       | float_
+       | atom
+       | string+
        ;
 
 /// export
 
 export : 'export' fa* end ;
 
-fa : Atom '/' Integer ;
+fa : atom '/' integer ;
 
 /// funDef
 
-funDef : Atom args guard? '=' seqExprs end ;
+funDef : atom args guard? '=' seqExprs end ;
 
 args : '(' (exprM (',' exprM)*)? ')' ;
 
@@ -115,7 +121,7 @@ exprMax : atomic
         ;
 
 allowedLasts : allowedLast (',' allowedLasts)* ;
-allowedLast : Var
+allowedLast : var
             | '(' (expr|allowedLast) ')'
             ;
 
