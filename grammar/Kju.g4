@@ -148,7 +148,7 @@ begin : 'begin' seqExprs 'end' ;
 
 if_ : 'if' exprA 'then' seqExprs 'else' seqExprs end ;
 
-case_ : 'case' exprA 'of' clauses end ;
+case_ : 'case' exprA of end ;
 
 receive : 'receive' clauses                end
         | 'receive'         'after' clause end
@@ -158,9 +158,9 @@ fun : 'fun' mf      '/' exprM
     | 'fun' mf args '/' exprM
     | 'fun' args guard? '=' seqExprs end ;
 
-try_ : 'try' seqExprs ('of' clauses)? 'catch' catchClauses                  end
-     | 'try' seqExprs ('of' clauses)? 'catch' catchClauses 'after' seqExprs end
-     | 'try' seqExprs ('of' clauses)?                      'after' seqExprs end ;
+try_ : 'try' seqExprs of? 'catch' catchClauses                  end
+     | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs end
+     | 'try' seqExprs of?                      'after' seqExprs end ;
 
 /// Utils
 
@@ -177,3 +177,5 @@ gen : exprM
 
 catchClauses : catchClause+ ;
 catchClause : exprM? ':'? (clause|clauseGuard) ;
+
+of : 'of' clauses ;
