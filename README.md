@@ -91,6 +91,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Use `finally` in a `receive…end` in place of `after 0`.
     + Have a real prepocessor (¬ https://gist.github.com/fenollp/8315947#file-ifdef_in_fun-erl)
     * `{·,1}` be `fun (_1) -> {_1,1} end` like in `||·||` and such.
+    * Modules and files can have different names. As long as at the top of the file it references the right module. This allows for multiple files to be part of the same module. But how to compile modularly?
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
