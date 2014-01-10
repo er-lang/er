@@ -63,7 +63,7 @@ p&to_list (Arg) =
 map (F, A) | is_tuple(A) = {F(X) | X <~ A}.
 
 try…catch () =
-    try Expression of
+    try bla() Expression of
         SuccessfulPattern1 ->
             Expression1
         SuccessfulPattern2 ->
@@ -76,6 +76,17 @@ try…catch () =
     end.
 
 brilliant! () =  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>.
+
+im_impressed () =
+    try
+        talk()
+        _Knight = "None shall Pass!"
+        _Doubles = [2*N || N <- lists:seq(1,100)]
+        throw(up)
+        _WillReturnThis = tequila
+    catch
+        Exception:Reason -> {caught, Exception, Reason}
+    end.
 
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L).
