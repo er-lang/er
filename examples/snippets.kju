@@ -1,11 +1,9 @@
-exemples
-
 
 len (L) | is_list(L)  = length(L).
 len (T) | is_tuple(T) = size(T).
 
-length ([])             = 0.
-length (L) | is_list(L) = 1 + :(L).
+length ([])    = 0.
+length ([_|T]) = 1 + :(T).  # ‘:’ references ‘length’.
 
 f () =
     case orddict:find(Node, Nodes) of
@@ -75,9 +73,11 @@ try…catch () =
             Expression4
     end.
 
+'π' () = 3.1415926535.
+
 brilliant! () =  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>.
 
-im_impressed () =
+i-am-impressed () =
     work()
     try
         talk()
@@ -91,7 +91,7 @@ im_impressed () =
 
 export a/0 b/1 c/234 end
 
-f()= {2..3} [g()-2..Max].
+f()= {2..3} [-6..18] [g()-2..Max].
 
 f()= [1|[2|[3|[]]]].
 
