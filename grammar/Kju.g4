@@ -119,7 +119,6 @@ exprMax : atomic
         | try_
         ;
 
-allowedLasts : allowedLast (',' allowedLasts)* ;
 allowedLast : var
             | '(' (expr|allowedLast) ')'
             ;
