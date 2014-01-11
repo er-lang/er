@@ -76,29 +76,29 @@ guard : when exprA ;
 
 /// expr | seqExprs | exprA
 
-expr    : (expr150|allowedLast) ('='|'!') (expr150|allowedLast)
+expr    : (expr150|lastOnly) ('='|'!') (expr150|lastOnly)
         |  expr150 ;
 
-expr150 : (expr160|allowedLast) 'orelse'  (expr150|allowedLast)
+expr150 : (expr160|lastOnly) 'orelse'  (expr150|lastOnly)
         |  expr160 ;
 
-expr160 : (expr200|allowedLast) 'andalso' (expr160|allowedLast)
+expr160 : (expr200|lastOnly) 'andalso' (expr160|lastOnly)
         |  expr200 ;
 
-expr200 : (expr300|allowedLast) compOp    (expr200|allowedLast)
+expr200 : (expr300|lastOnly) compOp    (expr200|lastOnly)
         |  expr300 ;
 
-expr300 : (expr400|allowedLast) listOp    (expr300|allowedLast)
+expr300 : (expr400|lastOnly) listOp    (expr300|lastOnly)
         |  expr400 ;
 
-expr400 : (expr500|allowedLast) addOp     (expr400|allowedLast)
+expr400 : (expr500|lastOnly) addOp     (expr400|lastOnly)
         |  expr500 ;
 
-expr500 : (expr600|allowedLast) mulOp     (expr500|allowedLast)
+expr500 : (expr600|lastOnly) mulOp     (expr500|lastOnly)
         |  expr600 ;
 
-expr600 :                       prefixOp  (expr700|allowedLast)
-        |                                  expr700 ;
+expr600 :                    prefixOp  (expr700|lastOnly)
+        |                               expr700 ;
 
 expr700 : functionCall
         //| recordExpr
@@ -119,20 +119,19 @@ exprMax : atomic
         | try_
         ;
 
-allowedLast : var
-            | '(' (expr|allowedLast) ')'
-            ;
+lastOnly : var
+         | '(' (expr|lastOnly) ')' ;
 
-seqExprs : expr+ allowedLast?
-         | expr* allowedLast ;
+seqExprs : expr+ lastOnly?
+         | expr* lastOnly ;
 // f () = B = A (B). #=> ok
 // f () = (B) B = A. #=> line 1:11 mismatched input 'B' expecting {'.', 'end'}
 
-exprAs : exprA  (',' exprA)* ;
-exprA : allowedLast | expr ;
+exprAs : exprA (',' exprA)* ;
+exprA : lastOnly | expr    ;
 
-exprMs : exprM  (',' exprM)* ;
-exprM : allowedLast | exprMax ;
+exprMs : exprM (',' exprM)* ;
+exprM : lastOnly | exprMax ;
 
 /// Detailed expressions
 
