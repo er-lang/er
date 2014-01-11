@@ -82,7 +82,7 @@ im_impressed () =
     try
         talk()
         _Knight = "None shall Pass!"
-        _Doubles = [2*N | N <- lists:seq(1,100)]
+        _Doubles = [2*N | N <- [1..100]]
         throw(up)
         _WillReturnThis = tequila
     catch
