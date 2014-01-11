@@ -109,9 +109,8 @@ exprMax : atomic
         | list
         //| binary
         | tuple
-        | lc
-        | bc
-        | tc
+        | range
+        | comprehension
         | begin
         | if_
         | case_
@@ -153,9 +152,15 @@ tail :               ']'
 
 tuple : '{' exprAs? '}' ;
 
+comprehension : lc | bc | tc ;
 lc :  '[' seqExprs '|' gen+ ']'  ;
 bc : '<<' seqExprs '|' gen+ '>>' ;
 tc :  '{' seqExprs '|' gen+ '}'  ;
+
+range : lr | br | tr ;
+lr :  '[' exprA '..' exprA ']'  ;
+br : '<<' exprA '..' exprA '>>' ;
+tr :  '{' exprA '..' exprA '}'  ;
 
 begin : 'begin' seqExprs 'end' ;
 

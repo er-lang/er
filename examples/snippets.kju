@@ -90,6 +90,8 @@ im_impressed () =
 
 export a/0 b/1 c/234 end
 
+f()= {2..3} [g()-2..Max].
+
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L).
 len (T) | is_tuple(T) = size(T).
