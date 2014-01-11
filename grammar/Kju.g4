@@ -186,8 +186,8 @@ mf :           exprM
    |       ':' exprM
    | exprM ':' exprM ;
 
-gen : exprM
-    | exprM ('<-'|'<='|'<~') exprM ;
+gen :                        exprA
+    | exprM ('<-'|'<='|'<~') exprA ;
 
 catchClauses : catchClause+ ;
 catchClause : exprM? ':'? (clause|clauseGuard) ;
