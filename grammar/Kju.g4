@@ -168,7 +168,7 @@ receive : 'receive' clauses                end
 
 fun : 'fun' mf      '/' exprM
     | 'fun' mf args '/' exprM
-    | 'fun' args guard? '=' seqExprs end ;
+    | 'fun' args guard? '->' seqExprs end ;
 
 try_ : 'try' seqExprs of? 'catch' catchClauses                  end
      | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs end
