@@ -31,7 +31,7 @@ when : 'when' | '|' ;
 /// Tokens
 
 atom : Atom ;
-Atom : [a-z] ~[ \t\r\n()\[\]{}:;,.''"/]* //[_a-zA-Z0-9]*
+Atom : [a-z] ~[ \t\r\n()\[\]{}:;,./]* //[_a-zA-Z0-9]*
      | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
 
