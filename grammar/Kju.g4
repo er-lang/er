@@ -109,8 +109,8 @@ exprMax : atomic
         | list
         //| binary
         | tuple
-        | range
-        | comprehension
+        | lr | br | tr // range
+        | lc | bc | tc // comprehension
         | begin
         | if_
         | case_
@@ -120,7 +120,7 @@ exprMax : atomic
         ;
 
 lastOnly : var
-         | '(' (expr|lastOnly) ')' ;
+         | '(' exprA ')' ;
 
 seqExprs : expr+ lastOnly?
          |       lastOnly ;
@@ -148,12 +148,10 @@ tail :               ']'
 
 tuple : '{' exprAs? '}' ;
 
-comprehension : lc | bc | tc ;
 lc :  '[' seqExprs '|' gen+ ']'  ;
 bc : '<<' seqExprs '|' gen+ '>>' ;
 tc :  '{' seqExprs '|' gen+ '}'  ;
 
-range : lr | br | tr ;
 lr :  '[' exprA '..' exprA ']'  ;
 br : '<<' exprA '..' exprA '>>' ;
 tr :  '{' exprA '..' exprA '}'  ;
@@ -184,7 +182,7 @@ clauseGuard : exprM guard '->' seqExprs ;
 
 mf :           exprM
    |       ':' exprM
-   | exprM ':' exprM ;
+   | exprM ':' exprM ; //funccall should be possible
 
 gen :                        exprA
     | exprM ('<-'|'<='|'<~') exprA ;
