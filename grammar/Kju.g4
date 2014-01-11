@@ -123,7 +123,7 @@ lastOnly : var
          | '(' (expr|lastOnly) ')' ;
 
 seqExprs : expr+ lastOnly?
-         | expr* lastOnly ;
+         |       lastOnly ;
 
 exprAs : exprA (',' exprA)* ;
 exprA : lastOnly | expr    ;
