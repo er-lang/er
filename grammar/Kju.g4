@@ -70,7 +70,7 @@ fa : atom '/' integer ;
 
 funDef : atom args guard? '=' seqExprs end ;
 
-args : '(' (exprM (',' exprM)*)? ')' ;
+args : '(' exprMs? ')' ;
 
 guard : when exprA ;
 
