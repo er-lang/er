@@ -138,10 +138,10 @@ functionCall : mf  args
 
 //recordExpr : '‹'
 
-list : '['           ']'
+list : '['       ']'
      | '[' exprA tail ;
-tail :               ']'
-     | '|' exprA   ']'
+tail :           ']'
+     | '|' exprA ']'
      | ',' exprA tail ;
 
 // binary : '<<'
