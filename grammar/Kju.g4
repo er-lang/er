@@ -42,10 +42,10 @@ var : Var ;
 Var : [A-Z_][0-9a-zA-Z_]* ;
 
 float_ : Float ;
-Float : '-'? [0-9]+ '.' [0-9]+  ([Ee] [+-]? [0-9]+)? ;
+Float : [0-9]+ '.' [0-9]+  ([Ee] [+-]? [0-9]+)? ;
 
 integer : Integer ;
-Integer : '-'? [0-9]+ ('#' [0-9a-zA-Z]+)? ;
+Integer : [0-9]+ ('#' [0-9a-zA-Z]+)? ;
 
 char_ : Char ;
 Char : '$' ('\\'? ~[\r\n] | '\\' [0-9] [0-9] [0-9]) ;
