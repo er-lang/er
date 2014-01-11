@@ -124,8 +124,6 @@ lastOnly : var
 
 seqExprs : expr+ lastOnly?
          | expr* lastOnly ;
-// f () = B = A (B). #=> ok
-// f () = (B) B = A. #=> line 1:11 mismatched input 'B' expecting {'.', 'end'}
 
 exprAs : exprA (',' exprA)* ;
 exprA : lastOnly | expr    ;
