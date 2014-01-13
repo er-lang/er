@@ -121,7 +121,7 @@ exprAs : exprA (',' exprA)* ;
 exprA : lastOnly | functionCall | expr ;
 
 exprMs : exprM (',' exprM)* ;
-exprM : lastOnly | exprMax ; //Reconsider regarding functionCall
+exprM : lastOnly | exprMax ;
 
 /// Detailed expressions
 
