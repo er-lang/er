@@ -114,11 +114,11 @@ exprMax : atomic
 lastOnly : var
          | '(' exprA ')' ;
 
-seqExprs : (expr|functionCall)+ lastOnly?
+seqExprs : (functionCall|expr)+ lastOnly?
          |                      lastOnly ;
 
 exprAs : exprA (',' exprA)* ;
-exprA : lastOnly | expr | functionCall ;
+exprA : lastOnly | functionCall | expr ;
 
 exprMs : exprM (',' exprM)* ;
 exprM : lastOnly | exprMax ; //Reconsider regarding functionCall
