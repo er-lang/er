@@ -121,8 +121,8 @@ exprMax : atomic
 lastOnly : var
          | '(' exprA ')' ;
 
-seqExprs : expr+ lastOnly?
-         |       lastOnly ;
+seqExprs : (expr|functionCall)+ lastOnly?
+         |                      lastOnly ;
 
 exprAs : exprA (',' exprA)* ;
 exprA : lastOnly | expr | functionCall ;
