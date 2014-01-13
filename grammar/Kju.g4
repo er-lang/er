@@ -24,8 +24,6 @@ mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
 
 prefixOp : '+' | '-' | 'not' | 'bnot' ;
 
-end : 'end' | '.' ;
-
 when : 'when' | '|' ;
 
 /// Tokens
@@ -55,7 +53,7 @@ String : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
 
 /// export
 
-export : 'export' fa* end ;
+export : 'export' fa* 'end' ;
 
 fa : atom '/' integer ;
 
@@ -158,21 +156,21 @@ tr :  '{' exprA '..' exprA '}'  ;
 
 begin : 'begin' seqExprs 'end' ;
 
-if_ : 'if' exprA 'then' seqExprs 'else' seqExprs end ;
+if_ : 'if' exprA 'then' seqExprs 'else' seqExprs 'end' ;
 
-case_ : 'case' exprA of end ;
+case_ : 'case' exprA of 'end' ;
 
-receive : 'receive' clauses                end
-        | 'receive'         'after' clause end
-        | 'receive' clauses 'after' clause end ;
+receive : 'receive' clauses                'end'
+        | 'receive'         'after' clause 'end'
+        | 'receive' clauses 'after' clause 'end' ;
 
 fun : 'fun' mf      '/' exprM
     | 'fun' mf args '/' exprM
-    | 'fun' args guard? '->' seqExprs end ; //clauses+?
+    | 'fun' args guard? '->' seqExprs 'end' ; //clauses+?
 
-try_ : 'try' seqExprs of? 'catch' catchClauses                  end
-     | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs end
-     | 'try' seqExprs of?                      'after' seqExprs end ;
+try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
+     | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs 'end'
+     | 'try' seqExprs of?                      'after' seqExprs 'end' ;
 
 /// Utils
 

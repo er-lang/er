@@ -31,7 +31,7 @@ t () =
     end
 
 i (Arg1) =
-    if not Arg1 then false else false.
+    if not Arg1 then false else false end
 
 len (A) =
     case A of
@@ -57,7 +57,7 @@ p&to_list (Arg) =
         T | is_tuple(T) ->  [p(X) X | X <~ T]
         L | is_list(L) ->   [p(X) X | X <- L]
         B | is_binary(B) -> [p(X) X | X <= B]
-    .
+    end
 
 map (F, A) | is_tuple(A) = {F(X) | X <~ A}
 
@@ -96,7 +96,7 @@ f()= {2..3} [-6..18] [g()-2..Max]
 
 f()= [1|[2|[3|[]]]]
 
-f()= fun (Thu) -> gaim.
+f()= fun (Thu) -> gaim end
 
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L)
