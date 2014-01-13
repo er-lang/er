@@ -125,8 +125,9 @@ exprM : lastOnly | exprMax ; //Reconsider regarding functionCall
 
 /// Detailed expressions
 
-functionCall : mf  args
-             | ':' args ;
+params : '(' exprAs? ')' ;
+functionCall : mf  params
+             | ':' params ;
 
 atomic : char_
        | integer
