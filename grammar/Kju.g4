@@ -68,7 +68,7 @@ fa : atom '/' integer ;
 
 /// funDef
 
-funDef : atom args guard? '=' seqExprs end ;
+funDef : atom args guard? '=' seqExprs ;
 
 args : '(' exprMs? ')' ;
 
