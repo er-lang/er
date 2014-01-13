@@ -110,6 +110,7 @@ exprMax : atomic
         ;
 
 lastOnly : var
+         | atom
          | '(' exprA ')' ;
 
 seqExprs : (functionCall|expr)+ lastOnly?
@@ -130,7 +131,6 @@ functionCall : mf  params
 atomic : char_
        | integer
        | float_
-       | atom
        | string+
        ;
 
