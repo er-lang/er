@@ -26,7 +26,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     - `'` instead of `$` for chars: `'a, 'b, '\', '\\, '\ `. It'd be nice to allow `$` at ^ of atoms.
     - Module name is filename (still only one per file).
     * Explicit language support for behaviors and other OTP principles
-    * Get rid of `,` `.` `;` with the help of `end` (Keep `.`, `|` in mind).
+    + Get rid of `,` `.` `;` with the help of `end` (Keep `.`, `|` in mind). Guards can be combined with `orelse` & `andalso` (as they often are)
     + Haskell-style type spec (ie `-type new_name :: old_name`: rm `-type`)
     + `-export([Fun|…]).` -> `export Fun … end`
     - Possibility following context to use keywords as atoms, like in C++. LALR?
