@@ -97,15 +97,11 @@ expr400 : (expr500|lastOnly) addOp     (expr400|lastOnly)
 expr500 : (expr600|lastOnly) mulOp     (expr500|lastOnly)
         |  expr600 ;
 
-expr600 :                    prefixOp  (expr700|lastOnly)
-        |                               expr700 ;
-
-expr700 : functionCall
-        //| recordExpr
-        | exprMax
-        ;
+expr600 :                    prefixOp  (exprMax|lastOnly)
+        |                               exprMax ;
 
 exprMax : atomic
+        //| recordExpr
         | list
         //| binary
         | tuple
