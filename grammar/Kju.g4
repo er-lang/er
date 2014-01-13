@@ -59,7 +59,7 @@ fa : atom '/' integer ;
 
 /// funDef
 
-funDef : atom args guard? '=' seqExprs ;
+funDef : atom args guard? ('='|'->') seqExprs ; // Both usable as 'f()' as lhs makes sense only then.
 
 args : '(' exprMs? ')' ;
 
