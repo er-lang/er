@@ -125,7 +125,7 @@ seqExprs : expr+ lastOnly?
          |       lastOnly ;
 
 exprAs : exprA (',' exprA)* ;
-exprA : lastOnly | expr    ;
+exprA : lastOnly | expr | functionCall ;
 
 exprMs : exprM (',' exprM)* ;
 exprM : lastOnly | exprMax ;
