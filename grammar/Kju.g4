@@ -53,13 +53,6 @@ Char : '$' ('\\'? ~[\r\n] | '\\' [0-9] [0-9] [0-9]) ;
 string : String ;
 String : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
 
-atomic : char_
-       | integer
-       | float_
-       | atom
-       | string+
-       ;
-
 /// export
 
 export : 'export' fa* end ;
@@ -128,20 +121,27 @@ exprAs : exprA (',' exprA)* ;
 exprA : lastOnly | expr | functionCall ;
 
 exprMs : exprM (',' exprM)* ;
-exprM : lastOnly | exprMax ;
+exprM : lastOnly | exprMax ; //Reconsider regarding functionCall
 
 /// Detailed expressions
 
 functionCall : mf  args
              | ':' args ;
 
-//recordExpr : '‹'
+atomic : char_
+       | integer
+       | float_
+       | atom
+       | string+
+       ;
 
 list : '['       ']'
      | '[' exprA tail ;
 tail :           ']'
      | '|' exprA ']'
      | ',' exprA tail ;
+
+//recordExpr : '‹'
 
 // binary : '<<'
 
@@ -181,7 +181,7 @@ clauseGuard : exprM guard '->' seqExprs ;
 
 mf :           exprM
    |       ':' exprM
-   | exprM ':' exprM ; //funccall should be possible
+   | exprM ':' exprM ; //functionCall should be possible
 
 gen :                        exprA
     | exprM ('<-'|'<='|'<~') exprA ;
