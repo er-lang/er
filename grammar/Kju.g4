@@ -76,29 +76,32 @@ guard : when exprA ;
 
 /// expr | seqExprs | exprA
 
-expr    : (expr150|lastOnly) ('='|'!') (expr150|lastOnly)
+expr    : (expr125|lastOnly)              '='       (expr125|lastOnly|functionCall)
+        |  expr125 ;
+
+expr125 : (expr150|lastOnly|functionCall) '!'       (expr125|lastOnly|functionCall)
         |  expr150 ;
 
-expr150 : (expr160|lastOnly) 'orelse'  (expr150|lastOnly)
+expr150 : (expr160|lastOnly|functionCall) 'orelse'  (expr150|lastOnly|functionCall)
         |  expr160 ;
 
-expr160 : (expr200|lastOnly) 'andalso' (expr160|lastOnly)
+expr160 : (expr200|lastOnly|functionCall) 'andalso' (expr160|lastOnly|functionCall)
         |  expr200 ;
 
-expr200 : (expr300|lastOnly) compOp    (expr200|lastOnly)
+expr200 : (expr300|lastOnly|functionCall) compOp    (expr200|lastOnly|functionCall)
         |  expr300 ;
 
-expr300 : (expr400|lastOnly) listOp    (expr300|lastOnly)
+expr300 : (expr400|lastOnly|functionCall) listOp    (expr300|lastOnly|functionCall)
         |  expr400 ;
 
-expr400 : (expr500|lastOnly) addOp     (expr400|lastOnly)
+expr400 : (expr500|lastOnly|functionCall) addOp     (expr400|lastOnly|functionCall)
         |  expr500 ;
 
-expr500 : (expr600|lastOnly) mulOp     (expr500|lastOnly)
+expr500 : (expr600|lastOnly|functionCall) mulOp     (expr500|lastOnly|functionCall)
         |  expr600 ;
 
-expr600 :                    prefixOp  (exprMax|lastOnly)
-        |                               exprMax ;
+expr600 :                                 prefixOp  (exprMax|lastOnly|functionCall)
+        |                                            exprMax ;
 
 exprMax : atomic
         //| recordExpr
