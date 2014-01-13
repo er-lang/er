@@ -6,7 +6,7 @@ f()= thiS() W=ill tot:ally(W + ork)
 g()= i-ll(give) my:hand() to_cut
 
 length ([])    = 0
-length ([_|T]) = 1 + :(T).  # ‘:’ references ‘length’
+length ([_|T]) = 1 + :(T)  # ‘:’ references ‘length’
 
 f () =
     case orddict:find(Node, Nodes) of
