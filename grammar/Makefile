@@ -5,7 +5,7 @@ compile:
 	javac Kju*.java
 
 debug:
-	java org.antlr.v4.runtime.misc.TestRig Kju root -gui -encoding utf8
+	java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -gui -encoding utf8
 
 clean:
 	rm -f *.class
