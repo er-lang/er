@@ -1,24 +1,26 @@
 
-len (L) | is_list(L)  = length(L).
-len (T) | is_tuple(T) = size(T).
+len (L) | is_list(L)  = length(L)
+len (T) | is_tuple(T) = size(T)
 
-length ([])    = 0.
-length ([_|T]) = 1 + :(T).  # ‘:’ references ‘length’.
+f()= thiS() W=ill tot:ally(W + ork)
+g()= i-ll(give) my:hand() to_cut
+
+length ([])    = 0
+length ([_|T]) = 1 + :(T).  # ‘:’ references ‘length’
 
 f () =
     case orddict:find(Node, Nodes) of
         {ok, Ref} -> {down, node, Ref}
         {ok, WrongRef} | is_reference(WrongRef) -> 'not the one'
         error ->     {ignore, not_monitored, FD}
-    .
-.
+    end
 
 'f' () =
     receive
 #       {'ok', Ref} -> 'do_somth'('arg1', 2) {'down', 'node', Ref}
         {'ok', WrongRef} when 'is_reference'(WrongRef) -> 'smth'() 'not the one'
         'error' ->     {'ignore', 'not_monitored', FD}
-    end.
+    end
 
 t () =
     try Expr
@@ -26,10 +28,10 @@ t () =
         throw:Term -> Term
         exit:Reason -> {'EXIT',Reason}
         error:Reason -> {'EXIT',{Reason,erlang:get_stacktrace()}}
-    end.
+    end
 
 i (Arg1) =
-    if not Arg1 then false else false end.
+    if not Arg1 then false else false.
 
 len (A) =
     case A of
@@ -37,28 +39,27 @@ len (A) =
             length(L)
         T | is_tuple(T) ->
             size(T)
-    end.
+    end
 
 p (Str) =
     F = fun io:format("~p\n")/1
     F(Str)
-end
 
 b () =
     begin
         do()
         some()
         stuff
-    end.
+    end
 
 p&to_list (Arg) =
     case Arg of
         T | is_tuple(T) ->  [p(X) X | X <~ T]
         L | is_list(L) ->   [p(X) X | X <- L]
         B | is_binary(B) -> [p(X) X | X <= B]
-    end.
+    .
 
-map (F, A) | is_tuple(A) = {F(X) | X <~ A}.
+map (F, A) | is_tuple(A) = {F(X) | X <~ A}
 
 try…catch () =
     try bla() Expression of
@@ -71,11 +72,11 @@ try…catch () =
             Expression3
         TypeOfError:ExceptionPattern2 ->
             Expression4
-    end.
+    end
 
-'π' () = 3.1415926535.
+'π' () = 3.1415926535
 
-brilliant! () =  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>.
+brilliant! () =  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>
 
 i-am-impressed () =
     work()
@@ -87,16 +88,16 @@ i-am-impressed () =
         _WillReturnThis = tequila
     catch
         Exception:Reason -> {caught, Exception, Reason}
-    end.
+    end
 
 export a/0 b/1 c/234 end
 
-f()= {2..3} [-6..18] [g()-2..Max].
+f()= {2..3} [-6..18] [g()-2..Max]
 
-f()= [1|[2|[3|[]]]].
+f()= [1|[2|[3|[]]]]
 
-f()= fun (Thu) -> gaim end.
+f()= fun (Thu) -> gaim.
 
 len :: (‹term›) -> ‹pos_integer›
-len (L) | is_list(L)  = length(L).
-len (T) | is_tuple(T) = size(T).
+len (L) | is_list(L)  = length(L)
+len (T) | is_tuple(T) = size(T)
