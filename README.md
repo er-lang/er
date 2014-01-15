@@ -43,7 +43,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Define `?R16` and `?R16B01` -style macros for backward-compatible code
     * --pedantic requests Dialyzer type-specs on every exported function. Have all functions exported when debugging
     * Have Dialyzer check on compile (such as to catch -behavior issues)
-    + KJu's -spec also adds the guards to spec-ed function (or a case…of…end inside fun's clause) Eg: is_string/1 “guard”.
+    + KJu's -spec also adds the guards to spec-ed function (or a case…of…end inside fun's clause) Eg: is_string/1 “guard”. Don't add when guard explicitly written.
     * http://bugs.ruby-lang.org/issues/5054
     * Simpler namespacing using Erlang's “library applications”?
     * Somehow bundle all Unicode sugaring as a whole
