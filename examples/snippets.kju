@@ -98,6 +98,8 @@ f()= [1|[2|[3|[]]]]
 
 f()= fun (Thu) -> gaim end
 
+many_args (A, [H|T], "str", -2) = ok
+
 f()=
     fun (123) -> "123"
         (231) -> deux-trois-un
@@ -106,6 +108,7 @@ f()=
                 hammer -> lel() so_funny
                 _ -> something
             end
+    end
 
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L)

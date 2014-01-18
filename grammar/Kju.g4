@@ -61,7 +61,7 @@ fa : atom '/' integer ;
 
 funDef : atom args guard? ('='|'->') seqExprs ; // Both usable as 'f()' as lhs makes sense only then.
 
-args : '(' exprMs? ')' ;
+args : '(' matchables? ')' ;
 
 guard : when exprA ;
 
@@ -122,6 +122,18 @@ exprA : lastOnly | functionCall | expr ;
 exprMs : exprM (',' exprM)* ;
 exprM : lastOnly | exprMax ;
 
+matchables : matchable (',' matchable)* ;
+matchable : var
+          | atom
+          | atomic
+          //| recordExpr
+          | list
+          //| binary
+          | tuple
+          | matchable '=' matchable
+          | (var|list) listOp (var|list) // and recordExpr
+          | prefixOp (char_|integer|float_) ;
+
 /// Detailed expressions
 
 params : '(' exprAs? ')' ;
@@ -166,7 +178,7 @@ receive : 'receive' clauses                'end'
 
 fun : 'fun' mf      '/' exprM
     | 'fun' mf args '/' exprM
-    | 'fun' args guard? '->' seqExprs 'end' ; //clauses+?
+    | 'fun' funClauses+ 'end' ;
 
 try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
      | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs 'end'
@@ -175,8 +187,10 @@ try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
 /// Utils
 
 clauses : (clause | clauseGuard)+ ;
-clause :      exprM       '->' seqExprs ;
-clauseGuard : exprM guard '->' seqExprs ;
+clause :      exprM        '->' seqExprs ;
+clauseGuard : exprM guard  '->' seqExprs ;
+
+funClauses : args   guard? '->' seqExprs ;
 
 mf :           exprM
    |       ':' exprM
