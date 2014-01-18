@@ -110,6 +110,8 @@ f()=
             end
     end
 
+#//f() = case asd of a -> a s -> smth (d) -> ah-ah! end
+
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L)
 len (T) | is_tuple(T) = size(T)

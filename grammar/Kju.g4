@@ -178,7 +178,7 @@ receive : 'receive' clauses                'end'
 
 fun : 'fun' mf      '/' exprM
     | 'fun' mf args '/' exprM
-    | 'fun' funClauses+ 'end' ;
+    | 'fun' funClause+ 'end' ;
 
 try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
      | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs 'end'
@@ -187,17 +187,17 @@ try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
 /// Utils
 
 clauses : (clause | clauseGuard)+ ;
-clause :      exprM        '->' seqExprs ;
-clauseGuard : exprM guard  '->' seqExprs ;
+clause :      matchable       '->' seqExprs ;
+clauseGuard : matchable guard '->' seqExprs ;
 
-funClauses : args   guard? '->' seqExprs ;
+funClause : args       guard? '->' seqExprs ;
 
 mf :           exprM
    |       ':' exprM
    | exprM ':' exprM ; //functionCall should be possible
 
-gen :                        exprA
-    | exprM ('<-'|'<='|'<~') exprA ;
+gen :                            exprA
+    | matchable ('<-'|'<='|'<~') exprA ;
 
 catchClauses : catchClause+ ;
 catchClause : exprM? ':'? (clause|clauseGuard) ;
