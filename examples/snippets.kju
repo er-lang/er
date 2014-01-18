@@ -98,6 +98,15 @@ f()= [1|[2|[3|[]]]]
 
 f()= fun (Thu) -> gaim end
 
+f()=
+    fun (123) -> "123"
+        (231) -> deux-trois-un
+        (stop) ->
+            case do() of
+                hammer -> lel() so_funny
+                _ -> something
+            end
+
 len :: (‹term›) -> ‹pos_integer›
 len (L) | is_list(L)  = length(L)
 len (T) | is_tuple(T) = size(T)
