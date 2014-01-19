@@ -100,10 +100,12 @@ f()= fun (Thu) -> gaim end
 
 many_args (A, [H|T], "str", -2) = ok
 
-f()=
+fun_clauses () =
     fun (123) -> "123"
         (231) -> deux-trois-un
         (stop) ->
+            bla(1, 2, B, [$*])
+            babebibobu()
             case do() of
                 hammer -> lel() so_funny
                 _ -> something
