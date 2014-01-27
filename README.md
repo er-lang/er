@@ -97,6 +97,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     + Erlang's `-type` does not accept `when` whereas `-spec` does.
     * Add last `receive…end` clause: `_ -> '$kju_ignored_message'`
     * Implement EEP19 by transforming to long-arity recursive fun.
+    * Provide a word to spec `ok | {error, err_type()}` like `error(err_type())`
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
