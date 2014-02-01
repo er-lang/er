@@ -3,7 +3,7 @@ grammar Kju;
 root : block+ EOF ;
 
 block : export
-      | funDef ;
+      | def ;
 
 /// Blanks
 
@@ -11,7 +11,7 @@ Comment : '#' ~[\r\n]* '\r'? '\n' -> channel(HIDDEN) ;
 
 WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 
-/// Ops
+/// Ops | Also some tokens b/c ANTLR4 bugs and concatenates lexems.
 
 compOp : '<' | '=<' | '==' | '=>' | '>' | '/=' | '=/=' | '=:=' ;
 
@@ -25,6 +25,14 @@ mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
 prefixOp : '+' | '-' | 'not' | 'bnot' ;
 
 when : 'when' | '|' ;
+
+kind : '::' ;
+
+etc : '...' | '…' ;
+
+fun_ : 'fun' ;
+
+lra : '->' ;
 
 /// Tokens
 
@@ -57,13 +65,52 @@ export : 'export' fa* 'end' ;
 
 fa : atom '/' integer ;
 
-/// funDef
+/// def
 
-funDef : atom args guard? ('='|'->') seqExprs ; // Both usable as 'f()' as lhs makes sense only then.
+def : spec? func ;
+
+func : atom args guard? ('='|lra) seqExprs ; // Both usable as 'f()' as lhs makes sense only then.
 
 args : '(' matchables? ')' ;
 
 guard : when exprA ;
+
+/// spec
+
+spec : atom kind tyFun
+     | atom kind tyFun when tyGuard+ ;
+
+tyGuard : atom '(' tyMaxs ')'
+        | var kind tyMax ;
+
+tyMaxs : tyMax (',' tyMax)* ;
+tyMax : var kind tyMaxAlt
+      |          tyMaxAlt ;
+
+tyMaxAlt : type '|' tyMaxAlt
+         | type ;
+
+type : type '..'     type
+     | type addOp    type
+     | type mulOp    type
+     |      prefixOp type
+     | '(' tyMax ')'
+     | var | atom
+     | atom          '(' tyMaxs? ')'
+     | atom ':' atom '(' tyMaxs? ')'
+     | '['               ']'
+     | '[' tyMax         ']'
+     | '[' tyMax ',' etc ']'
+     //| tyRecord
+     //| tyMap
+     | '{' tyMaxs? '}'
+     //| binaryType
+     | integer
+     | fun_ '(' tyFun? ')' ;
+
+tyFun : '(' (etc | tyMaxs)? ')' lra tyMax ;
+
+//binaryType
 
 /// expr | seqExprs | exprA
 
@@ -176,9 +223,9 @@ receive : 'receive' clauses                'end'
         | 'receive'         'after' clause 'end'
         | 'receive' clauses 'after' clause 'end' ;
 
-fun : 'fun' mf      '/' exprM
-    | 'fun' mf args '/' exprM
-    | 'fun' funClause+ 'end' ;
+fun : fun_ mf      '/' exprM
+    | fun_ mf args '/' exprM
+    | fun_ funClause+ 'end' ;
 
 try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
      | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs 'end'
@@ -187,10 +234,10 @@ try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
 /// Utils
 
 clauses : (clause | clauseGuard)+ ;
-clause :      matchable       '->' seqExprs ;
-clauseGuard : matchable guard '->' seqExprs ;
+clause :      matchable       lra seqExprs ;
+clauseGuard : matchable guard lra seqExprs ;
 
-funClause : args       guard? '->' seqExprs ;
+funClause : args       guard? lra seqExprs ;
 
 mf :           exprM
    |       ':' exprM
