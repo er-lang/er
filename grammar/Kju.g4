@@ -96,8 +96,8 @@ type : type '..'     type
      |      prefixOp type
      | '(' tyMax ')'
      | var | atom
-     | atom          '(' tyMaxs? ')'
-     | atom ':' atom '(' tyMaxs? ')'
+     |     atom (':' atom)? '(' tyMaxs? ')'
+     | '‹' atom (':' atom)?     tyMaxs? '›'
      | '['               ']'
      | '[' tyMax         ']'
      | '[' tyMax ',' etc ']'
