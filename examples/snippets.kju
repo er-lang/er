@@ -121,3 +121,14 @@ len :: (‹list›) -> ‹pos_integer›
 len (L) = length(L)
 len :: (‹tuple›) -> ‹pos_integer›
 len (T) = size(T)
+
+'!' :: (N) -> N when N::‹pos_integer›
+'!' (0) = 1
+'!' (N) = N * :(N - 1)
+
+'!' :: () -> fun((N) -> N) when N::pos_integer()
+'!' () =
+    fun (0) -> 1
+        (N) when N > 0 ->
+            N * :(N - 1)
+    end

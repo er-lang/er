@@ -80,7 +80,8 @@ guard : when exprA ;
 spec : atom kind tyFun
      | atom kind tyFun when tyGuard+ ;
 
-tyGuard : atom '(' tyMaxs ')'
+tyGuard :     atom (':' atom)? '(' tyMaxs ? ')'
+        | '‹' atom (':' atom)?    (tyMax+)? '›'
         | var kind tyMax ;
 
 tyMaxs : tyMax (',' tyMax)* ;
@@ -95,9 +96,9 @@ type : type '..'     type
      | type mulOp    type
      |      prefixOp type
      | '(' tyMax ')'
-     | var | atom
-     |     atom (':' atom)? '(' tyMaxs? ')'
-     | '‹' atom (':' atom)?     tyMaxs? '›'
+     | var | atom | integer
+     |     atom (':' atom)? '(' tyMaxs?  ')'
+     | '‹' atom (':' atom)?    (tyMax+)? '›'
      | '['               ']'
      | '[' tyMax         ']'
      | '[' tyMax ',' etc ']'
@@ -105,7 +106,6 @@ type : type '..'     type
      //| tyMap
      | '{' tyMaxs? '}'
      //| binaryType
-     | integer
      | fun_ '(' tyFun? ')' ;
 
 tyFun : '(' (etc | tyMaxs)? ')' lra tyMax ;
