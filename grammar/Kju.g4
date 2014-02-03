@@ -229,7 +229,8 @@ receive : 'receive' clauses                'end'
 
 fun : fun_ mf      '/' exprM
     | fun_ mf args '/' exprM
-    | fun_ funClause+ 'end' ;
+    | fun_ funClause+ 'end'
+    | fun '.' fun ;
 
 try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
      | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs 'end'
