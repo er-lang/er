@@ -28,18 +28,22 @@ when : 'when' | '|' ;
 
 kind : '::' ;
 
-etc : '...' | '…' ;
+etc : '...' ;//| '…' ;
 
 fun_ : 'fun' ;
 
-lra : '->' ;
+lra : '->' ;//| '→' ;
+
+angll : '<' ;//| '‹' ;
+anglr : '>' ;//| '›' ;
 
 /// Tokens
 
 atom : Atom ;
-Atom : [a-z] ~[ \t\r\n()\[\]{}:;,./]* //[_a-zA-Z0-9]*
+Atom : [a-z] ~[ \t\r\n()\[\]{}:;,./>]* //[_a-zA-Z0-9]*
      | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
+    // Add '›' and other unicode? rhs.
 
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
@@ -80,8 +84,8 @@ guard : when exprA ;
 spec : atom kind tyFun
      | atom kind tyFun when tyGuard+ ;
 
-tyGuard :     atom (':' atom)? '(' tyMaxs ? ')'
-        | '‹' atom (':' atom)?    (tyMax+)? '›'
+tyGuard :       atom (':' atom)? '(' tyMaxs?  ')'
+        | angll atom (':' atom)?    (tyMax+)? anglr
         | var kind tyMax ;
 
 tyMaxs : tyMax (',' tyMax)* ;
@@ -97,8 +101,8 @@ type : type '..'     type
      |      prefixOp type
      | '(' tyMax ')'
      | var | atom | integer
-     |     atom (':' atom)? '(' tyMaxs?  ')'
-     | '‹' atom (':' atom)?    (tyMax+)? '›'
+     |       atom (':' atom)? '(' tyMaxs?  ')'
+     | angll atom (':' atom)?    (tyMax+)? anglr
      | '['               ']'
      | '[' tyMax         ']'
      | '[' tyMax ',' etc ']'
