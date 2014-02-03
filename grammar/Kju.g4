@@ -80,10 +80,10 @@ guard : when exprA ;
 /// spec
 
 spec : atom '::' tyFun
-     | atom '::' tyFun when tyGuard+ ;
+     | atom '::' tyFun when tyGuards ;
 
-tyGuard :       atom (':' atom)? '(' tyMaxs?  ')'
-        | angll atom (':' atom)?    (tyMax+)? anglr
+tyGuards : tyGuard+ ;
+tyGuard : subtype
         | var '::' tyMax ;
 
 tyMaxs : tyMax (',' tyMax)* ;
@@ -93,14 +93,16 @@ tyMax : var '::' tyMaxAlt
 tyMaxAlt : type '|' tyMaxAlt
          | type ;
 
+subtype :       atom (':' atom)? '(' tyMaxs?  ')'
+        | angll atom (':' atom)?    (tyMax+)? anglr ;
+
 type : type '..'     type
      | type addOp    type
      | type mulOp    type
      |      prefixOp type
      | '(' tyMax ')'
      | var | atom | integer
-     |       atom (':' atom)? '(' tyMaxs?  ')'
-     | angll atom (':' atom)?    (tyMax+)? anglr
+     | subtype
      | '['               ']'
      | '[' tyMax         ']'
      | '[' tyMax ',' etc ']'

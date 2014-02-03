@@ -122,8 +122,8 @@ len (L) = length(L)
 #% len :: (‹tuple›) -> ‹pos_integer›
 len (T) when is_tuple(T) = size(T)
 
-'!' :: (N) -> N when N::<pos_integer>
 '!' (0) = 1
+'!' :: (N) -> M when N::<pos_integer> M::<pos_integer>
 '!' (N) = N * :(N - 1)
 
 '!' :: () -> fun((N) -> N) when N::pos_integer()
