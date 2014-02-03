@@ -26,8 +26,6 @@ prefixOp : '+' | '-' | 'not' | 'bnot' ;
 
 when : 'when' | '|' ;
 
-kind : '::' ;
-
 etc : '...' ;//| '…' ;
 
 fun_ : 'fun' ;
@@ -81,15 +79,15 @@ guard : when exprA ;
 
 /// spec
 
-spec : atom kind tyFun
-     | atom kind tyFun when tyGuard+ ;
+spec : atom '::' tyFun
+     | atom '::' tyFun when tyGuard+ ;
 
 tyGuard :       atom (':' atom)? '(' tyMaxs?  ')'
         | angll atom (':' atom)?    (tyMax+)? anglr
-        | var kind tyMax ;
+        | var '::' tyMax ;
 
 tyMaxs : tyMax (',' tyMax)* ;
-tyMax : var kind tyMaxAlt
+tyMax : var '::' tyMaxAlt
       |          tyMaxAlt ;
 
 tyMaxAlt : type '|' tyMaxAlt
