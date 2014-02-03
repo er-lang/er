@@ -120,7 +120,7 @@ len (L) | is_list(L)  = length(L)
 len :: (<list>) -> <pos_integer>
 len (L) = length(L)
 #% len :: (‹tuple›) -> ‹pos_integer›
-len (T) = size(T)
+len (T) when is_tuple(T) = size(T)
 
 '!' :: (N) -> N when N::<pos_integer>
 '!' (0) = 1
