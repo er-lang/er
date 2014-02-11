@@ -249,7 +249,7 @@ mf :           exprM
    | exprM ':' exprM ; //functionCall should be possible
 
 gen :                            exprA
-    | matchable ('<-'|'<='|'<~') exprA ;
+    | matchable ('<-'|'<='|'<~'|'<:') exprA ;
 
 catchClauses : catchClause+ ;
 catchClause : exprM? ':'? (clause|clauseGuard) ;
