@@ -133,5 +133,5 @@ len (T) when is_tuple(T) = size(T)
             N * :(N - 1) #% ‘:’ works on funs.
     end
 
-flatmap (Fun, List) =
+flat.map (Fun, List) =
     fun append/1 . fun map/2 (Fun, List)
