@@ -19,6 +19,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
 * Unicode source code support.
 * This also fixes the things you may have taken for granted if you come from another landscape.
 * Support of Joe's quotes: `‘’, “”`. `‘’`=`[]` (?) and `“”`=`<<>>`.
+* “The alternative to semicolons is making line endings significant.” Nope.
 * Implement ideas: (this is a list of propositions/ideas, not all on the same level of “being good”)
     + Keep lowercase as atoms, same for variables
     + `=` instead of `->` when defining a function (does that work with funs?)
