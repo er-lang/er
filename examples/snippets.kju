@@ -135,3 +135,7 @@ len (T) when is_tuple(T) = size(T)
 
 flat.map (Fun, List) =
     fun append/1 . fun map/2 (Fun, List)
+
+f()=
+    [  a() :loop()
+    , (a()):loop() ]
