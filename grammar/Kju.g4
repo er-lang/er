@@ -69,9 +69,12 @@ fa : atom '/' integer ;
 
 /// def
 
-def : spec? func ;
+def : spec?     func
+    | spec? fun_func ;
 
 func : atom args guard? ('='|lra) seqExprs ; // Both usable as 'f()' as lhs makes sense only then.
+
+fun_func : fa           ('='|lra) seqExprs ;
 
 args : '(' matchables? ')' ;
 
