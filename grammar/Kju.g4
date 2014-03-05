@@ -118,7 +118,7 @@ tyFun : '(' (etc | tyMaxs)? ')' lra tyMax ;
 
 /// expr | seqExprs | exprA
 
-expr    : (expr125|lastOnly)              '='       (expr125|lastOnly|functionCall)
+expr    : (expr125|lastOnly)              '='       (expr   |lastOnly|functionCall)
         |  expr125 ;
 
 expr125 : (expr150|lastOnly|functionCall) '!'       (expr125|lastOnly|functionCall)

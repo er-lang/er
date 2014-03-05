@@ -139,3 +139,5 @@ flat.map (Fun, List) =
 f()=
     [  a() :loop()
     , (a()):loop() ]
+
+f()= A = B = c
