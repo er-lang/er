@@ -21,4 +21,4 @@ loop (Sum) =
     end.
 
 codeswitch /1 =
-    loop/1. # ie. codeswitch(A) -> loop(A). Wrapper notation.
+    fun loop/1. # ie. codeswitch(A) -> loop(A). Fun-Fundef notation.
