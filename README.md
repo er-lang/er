@@ -101,6 +101,8 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Provide a word to spec `ok | {error, err_type()}` like `error(err_type())`
     + `<:` as the maps generator
     * Use `&&` and `||` for logic.
+    * Automatically-defined maps/records (inlined) getters (… not really Erlangish!)
+    * `-spec` type-variables defaults to `‹term›`, ‘to mimic Haskell's type parameters’
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
