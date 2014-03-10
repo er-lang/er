@@ -35,6 +35,8 @@ lra : '->' ;//| '→' ;
 angll : '<' ;//| '‹' ;
 anglr : '>' ;//| '›' ;
 
+generator : '<-' | '<=' | '<~' | '<:' ;
+
 /// Tokens
 
 atom : Atom ;
@@ -43,11 +45,11 @@ Atom : [a-z] ~[ \t\r\n()\[\]{}:;,/>]* //[_a-zA-Z0-9]*
     // Add A-Z to the negative match to forbid camelCase
     // Add '›' and other unicode? rhs.
 
+var : Var ;
+Var : [A-Z_] ~[ \t\r\n()\[\]{}:;,>|*/+-]* ; //[_a-zA-Z0-9]*
+
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
-
-var : Var ;
-Var : [A-Z_][0-9a-zA-Z_]* ;
 
 float_ : Float ;
 Float : [0-9]+ '.' [0-9]+  ([Ee] [+-]? [0-9]+)? ;
@@ -212,9 +214,9 @@ tail :           ']'
 
 tuple : '{' exprAs? '}' ;
 
-lc :  '[' seqExprs '|' gen+ ']'  ;
-bc : '<<' seqExprs '|' gen+ '>>' ;
-tc :  '{' seqExprs '|' gen+ '}'  ;
+lc :  '[' seqExprs gens ']'  ;
+bc : '<<' seqExprs gens '>>' ;
+tc :  '{' seqExprs gens '}'  ;
 
 lr :  '[' exprA '..' exprA ']'  ;
 br : '<<' exprA '..' exprA '>>' ;
@@ -251,8 +253,9 @@ mf :           exprM
    |       ':' exprM
    | exprM ':' exprM ; //functionCall should be possible
 
-gen :                            exprA
-    | matchable ('<-'|'<='|'<~'|'<:') exprA ;
+gens : gen_ (gen_ | gen | exprA)* ;
+gen_ : '|' gen ;
+gen : matchable generator exprA ;
 
 catchClauses : catchClause+ ;
 catchClause : exprM? ':'? (clause|clauseGuard) ;

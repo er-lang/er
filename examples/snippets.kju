@@ -149,3 +149,9 @@ f()=
     , (a()):loop() ]
 
 f()= A = B = c
+
+zip :: ([<term>], [<term>]) -> [{<term>,<term>}]
+zip ([X|Xs], [Y|Ys]) =
+    [{X',Y'} | X' <- [X|Xs]
+             | Y' <- [Y|Ys]]
+zip ([], []) = []
