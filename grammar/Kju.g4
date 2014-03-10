@@ -35,6 +35,8 @@ lra : '->' ;//| '→' ;
 angll : '<' ;//| '‹' ;
 anglr : '>' ;//| '›' ;
 
+generator : '<-' | '<=' | '<~' | '<:' ;
+
 /// Tokens
 
 atom : Atom ;
@@ -212,9 +214,9 @@ tail :           ']'
 
 tuple : '{' exprAs? '}' ;
 
-lc :  '[' seqExprs '|' gen+ ']'  ;
-bc : '<<' seqExprs '|' gen+ '>>' ;
-tc :  '{' seqExprs '|' gen+ '}'  ;
+lc :  '[' seqExprs gens ']'  ;
+bc : '<<' seqExprs gens '>>' ;
+tc :  '{' seqExprs gens '}'  ;
 
 lr :  '[' exprA '..' exprA ']'  ;
 br : '<<' exprA '..' exprA '>>' ;
@@ -251,8 +253,13 @@ mf :           exprM
    |       ':' exprM
    | exprM ':' exprM ; //functionCall should be possible
 
-gen :                            exprA
-    | matchable ('<-'|'<='|'<~'|'<:') exprA ;
+gens : '|' (gen_ | exprA) (gen_ | exprA)* ;
+
+gen_ : matchable generator exprA ;
+
+gen :                         exprA
+    |     matchable generator exprA
+    | '|' matchable generator exprA ;
 
 catchClauses : catchClause+ ;
 catchClause : exprM? ':'? (clause|clauseGuard) ;
