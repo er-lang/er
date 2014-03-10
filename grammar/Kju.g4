@@ -253,7 +253,7 @@ mf :           exprM
    |       ':' exprM
    | exprM ':' exprM ; //functionCall should be possible
 
-gens : '|' gen (gen | exprA)* ;
+gens : '|' gen ('|'? gen | exprA)* ;
 gen : matchable generator exprA ;
 
 catchClauses : catchClause+ ;
