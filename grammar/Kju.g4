@@ -45,11 +45,11 @@ Atom : [a-z] ~[ \t\r\n()\[\]{}:;,/>]* //[_a-zA-Z0-9]*
     // Add A-Z to the negative match to forbid camelCase
     // Add '›' and other unicode? rhs.
 
+var : Var ;
+Var : [A-Z_] ~[ \t\r\n()\[\]{}:;,>|*/+-]* ; //[_a-zA-Z0-9]*
+
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
-
-var : Var ;
-Var : [A-Z_][0-9a-zA-Z_]* ;
 
 float_ : Float ;
 Float : [0-9]+ '.' [0-9]+  ([Ee] [+-]? [0-9]+)? ;
