@@ -155,3 +155,11 @@ zip ([X|Xs], [Y|Ys]) =
     [{X',Y'} | X' <- [X|Xs]
              | Y' <- [Y|Ys]]
 zip ([], []) = []
+
+fizz_buzz (N) =
+    [case {X rem 3, X rem 5} of
+        {0, 0} -> fizzbuzz
+        {0, _} -> fizz
+        {_, 0} -> buzz
+        {_, _} -> X
+     end | X <- 1..N]
