@@ -103,6 +103,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Use `&&` and `||` for logic.
     * Automatically-defined maps/records (inlined) getters (… not really Erlangish!)
     * `-spec` type-variables defaults to `‹term›`, ‘to mimic Haskell's type parameters’
+    + Given `auto-spec-guards addition`, `--f-ascetic-guard-additions`. Don't add guards where Dialyzer says they are not needed.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
 
 ## Step 2
