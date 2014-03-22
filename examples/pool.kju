@@ -122,13 +122,13 @@ handle_call (get_nodes, _From, Nodes)=
 handle_call (get_node, _From, [{Load,N}|Tail]) =
     {reply, N, Tail++[{Load+1, N}]}
 handle_call ({attach, Node}, _From, Nodes) =
-    case lists:keymember(Node, 2, Nodes) of
-	true ->
-	    {reply, already_attached, Nodes}
-	false ->
-	    erlang:monitor_node(Node, true)
-	    spawn_link(Node, pool, statistic_collector, [])
-	    {reply, attached, Nodes++[{999999,Node}]}
+    if lists:keymember(Node, 2, Nodes)
+    then
+        {reply, already_attached, Nodes}
+    else
+        erlang:monitor_node(Node, true)
+        spawn_link(Node, pool, statistic_collector, [])
+        {reply, attached, Nodes++[{999999,Node}]}
     end
 handle_call ({spawn, Gl, M, F, A}, _From, Nodes) =
     [{Load,N}|Tail] = Nodes
