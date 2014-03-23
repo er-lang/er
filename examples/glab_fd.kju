@@ -43,7 +43,7 @@ start (Node, FD = ‹fd›{name = Name, nodes = Nodes}) =
 
 filter_DOWN :: ({'DOWN', ‹reference›, _, _, Info}, ‹fd_set›)
             -> {'down',   {‹atom›, ‹node›, Info}, ‹fd_set›}
-             | {'ignore', ‹atom Reason›,          ‹fd_set›}  ## Note: <=> ‘Reason::atom()’ ≠ ‘atom(Reason)’.
+             | {'ignore', Reason::‹atom›,         ‹fd_set›}
 filter_DOWN ({'DOWN', Ref, process, {Name, Node}, Info},
              FD = ‹fd›{name = Name, nodes = Nodes}) =
     case orddict:find(Node, Nodes)
@@ -71,10 +71,9 @@ stop (Node, FD = ‹fd›{nodes = Nodes}) =
 
 set :: ([‹node›], ‹fd_set›) -> ‹fd_set›
 set (NewNodes, FD = ‹fd›{nodes = Nodes}) =
-    lists:foldl(fun :start/2,
-                lists:foldl(fun :stop/2, FD,
-                            orddict:fetch_keys(Nodes)),
-                NewNodes)
+    orddict:fetch_keys(Nodes)
+    |> lists:foldl(fun :stop/2, FD, ·)
+    |> lists:foldl(fun :start/2, ·, NewNodes)
 
 ##====================================================================
 ## Internal functions
