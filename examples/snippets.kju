@@ -154,6 +154,7 @@ zip :: ([<term>], [<term>]) -> [{<term>,<term>}]
 zip ([X|Xs], [Y|Ys]) =
     [{X',Y'} | X' <- [X|Xs]
              | Y' <- [Y|Ys]]
+    # <=> [{X,Y} | :(Xs, Ys)]
 zip ([], []) = []
 
 fizz_buzz (N) =
