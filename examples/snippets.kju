@@ -162,4 +162,6 @@ fizz_buzz (N) =
         {0, _} -> fizz
         {_, 0} -> buzz
         {_, _} -> X
-     end | X <- 1..N]
+     end | X <- [1..N]]
+
+f()= string:sub_string(OptStr, P, P + 2) >= "3.4"

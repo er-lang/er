@@ -13,7 +13,7 @@ WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 
 /// Ops | Also some tokens b/c ANTLR4 bugs and concatenates lexems.
 
-compOp : '<' | '=<' | '==' | '=>' | '>' | '/=' | '=/=' | '=:=' ;
+compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:=' ;
 
 listOp : '++' | '--' ;
 
