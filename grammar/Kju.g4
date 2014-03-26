@@ -67,7 +67,7 @@ String : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
 
 export : 'export' fa* 'end' ;
 
-fa : atom '/' integer ;
+fa : atom '/' integer (',' integer)* ;
 
 /// def
 
