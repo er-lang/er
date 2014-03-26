@@ -41,8 +41,8 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * EOL can match `;` or `,`. Prefer a syntax that needn't both.
     * Some Unicode code points can match graphically similar operators, eg. `->` and `↦`
     * As `-callback` isn't backward-OK, provide different release of Erlang to compile to
-    * Define `?R16` and `?R16B01` -style macros for backward-compatible code
-    * --pedantic requests Dialyzer type-specs on every exported function. Have all functions exported when debugging
+    * Define `?R16` and `?R16B01` -style macros for backward-compatible code. Or more like `#if ?ERTS_VSN = R16 …`
+    * `--pedantic` requests Dialyzer type-specs on every exported function. Have all functions exported when debugging
     * Have Dialyzer check on compile (such as to catch -behavior issues)
     + KJu's -spec also adds the guards to spec-ed function (or a case…of…end inside fun's clause) Eg: is_string/1 “guard”. Don't add when guard explicitly written.
     * http://bugs.ruby-lang.org/issues/5054
@@ -86,26 +86,28 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     + May allow position of generator be swapped regarding `|` (or `||`)
     + Add Go-channels/ObjC-[]: a new operator that sends then immediately receives using unique Ref.
     + `-compile(export_all).` not a language construct. Only the compile option. (Bad use is bad)
-    * To counter EEP38-like problems, --pedantic would warn about funclauses appart from each other.
+    * To counter EEP38-like problems, `--pedantic` would warn about funclauses appart from each other.
     * `--static` MAY suggest to use `lists:flatmap/2` when it finds `lists:foldr(F,[])/1 ◊ lists:append/2`, …
     + Make so that types can be defined in whatever order, like functions.
     * Use `finally` in a `receive…end` in place of `after 0`.
     + Have a real prepocessor (¬ https://gist.github.com/fenollp/8315947#file-ifdef_in_fun-erl)
-    * `{·,1}` be `fun (_1) -> {_1,1} end` like in `||·||` and such.
+    * `{·,1}` be `fun (_1) -> {_1,1} end` like in maths' `||·||` and such.
     * Modules and files can have different names. As long as at the top of the file it references the right module. This allows for multiple files to be part of the same module. But how to compile modularly?
     * specs can be written with the Curry-arrow notation
     - Exporting `Mod:Fun/A` for wrapper modules. `Fun` locally defined => error.
     + Erlang's `-type` does not accept `when` whereas `-spec` does.
     * Add last `receive…end` clause: `_ -> '$kju_ignored_message'`
     * Implement EEP19 by transforming to long-arity recursive fun.
-    * Provide a word to spec `ok | {error, err_type()}` like `error(err_type())`
+    * Provide a word to common spec `ok | {error, err_type()}` like `?oe(err_type())`. (Just an included macro?)
     + `<:` as the maps generator
-    * Use `&&` and `||` for logic.
+    * Use `&&` and `||` for logic. Replace `andalso` and `orelse`
     * Automatically-defined maps/records (inlined) getters (… not really Erlangish!)
     * `-spec` type-variables defaults to `‹term›`, ‘to mimic Haskell's type parameters’
     + Given `auto-spec-guards addition`, `--f-ascetic-guard-additions`. Don't add guards where Dialyzer says they are not needed.
     + compile-time suggestions on STDlib-found code: `sleep (I) = receive after I -> ok end` <> `timer:sleep(I)`
-* Compile to Erlang/Core Erlang. clang level of expressivity in errors. Color available.
+    + `myfunc :: othermodule:similarfunc/2` ie. use `-spec`s from other modules (DRY). (Makes sense together with wrapper-notation)
+    + `export start/1,2 end`, since `start/1,2` is common notation in the literature
+* Compile to Erlang/Core Erlang. clang level of expressivity in errors. Colors available.
 
 ## Step 2
 * Consistent stdlib. Whole rework of the API. Look at C++'s or Haskell's for containers.
