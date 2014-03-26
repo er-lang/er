@@ -105,7 +105,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * `-spec` type-variables defaults to `‹term›`, ‘to mimic Haskell's type parameters’
     + Given `auto-spec-guards addition`, `--f-ascetic-guard-additions`. Don't add guards where Dialyzer says they are not needed.
     + compile-time suggestions on STDlib-found code: `sleep (I) = receive after I -> ok end` <> `timer:sleep(I)`
-    + `myfunc :: othermodule:similarfunc/2` ie. use `-spec`s from other modules (DRY). (Makes sense together with wrapper-notation)
+    + `myfunc :: othermodule:similarfunc/2` ie. use `-spec`s from other modules (DRY). (Makes sense together with wrapper-notation) Enable only for STDlib?
     + `export start/1,2 end`, since `start/1,2` is common notation in the literature
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Colors available.
 

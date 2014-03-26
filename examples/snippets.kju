@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 len (L) | is_list(L)  = length(L)
 len (T) | is_tuple(T) = size(T)
@@ -148,9 +149,10 @@ f()=
     [  a() :loop()
     , (a()):loop() ]
 
-f()= A = B = c
+f()= A = B = C = d
 
-zip :: ([<term>], [<term>]) -> [{<term>,<term>}]
+zip :: lists:zip/2
+# <=> zip :: ([<term>], [<term>]) -> [{<term>,<term>}]
 zip ([X|Xs], [Y|Ys]) =
     [{X',Y'} | X' <- [X|Xs]
              | Y' <- [Y|Ys]]
@@ -166,3 +168,4 @@ fizz_buzz (N) =
      end | X <- [1..N]]
 
 f()= string:sub_string(OptStr, P, P + 2) >= "3.4"
+
