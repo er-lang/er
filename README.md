@@ -51,7 +51,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * See if `infix{,r,l} ‹0..9› ‹atom›` is possible with a visitor. (larg0, larg1) atom (rargs) -> … . could do!
     + Replace -spec types (like `any()`, `[integer()]`) with clearer: `‹any›`, `[‹integer›]`
     + Add `..` operator. Meaning different inside -spec (does not produce a list there) 0..2 = 0|1|2 ? (EEP)
-    + Allow `:my_fun()` calls. Sugar for `?MODULE:my_fun()` calls.
+    + Allow `:my_fun()` calls. Sugar for `?MODULE:my_fun()` calls if exported, [local func otherwise](http://erlang.org/pipermail/erlang-questions/2010-June/051772.html)
     + Add `FUNCTION` macro (same idea as `MODULE`). Also `:` makes a lot of sense before parenthesis: `:(I -1, [V|Acc])`
     + Change `||` to `|` in *-comprehensions (no ambiguity). Maybe also `|` to `:` (`M:F` hinders that)…
     * In kju *-comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
