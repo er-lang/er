@@ -157,7 +157,9 @@ zip ([X|Xs], [Y|Ys]) =
     [{X',Y'} | X' <- [X|Xs]
              | Y' <- [Y|Ys]]
     # <=> [{X,Y} | :(Xs, Ys)]
-zip ([], []) = []
+zip ([], []) = [] # Using a list comprehension implementation, this line is useless.
+# However, it shows that the spec only applies to the first fun_clause.
+# However, a warning should be thrown as the second fun_clause is useless.
 
 fizz_buzz (N) =
     [case {X rem 3, X rem 5} of
