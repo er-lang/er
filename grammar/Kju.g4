@@ -85,8 +85,7 @@ guard : when exprA ;
 /// spec
 
 spec : atom '::' tyFun
-     | atom '::' tyFun when tyGuards
-     | atom '::' mf '/' integer ;
+     | atom '::' tyFun when tyGuards ;
 
 tyGuards : tyGuard+ ;
 tyGuard : subtype
