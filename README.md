@@ -99,7 +99,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Implement EEP19 by transforming to long-arity recursive fun.
     * Provide a word to common spec `ok | {error, err_type()}` like `?oe(err_type())`. (Just an included macro?)
     + `<:` as the maps generator
-    * Use `&&` and `||` for logic. Replace `andalso` and `orelse`
+    + Use `&&` and `||` for logic. Replace `andalso` and `orelse`
     * Automatically-defined maps/records (inlined) getters (… not really Erlangish!)
     * `-spec` type-variables defaults to `‹term›`, ‘to mimic Haskell's type parameters’
     + Given `auto-spec-guards addition`, `--f-ascetic-guard-additions`. Don't add guards where Dialyzer says they are not needed.

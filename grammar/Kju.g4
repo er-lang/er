@@ -13,6 +13,9 @@ WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 
 /// Ops | Also some tokens b/c ANTLR4 bugs and concatenates lexems.
 
+orelse : '||' | 'orelse' ;  // || && will are to replace their synonyms
+andalso : '&&' | 'andalso' ;
+
 compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:=' ;
 
 listOp : '++' | '--' ;
@@ -24,7 +27,7 @@ mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
 
 prefixOp : '+' | '-' | 'not' | 'bnot' ;
 
-when : 'when' | '|' ;
+when : 'when' | '|' ;  // | is just to test support. Will not be part of language.
 
 etc : '...' ;//| '…' ;
 
@@ -123,32 +126,32 @@ tyFun : '(' (etc | tyMaxs)? ')' lra tyMax ;
 
 /// expr | seqExprs | exprA
 
-expr    : (expr125|lastOnly)              '='       (expr   |lastOnly|functionCall)
+expr    : (expr125|lastOnly)              '='     (expr   |lastOnly|functionCall)
         |  expr125 ;
 
-expr125 : (expr150|lastOnly|functionCall) '!'       (expr125|lastOnly|functionCall)
+expr125 : (expr150|lastOnly|functionCall) '!'     (expr125|lastOnly|functionCall)
         |  expr150 ;
 
-expr150 : (expr160|lastOnly|functionCall) 'orelse'  (expr150|lastOnly|functionCall)
+expr150 : (expr160|lastOnly|functionCall) orelse  (expr150|lastOnly|functionCall)
         |  expr160 ;
 
-expr160 : (expr200|lastOnly|functionCall) 'andalso' (expr160|lastOnly|functionCall)
+expr160 : (expr200|lastOnly|functionCall) andalso (expr160|lastOnly|functionCall)
         |  expr200 ;
 
-expr200 : (expr300|lastOnly|functionCall) compOp    (expr200|lastOnly|functionCall)
+expr200 : (expr300|lastOnly|functionCall) compOp  (expr200|lastOnly|functionCall)
         |  expr300 ;
 
-expr300 : (expr400|lastOnly|functionCall) listOp    (expr300|lastOnly|functionCall)
+expr300 : (expr400|lastOnly|functionCall) listOp  (expr300|lastOnly|functionCall)
         |  expr400 ;
 
-expr400 : (expr500|lastOnly|functionCall) addOp     (expr400|lastOnly|functionCall)
+expr400 : (expr500|lastOnly|functionCall) addOp   (expr400|lastOnly|functionCall)
         |  expr500 ;
 
-expr500 : (expr600|lastOnly|functionCall) mulOp     (expr500|lastOnly|functionCall)
+expr500 : (expr600|lastOnly|functionCall) mulOp   (expr500|lastOnly|functionCall)
         |  expr600 ;
 
-expr600 :                                 prefixOp  (exprMax|lastOnly|functionCall)
-        |                                            exprMax ;
+expr600 :                              prefixOp   (exprMax|lastOnly|functionCall)
+        |                                         exprMax ;
 
 exprMax : atomic
         //| recordExpr

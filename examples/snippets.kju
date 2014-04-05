@@ -172,3 +172,6 @@ fizz_buzz (N) =
 f()= string:sub_string(OptStr, P, P + 2) >= "3.4"
 
 export start/1,2 end
+
+verify_int (Int, Max) =
+    false || verify_strict_int(Int) && verify_strict_int(Max) && Int =< Max
