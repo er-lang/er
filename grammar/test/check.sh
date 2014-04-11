@@ -26,6 +26,7 @@ do
             open $T/$i.png
             echo "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -gui
         fi
+        rm -f $T/_$i.tree
         code=''; ((i++))
         echo
     else
