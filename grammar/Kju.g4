@@ -196,10 +196,8 @@ matchable : var
 /// Detailed expressions
 
 params : '(' exprAs? ')' ;
-functionCall :          ':'          params
-             |              lastOnly params
-             |          ':' lastOnly params
-             | lastOnly ':' lastOnly params ;
+functionCall : mf  params
+             | mf_ params ;
 
 atomic : char_
        | integer
@@ -237,14 +235,10 @@ receive : 'receive' clauses                'end'
         | 'receive'         'after' clause 'end'
         | 'receive' clauses 'after' clause 'end' ;
 
-fun : fun_          ':'               '/' integer
-    | fun_              lastOnly      '/' integer
-    | fun_          ':' lastOnly      '/' integer
-    | fun_ lastOnly ':' lastOnly      '/' (var|integer)
-    | fun_          ':'          args '/' integer
-    | fun_              lastOnly args '/' integer
-    | fun_          ':' lastOnly args '/' integer
-    | fun_ lastOnly ':' lastOnly args '/' (var|integer)
+fun : fun_ mf       '/' integer
+    | fun_ mf_      '/' (var|integer)
+    | fun_ mf  args '/' integer
+    | fun_ mf_ args '/' (var|integer)
     | fun_ funClause+ 'end'
     | fun '.' fun ;
 
@@ -252,13 +246,18 @@ try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
      | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs 'end'
      | 'try' seqExprs of?                      'after' seqExprs 'end' ;
 
-/// Utils
+/// Utils | Exists only for compactness
 
 clauses : (clause | clauseGuard)+ ;
 clause :      matchable       lra seqExprs ;
 clauseGuard : matchable guard lra seqExprs ;
 
 funClause : args       guard? lra seqExprs ;
+
+mf :           ':'
+   |           ':' lastOnly
+   |               lastOnly ;
+mf_ : lastOnly ':' lastOnly ;
 
 gens : gen_ (gen_ | gen | exprA)* ;
 gen_ : '|' gen ;
