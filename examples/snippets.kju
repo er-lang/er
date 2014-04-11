@@ -185,3 +185,8 @@ f /1 =
     (f24) -> fun :(4)/0
     (___) ->     :(4)
   end
+
+f()=  fun io:format("~p\n")/1 (dg)/0
+f()= (fun io:format("~p\n")/1)(dg)/0
+
+f()= fun (fun io:format("~p\n")/1)(dg)/0
