@@ -1,0 +1,1 @@
+(root (block (def (func (atom f) (args ( )) = (seqExprs (expr (expr125 (expr150 (expr160 (expr200 (expr300 (expr400 (expr500 (expr600 (exprMax (fun (fun_ fun) (funClause (args ( (matchables (matchable (var Thu))) )) (lra ->) (seqExprs (lastOnly (atom gaim)))) end))))))))))))))) <EOF>)

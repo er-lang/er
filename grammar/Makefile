@@ -12,3 +12,7 @@ clean:
 
 distclean: clean
 	rm -f *.java *.tokens
+
+test:
+	./test/check.sh ../examples/snippets.kju
+.PHONY: test

@@ -1,0 +1,1 @@
+(root (block (def (func (atom b) (args ( )) = (seqExprs (expr (expr125 (expr150 (expr160 (expr200 (expr300 (expr400 (expr500 (expr600 (exprMax (begin begin (seqExprs (functionCall (mf (lastOnly (atom do))) (params ( ))) (functionCall (mf (lastOnly (atom some))) (params ( ))) (lastOnly (atom stuff))) end))))))))))))))) <EOF>)

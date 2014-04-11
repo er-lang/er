@@ -1,0 +1,1 @@
+(root (block (def (func (atom f) (args ( )) = (seqExprs (expr (lastOnly (var A)) = (expr (lastOnly (var B)) = (expr (lastOnly (var C)) = (lastOnly (atom d))))))))) <EOF>)

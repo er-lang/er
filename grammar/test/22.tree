@@ -1,0 +1,1 @@
+(root (block (def (func (atom many_args) (args ( (matchables (matchable (var A)) , (matchable (list [ (exprA (lastOnly (var H))) (tail | (exprA (lastOnly (var T))) ]))) , (matchable (atomic (string "str"))) , (matchable (prefixOp -) (integer 2))) )) = (seqExprs (lastOnly (atom ok)))))) <EOF>)
