@@ -176,7 +176,7 @@ export start/1,2 end
 verify_int (Int, Max) =
     false || verify_strict_int(Int) && verify_strict_int(Max) && Int =< Max
 
-f /1 =
+factorial' /1 =
   fun
     (f ) -> fun :/1
     (f') -> fun :()/1
