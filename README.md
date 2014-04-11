@@ -18,7 +18,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
 * **Main point**: get rid of `, ; .` mess while **not doing indentation-based parsing**.
 * Unicode source code support.
 * This also fixes the things you may have taken for granted if you come from another landscape.
-* Support of Joe's quotes: `‘’, “”`. `‘’`=`[]` (?) and `“”`=`<<>>`.
+* Support of [Joe's quotes](http://armstrongonsoftware.blogspot.fr/2012/06/what-happened-to-my-quotes.html): `‘’, “”`. `‘’`=`[]` (?) and `“”`=`<<>>`.
 * “The alternative to semicolons is making line endings significant.” Nope.
 * Implement ideas: (this is a list of propositions/ideas, not all on the same level of “being good”)
     + Keep lowercase as atoms, same for variables
