@@ -196,8 +196,10 @@ matchable : var
 /// Detailed expressions
 
 params : '(' exprAs? ')' ;
-functionCall : mf  params
-             | ':' params ;
+functionCall :          ':'          params
+             |              lastOnly params
+             |          ':' lastOnly params
+             | lastOnly ':' lastOnly params ;
 
 atomic : char_
        | integer
@@ -235,8 +237,14 @@ receive : 'receive' clauses                'end'
         | 'receive'         'after' clause 'end'
         | 'receive' clauses 'after' clause 'end' ;
 
-fun : fun_ mf      '/' exprM
-    | fun_ mf args '/' exprM
+fun : fun_          ':'               '/' integer
+    | fun_              lastOnly      '/' integer
+    | fun_          ':' lastOnly      '/' integer
+    | fun_ lastOnly ':' lastOnly      '/' (var|integer)
+    | fun_          ':'          args '/' integer
+    | fun_              lastOnly args '/' integer
+    | fun_          ':' lastOnly args '/' integer
+    | fun_ lastOnly ':' lastOnly args '/' (var|integer)
     | fun_ funClause+ 'end'
     | fun '.' fun ;
 
@@ -251,10 +259,6 @@ clause :      matchable       lra seqExprs ;
 clauseGuard : matchable guard lra seqExprs ;
 
 funClause : args       guard? lra seqExprs ;
-
-mf :           exprM
-   |       ':' exprM
-   | exprM ':' exprM ; //functionCall should be possible
 
 gens : gen_ (gen_ | gen | exprA)* ;
 gen_ : '|' gen ;
