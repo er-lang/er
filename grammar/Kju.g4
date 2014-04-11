@@ -49,7 +49,7 @@ Atom : [a-z] ~[ \t\r\n()\[\]{}:;,/>]* //[_a-zA-Z0-9]*
     // Add '›' and other unicode? rhs.
 
 var : Var ;
-Var : [A-Z_] ~[ \t\r\n()\[\]{}:;,>|*/+-]* ; //[_a-zA-Z0-9]*
+Var : [A-Z_] ~[ \t\r\n()\[\]{}:;,>=|*/+-]* ; //[_a-zA-Z0-9]*
 
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
