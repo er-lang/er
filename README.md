@@ -1,4 +1,4 @@
-# kju • [A BEAM language featuring an edible syntax](https://github.com/fenollp/kju)
+# kju • [A BEAM language](https://github.com/fenollp/kju)
 An attempt to resolve the syntax & horrible compile error reports issues.
 
     cue |kjuː| (action signaling to an actor to begin performance | reminder | ~queue)
