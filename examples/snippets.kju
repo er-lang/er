@@ -135,7 +135,7 @@ len (T) when is_tuple(T) = size(T)
     end
 
 flat.map (Fun, List) =
-    fun append/1 . fun map/2 (Fun, List)
+    (fun append/1 . fun map/2) (Fun, List)
 
 flatmap /2 =
     fun append/1 . fun map/2
