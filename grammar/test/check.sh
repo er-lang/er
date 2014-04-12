@@ -18,7 +18,8 @@ cat "$1" | while read line
 do
     if [[ '' = "$line" ]]; then
         #[[ $k -ne 0 ]] && [[ $i -ne $k ]] && continue
-        echo -ne "Code $i:\n$code\n"
+        echo "Code $i:"
+        echo "	$code" | sed 's/\\n/\n\t/g'
         echo "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -tree > $T/_$i.tree
         diff -u $T/$i.tree $T/_$i.tree
 	if [[ $? -ne 0 ]]; then
@@ -33,8 +34,7 @@ do
         if [[ '' = "$code" ]]; then
             code="$line"
         else
-            code="$code
-$line"
+            code="$code\n$line"
         fi
     fi
 done
