@@ -20,12 +20,11 @@ do
         #[[ $k -ne 0 ]] && [[ $i -ne $k ]] && continue
         echo "Code $i:"
         echo "	$code" | sed 's/\\n/\n\t/g'
-        echo "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -tree > $T/_$i.tree
+        echo -e "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -tree > $T/_$i.tree
         diff -u $T/$i.tree $T/_$i.tree
 	if [[ $? -ne 0 ]]; then
-            echo "$code"
             open $T/$i.png
-            echo "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -gui
+            echo -e "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -gui
         fi
         rm -f $T/_$i.tree
         code=''; ((i++))
