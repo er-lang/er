@@ -108,6 +108,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     + `export start/1,2 end`, since `start/1,2` is common notation in the literature
     + One of the jobs of `--static`: http://erlang.org/pipermail/erlang-questions/2010-June/051868.html
     * A spec enables optimisation, eg: on calls to polymorphic functions.
+    - Look into embedded specs to display terms. Eg: `f :: () -> ‹string› f()=[]`, `> f() #=> ""`
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Colors available.
 
 ## Step 2
