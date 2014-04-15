@@ -189,6 +189,7 @@ matchable : var
           | list
           //| binary
           | tuple
+          | '(' matchable ')'
           | matchable '=' matchable
           | (var|list) listOp (var|list) // and recordExpr
           | prefixOp (char_|integer|float_) ;

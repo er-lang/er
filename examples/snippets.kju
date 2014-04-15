@@ -114,7 +114,7 @@ fun_clauses () =
             end
     end
 
-f() = case asd of a -> a s -> smth d -> ah-ah! end
+f() = case asd of a -> a s -> smth (d) -> ah-ah! end
 
 len :: (list()) -> pos_integer() | 0
 len (L) | is_list(L)  = length(L)
