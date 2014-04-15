@@ -109,6 +109,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     + One of the jobs of `--static`: http://erlang.org/pipermail/erlang-questions/2010-June/051868.html
     * A spec enables optimisation, eg: on calls to polymorphic functions.
     - Look into embedded specs to display terms. Eg: `f :: () -> ‹string› f()=[]`, `> f() #=> ""`
+    + Get rid of the need of a package manager using Go's package semantics
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Colors available.
 
 ## Step 2
