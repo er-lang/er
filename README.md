@@ -110,6 +110,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * A spec enables optimisation, eg: on calls to polymorphic functions.
     - Look into embedded specs to display terms. Eg: `f :: () -> ‹string› f()=[]`, `> f() #=> ""`
     + Get rid of the need of a package manager using Go's package semantics
+    + Unboxing & inlining such as `compile's inline_list_funcs`
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Colors available.
 
 ## Step 2
