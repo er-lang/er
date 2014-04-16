@@ -13,6 +13,8 @@ set -m
 file="$1"; k=0
 #[[ $# -eq 2 ]] && file="$2" && k="$1"
 
+printf "\e[1;3m%s\e[0m\n" "Checking '$file'. (stop by removing the generated parser, ^C won't do)."
+
 code=''; i=1; T=test
 cat "$1" | while read line
 do
