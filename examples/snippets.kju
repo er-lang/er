@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+## Add snippets at EoF
+## Separate them with \n\n; the last also.
 f()= ok
 
 len (L) | is_list(L)  = length(L)
@@ -189,3 +191,4 @@ f()=  fun io:format("~p\n")/1 (dg)/0
 f()= (fun io:format("~p\n")/1)(dg)/0
 
 f()= fun (fun io:format("~p\n")/1)(dg)/0
+
