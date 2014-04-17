@@ -4,51 +4,58 @@
 # , generates a PNG of the AST
 # , checks it against a previously generated PNG.
 
-[[ $# -eq 0 ]] && echo "Usage: [FROM=37] [T=test] $0 ‹a_file.kju›"
+[[ $# -eq 0 ]] && echo "Usage: [FROM=‹int≥ 1›] [T=‹path test›] $0 ‹a_file.kju›" && exit 1
 
 # Enable job control
 set -m
 #   http://stackoverflow.com/a/12777848/1418165
 
+function P(){
+    printf "\e[1;3m%s\e[0m\n" "$1"
+}
+
+function Parse(){
+    java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 $*
+}
+
 file="$1"; k=0
-#[[ $# -eq 2 ]] && file="$2" && k="$1"
 
 T=${T:-'test'}
-FROM=${FROM:-0}
+FROM=${FROM:-1}
 
-printf "\e[1;3m%s\e[0m\n" "Checking '$file'. (stop by removing the generated parser, ^C won't do)."
+P "Checking '$file'. (stop by removing the generated parser, ^C won't do)."
 
 code=''; i=1
-while read line
+while IFS='' read -r -d $'\n' line
 do
-    [[ ! -f Kju.tokens ]] && printf "\e[1;3m%s\e[0m\n" 'No parser found!' && exit 1
+    [[ ! -f Kju.tokens ]] && P 'No parser found!' && exit 2
     if [[ '' = "$line" ]]; then
         [[ $FROM -ne 0 ]] && [[ $i -lt $FROM ]] && code='' && ((i++)) && continue
-        #[[ $k -ne 0 ]] && [[ $i -ne $k ]] && continue
-        echo "Snippet $i:"
-        echo "	$code" | sed 's/\\n/\n\t/g'
-        echo -e "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -tree > $T/_$i.tree
-        if [[ ! -f $T/$i.tree ]]; then
-            printf "\e[1;3m%s\e[0m\n" "Add this new test under '$T/$i.{tree,png}'"
-            cat $T/_$i.tree
-            echo -e "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -gui
+        P "Snippet $i:"
+        echo "$code"
+        ttree="$T/_$i.tree"
+        echo "$code" | Parse -tree > "$ttree"
+        if [[ ! -f "$T/$i.tree" ]]; then
+            P "Add this new test under '$T/$i.{tree,png}'"
+            cat "$ttree"
+            echo "$code" | Parse -gui
         else
-            diff -u $T/$i.tree $T/_$i.tree
+            diff -u "$T/$i.tree" "$ttree"
 	    if [[ $? -ne 0 ]]; then
-                open $T/$i.png
-                echo -e "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -gui
+                P "	Something is wrong with test #$i"
+                open "$T/$i.png"
+                echo "$code" | Parse -gui
             fi
         fi
-        rm -f $T/_$i.tree
+        rm "$ttree"
         code=''; ((i++))
         echo
     else
-        if [[ '' = "$code" ]]; then
-            code="$line"
-        else
-            code="$code\n$line"
+        if [[ '' = "$code" ]]
+        then code="$line"
+        else code="$code"$'\n'"$line"
         fi
     fi
-done < $file
+done < "$file"
 
-printf "\e[1;3m%s\e[0m\n" 'Went through all tests!'
+P "Went through all $(($i-$FROM)) tests!"
