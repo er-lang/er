@@ -19,7 +19,7 @@ FROM=${FROM:-0}
 printf "\e[1;3m%s\e[0m\n" "Checking '$file'. (stop by removing the generated parser, ^C won't do)."
 
 code=''; i=1
-cat "$1" | while read line
+while read line
 do
     if [[ '' = "$line" ]]; then
         [[ $FROM -ne 0 ]] && [[ $i -lt $FROM ]] && code='' && ((i++)) && continue
@@ -48,6 +48,6 @@ do
             code="$code\n$line"
         fi
     fi
-done
+done < $file
 
 printf "\e[1;3m%s\e[0m\n" 'Went through all tests!'
