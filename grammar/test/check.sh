@@ -4,7 +4,7 @@
 # , generates a PNG of the AST
 # , checks it against a previously generated PNG.
 
-[[ $# -eq 0 ]] && echo "Usage:  $0 ‹a_file.kju›"
+[[ $# -eq 0 ]] && echo "Usage: [FROM=37] [T=test] $0 ‹a_file.kju›"
 
 # Enable job control
 set -m
@@ -13,12 +13,16 @@ set -m
 file="$1"; k=0
 #[[ $# -eq 2 ]] && file="$2" && k="$1"
 
+T=${T:-'test'}
+FROM=${FROM:-0}
+
 printf "\e[1;3m%s\e[0m\n" "Checking '$file'. (stop by removing the generated parser, ^C won't do)."
 
-code=''; i=1; T=test
+code=''; i=1
 cat "$1" | while read line
 do
     if [[ '' = "$line" ]]; then
+        [[ $FROM -ne 0 ]] && [[ $i -lt $FROM ]] && code='' && ((i++)) && continue
         #[[ $k -ne 0 ]] && [[ $i -ne $k ]] && continue
         echo "Snippet $i:"
         echo "	$code" | sed 's/\\n/\n\t/g'
