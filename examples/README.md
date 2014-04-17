@@ -149,11 +149,191 @@ representation of a fun. The `check_process_code/2` BIF returns `true` if the pr
 contains funs that depend on the old version of a module.
 
 ### Variable Bindings Within a Fun
+The scope rules for variables which occur in funs are as follows:
+
+* All variables which occur in the head of a fun are assumed to be "fresh" variables.
+* Variables which are defined before the fun, and which occur in function calls or
+guard tests within the fun, have the values they had outside the fun.
+* No variables may be exported from a fun.
+
+The following examples illustrate these rules:
+```haskell
+print_list(File, List) =
+    {ok, Stream} = file:open(File, write)
+    foreach(fun(X) -> io:format(Stream,"~p~n",[X]) end, List)
+    file:close(Stream)
+```
+
+In the above example, the variable `X` which is defined in the head of the fun
+is a new variable. The value of the variable `Stream` which is used within the fun
+gets its value from the `file:open` line.
+
+Since any variable which occurs in the head of a fun is considered a new variable
+it would be equally valid to write:
+```haskell
+print_list(File, List) =
+    {ok, Stream} = file:open(File, write)
+    foreach(fun(File) -> 
+                io:format(Stream,"~p~n",[File]) 
+            end, List)
+    file:close(Stream)
+```
+
+<!--- ... --->
+
+### Funs and the `lists` Module
+The following examples show a dialogue with the Erlang shell.
+All the higher order functions discussed are exported from the module `lists`.
+
+### `map`
+```haskell
+map(F, [H|T]) = [F(H)|map(F, T)]
+map(F, [])    = []
+```
+<!--- ... --->
+
+### `any`
+```haskell
+any(Pred, [H|T]) =
+    if Pred(H) then true
+    else any(Pred, T) end
+any(Pred, []) 
+    false
+```
+<!--- ... --->
+
+### `all`
+```haskell
+all(Pred, [H|T]) =
+    if Pred(H) then all(Pred, T)
+    else false
+    end
+all(Pred, []) =
+    true
+```
+<!--- ... --->
+
+### `foreach`
+```haskell
+foreach(F, [H|T]) =
+    F(H)
+    foreach(F, T)
+foreach(F, []) =
+    ok
+```
+<!--- ... --->
+
+### `foldl`
+```haskell
+foldl(F, Accu, [Hd|Tail]) =
+    foldl(F, F(Hd, Accu), Tail)
+foldl(F, Accu, []) = Accu
+```
+<!--- ... --->
+
+### `mapfoldl`
+```haskell
+mapfoldl(F, Accu0, [Hd|Tail]) =
+    {R,Accu1} = F(Hd, Accu0)
+    {Rs,Accu2} = mapfoldl(F, Accu1, Tail)
+    {[R|Rs], Accu2}
+mapfoldl(F, Accu, []) = {[], Accu}
+```
+<!--- ... --->
+
+### `filter`
+```haskell
+filter(F, [H|T]) =
+    if F(H) then [H|filter(F, T)]
+            else    filter(F, T)
+    end
+filter(F, []) = []
+```
+<!--- ... --->
+
+### `takewhile`
+```haskell
+takewhile(Pred, [H|T]) =
+    if Pred(H)
+    then [H|takewhile(Pred, T)]
+    else []
+    end
+takewhile(Pred, []) =
+    []
+```
+<!--- ... --->
+
+### `dropwhile`
+```haskell
+dropwhile(Pred, [H|T]) =
+    if Pred(H) then
+        dropwhile(Pred, T)
+    else [H|T]
+    end
+dropwhile(Pred, []) =
+    []
+```
+<!--- ... --->
+
+### `splitwith`
+```haskell
+splitwith(Pred, L) =
+    splitwith(Pred, L, [])
+
+splitwith(Pred, [H|T], L) =
+    if Pred(H) then
+        splitwith(Pred, T, [H|L])
+    else
+        {reverse(L), [H|T]}
+    end
+splitwith(Pred, [], L) =
+    {reverse(L), []}
+```
+<!--- ... --->
+
+
 
 ---
 
 ## List Comprehensions
+<!--- ... --->
+### Quick Sort
+The well known quick sort routine can be written as follows:
+```haskell
+sort([Pivot|T]) =
+    sort([ X | X <- T  X < Pivot]) ++
+    [Pivot] ++
+    sort([ X | X <- T  X ≥ Pivot])
+sort([]) = []
+```
+The expression `[X | X <- T  X < Pivot]` is the list of all elements in `T`,
+which are less than `Pivot`.
 
+To sort a list, we isolate the first element in the list and split the list into two sub-lists.
+The first sub-list contains all elements which are smaller than the first element in the list,
+the second contains all elements which are greater than or equal to the first element in the list.
+We then sort the sub-lists and combine the results.
+
+### Permutations
+The following example generates all permutations of the elements in a list:
+```haskell
+perms([]) = [[]]
+perms(L)  = [[H|T] | H <- L  T <- perms(L--[H])]
+```
+We take take `H` from `L` in all possible ways.
+The result is the set of all lists `[H|T]`, where `T` is the set of all possible
+permutations of `L` with `H` removed.
+<!--- ... --->
+
+### Simplifications with List Comprehensions
+As an example, list comprehensions can be used to simplify some of the functions in `lists.erl`:
+```haskell
+append(L)       = [    X  | L1 <- L  X <- L1]
+map(Fun, L)     = [Fun(X) |  X <- L         ]
+filter(Pred, L) = [    X  |  X <- L  Pred(X)]
+```
+
+### Variable Bindings in List Comprehensions
 ---
 
 ## Bit Syntax
