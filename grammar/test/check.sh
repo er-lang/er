@@ -27,10 +27,16 @@ do
         echo "Snippet $i:"
         echo "	$code" | sed 's/\\n/\n\t/g'
         echo -e "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -tree > $T/_$i.tree
-        diff -u $T/$i.tree $T/_$i.tree
-	if [[ $? -ne 0 ]]; then
-            open $T/$i.png
+        if [[ ! -f $T/$i.tree ]]; then
+            printf "\e[1;3m%s\e[0m\n" "Add this new test under '$T/$i.{tree,png}'"
+            cat $T/_$i.tree
             echo -e "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -gui
+        else
+            diff -u $T/$i.tree $T/_$i.tree
+	    if [[ $? -ne 0 ]]; then
+                open $T/$i.png
+                echo -e "$code" | java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 -gui
+            fi
         fi
         rm -f $T/_$i.tree
         code=''; ((i++))
@@ -43,3 +49,5 @@ do
         fi
     fi
 done
+
+printf "\e[1;3m%s\e[0m\n" 'Went through all tests!'
