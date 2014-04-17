@@ -21,6 +21,7 @@ printf "\e[1;3m%s\e[0m\n" "Checking '$file'. (stop by removing the generated par
 code=''; i=1
 while read line
 do
+    [[ ! -f Kju.tokens ]] && printf "\e[1;3m%s\e[0m\n" 'No parser found!' && exit 1
     if [[ '' = "$line" ]]; then
         [[ $FROM -ne 0 ]] && [[ $i -lt $FROM ]] && code='' && ((i++)) && continue
         #[[ $k -ne 0 ]] && [[ $i -ne $k ]] && continue
