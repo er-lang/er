@@ -134,7 +134,7 @@ len (T) when is_tuple(T) = size(T)
 '!' () =
     fun (0) -> 1
         (N) when N > 0 ->
-            N * :(N - 1) #% ‘:’ works on funs.
+            N * :(N - 1) #% ‘:’ also works on funs.
     end
 
 flat.map (Fun, List) =
