@@ -189,3 +189,5 @@ f()=  fun io:format("~p\n")/1 (dg)/0
 f()= (fun io:format("~p\n")/1)(dg)/0
 
 f()= fun (fun io:format("~p\n")/1)(dg)/0
+
+import map/2 foreach/2 from lists

@@ -3,6 +3,7 @@ grammar Kju;
 root : block+ EOF ;
 
 block : export
+      | import_
       | def ;
 
 /// Blanks
@@ -11,7 +12,7 @@ Comment : '#' ~[\r\n]* '\r'? '\n' -> channel(HIDDEN) ;
 
 WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 
-/// Ops | Also some tokens b/c ANTLR4 bugs and concatenates lexems.
+/// Ops | Also some tokens b/c ANTLR4 concatenates lexemes.
 
 orelse : '||' | 'orelse' ;  // || && will are to replace their synonyms
 andalso : '&&' | 'andalso' ;
@@ -71,6 +72,10 @@ String : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
 export : 'export' fa* 'end' ;
 
 fa : atom '/' integer (',' integer)* ;
+
+/// import
+
+import_ : 'import' fa+ 'from' atom ;
 
 /// def
 
