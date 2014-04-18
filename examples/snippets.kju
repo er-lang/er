@@ -194,3 +194,14 @@ f()= fun (fun io:format("~p\n")/1)(dg)/0
 
 import map/2 foreach/2 from lists
 
+f()= # Integers
+    A = 10
+    B = -234
+    C = 16#AB10F
+    D = 2#110111010
+    E = $A
+     # Floats
+    F = 17.368
+    G = -56.654
+    H = 12.34E-10
+
