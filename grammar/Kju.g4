@@ -183,7 +183,6 @@ seqExprs : (functionCall|expr)+ lastOnly?
 exprAs : exprA (',' exprA)* ;
 exprA : lastOnly | functionCall | expr ;
 
-exprMs : exprM (',' exprM)* ;
 exprM : lastOnly | exprMax ;
 
 matchables : matchable (',' matchable)* ;
