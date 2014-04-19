@@ -12,6 +12,7 @@ g()= i-ll(give) my:hand() to_cut
 length ([])    = 0
 length ([_|T]) = 1 + :(T)  #% ‘:’ references the currently defined function, here: ‘length’
 
+#5
 f () =
     case orddict:find(Node, Nodes) of
         {ok, Ref} -> {down, node, Ref}
@@ -45,6 +46,7 @@ len (A) =
             size(T)
     end
 
+#10
 p (Str) =
     F = fun io:format("~p\n")/1
     F(Str)
@@ -78,6 +80,7 @@ try…catch () =
             Expression4
     end
 
+#15
 'π' () = 3.1415926535
 
 brilliant! () =  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>
@@ -98,6 +101,7 @@ export a/0 b/1 c/234 end
 
 f()= {2..3} [-6..18] [g()-2..Max]
 
+#20
 f()= [1|[2|[3|[]]]]
 
 f()= fun (Thu) -> gaim end
@@ -118,6 +122,7 @@ fun_clauses () =
 
 f() = case asd of a -> a s -> smth (d) -> ah-ah! end
 
+#25
 len :: (list()) -> pos_integer() | 0
 len (L) | is_list(L)  = length(L)
 
@@ -140,6 +145,7 @@ len (T) when is_tuple(T) = size(T)
 flat.map (Fun, List) =
     (fun append/1 . fun map/2) (Fun, List)
 
+#30
 flatmap /2 =
     fun append/1 . fun map/2
 
@@ -162,6 +168,7 @@ zip ([], []) = [] # Using a list comprehension implementation, this line is usel
 # However, it shows that the spec only applies to the first fun_clause.
 # However, a warning should be thrown as the second fun_clause is useless.
 
+#35
 fizz_buzz (N) =
     [case {X rem 3, X rem 5} of
         {0, 0} -> fizzbuzz
@@ -187,6 +194,7 @@ factorial' /1 =
     (___) ->     :(4)
   end
 
+#40
 f()=  fun io:format("~p\n")/1 (dg)/0
 f()= (fun io:format("~p\n")/1)(dg)/0
 
