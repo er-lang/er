@@ -1,0 +1,1 @@
+(root (block (def (func (atom f) (args ( )) = (seqExprs (expr (lastOnly (atom ok)) = (last (functionCall (mf_ (lastOnly (atom a)) : (lastOnly (atom b))) (params ( ))))))))) <EOF>)
