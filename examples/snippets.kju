@@ -97,7 +97,7 @@ i-am-impressed () =
         Exception:Reason -> {caught, Exception, Reason}
     end
 
-export a/0 b/1 c/234 end
+export a/0 b/1 c/234
 
 f()= {2..3} [-6..18] [g()-2..Max]
 
@@ -179,7 +179,7 @@ fizz_buzz (N) =
 
 f()= string:sub_string(OptStr, P, P + 2) >= "3.4"
 
-export start/1,2 end
+export start/1,2
 
 verify_int (Int, Max) =
     false || verify_strict_int(Int) && verify_strict_int(Max) && Int =< Max

@@ -69,13 +69,14 @@ String : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
 
 /// export
 
-export : 'export' fa* 'end' ;
+export : 'export' fas ;
 
+fas : fa+ ;
 fa : atom '/' integer (',' integer)* ;
 
 /// import
 
-import_ : 'import' fa+ 'from' atom ;
+import_ : 'import' fas 'from' atom ;
 
 /// def
 

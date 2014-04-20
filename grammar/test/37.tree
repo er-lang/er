@@ -1,1 +1,1 @@
-(root (block (export export (fa (atom start) / (integer 1) , (integer 2)) end)) <EOF>)
+(root (block (export export (fas (fa (atom start) / (integer 1) , (integer 2))))) <EOF>)
