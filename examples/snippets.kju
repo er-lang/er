@@ -215,3 +215,14 @@ f()= # Integers
 
 f()= ok = a:b()
 
+#45
+import ## Depends on 2 versions of same package:
+    "github.com/anon42/app1" master
+    "github.com/anon42/app1" v1.2
+    "bitbucket.org/user2/repo2" master
+export main/0
+main () =
+    ok = app2:bla(bla, bla)
+    app1:master:app1:f()
+    app1:v1.2  :app1:f()
+
