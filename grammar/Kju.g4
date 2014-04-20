@@ -64,7 +64,7 @@ Integer : [0-9]+ ('#' [0-9a-zA-Z]+)? ;
 char_ : Char ;
 Char : '$' ('\\'? ~[\r\n] | '\\' [0-9] [0-9] [0-9]) ;
 
-string : String ;
+string : String+ ;
 String : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
 
 /// export
@@ -208,7 +208,7 @@ functionCall : mf  params
 atomic : char_
        | integer
        | float_
-       | string+
+       | string
        ;
 
 list : '['       ']'
