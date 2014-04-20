@@ -132,32 +132,32 @@ tyFun : '(' (etc | tyMaxs)? ')' lra tyMax ;
 
 /// expr | seqExprs | exprA
 
-expr    : (expr125|lastOnly)              '='     (expr   |lastOnly|functionCall)
+expr    : (expr125|lastOnly) '=' (expr|last)
         |  expr125 ;
 
-expr125 : (expr150|lastOnly|functionCall) '!'     (expr125|lastOnly|functionCall)
+expr125 : (expr150|last)     '!' (expr125|last)
         |  expr150 ;
 
-expr150 : (expr160|lastOnly|functionCall) orelse  (expr150|lastOnly|functionCall)
+expr150 : (expr160|last) orelse  (expr150|last)
         |  expr160 ;
 
-expr160 : (expr200|lastOnly|functionCall) andalso (expr160|lastOnly|functionCall)
+expr160 : (expr200|last) andalso (expr160|last)
         |  expr200 ;
 
-expr200 : (expr300|lastOnly|functionCall) compOp  (expr200|lastOnly|functionCall)
+expr200 : (expr300|last) compOp  (expr200|last)
         |  expr300 ;
 
-expr300 : (expr400|lastOnly|functionCall) listOp  (expr300|lastOnly|functionCall)
+expr300 : (expr400|last) listOp  (expr300|last)
         |  expr400 ;
 
-expr400 : (expr500|lastOnly|functionCall) addOp   (expr400|lastOnly|functionCall)
+expr400 : (expr500|last) addOp   (expr400|last)
         |  expr500 ;
 
-expr500 : (expr600|lastOnly|functionCall) mulOp   (expr500|lastOnly|functionCall)
+expr500 : (expr600|last) mulOp   (expr500|last)
         |  expr600 ;
 
-expr600 :                              prefixOp   (exprMax|lastOnly|functionCall)
-        |                                         exprMax ;
+expr600 :             prefixOp   (exprMax|last)
+        |                         exprMax ;
 
 exprMax : atomic
         //| recordExpr
@@ -182,9 +182,12 @@ seqExprs : (functionCall|expr)+ lastOnly?
          |                      lastOnly ;
 
 exprAs : exprA (',' exprA)* ;
-exprA : lastOnly | functionCall | expr ;
+exprA : last     | expr    ;
 
 exprM : lastOnly | exprMax ;
+
+// Make sure to always have this order! (conflicts on :-notation)
+last : functionCall | lastOnly ;
 
 matchables : matchable (',' matchable)* ;
 matchable : var
