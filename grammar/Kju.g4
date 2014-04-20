@@ -76,7 +76,10 @@ fa : atom '/' integer (',' integer)* ;
 
 /// import
 
-import_ : 'import' fas 'from' atom ;
+import_ : 'import' fas 'from' atom
+        | 'import' repo+ ;
+
+repo : string atom ;
 
 /// def
 
@@ -263,10 +266,10 @@ clauseGuard : matchable guard lra seqExprs ;
 
 funClause : args       guard? lra seqExprs ;
 
-mf :           ':'
-   |           ':' lastOnly
-   |               lastOnly ;
-mf_ : lastOnly ':' lastOnly ;
+mf :            ':'
+   |            ':'   lastOnly
+   |                  lastOnly ;
+mf_ : (lastOnly ':')+ lastOnly ;
 
 gens : gen_ (gen_ | gen | exprA)* ;
 gen_ : '|' gen ;
