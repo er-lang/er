@@ -1,17 +1,17 @@
+GRA = Kju
+
 all: compile
 
 compile:
-	antlr4 Kju.g4
-	javac Kju*.java
+	antlr4 $(GRA).g4
+	javac $(GRA)*.java
 
 debug:
-	java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -gui -encoding utf8
+	java -Xmx8g org.antlr.v4.runtime.misc.TestRig $(GRA) root -gui -encoding utf8
 
-clean:
-	rm -f *.class
+distclean:
+	$(if $(wildcard $(GRA).tokens), rm *.class *.java *.tokens)
 
-distclean: clean
-	rm -f *.java *.tokens
 
 test:
 	./test/check.sh ../examples/snippets.kju
