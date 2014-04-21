@@ -44,7 +44,8 @@ generator : '<-' | '<=' | '<~' | '<:' ;
 /// Tokens
 
 atom : Atom ;
-Atom : [a-z] ~[ \t\r\n()\[\]{}:;,/>]* //[_a-zA-Z0-9]*
+Atom :     [a-z] ~[ \t\r\n()\[\]{}:;,/>]* //[_a-zA-Z0-9]*
+     | '$' [a-z] ~[ \t\r\n()\[\]{}:;,/>]+
      | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
     // Add '›' and other unicode? rhs.

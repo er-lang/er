@@ -226,3 +226,5 @@ main () =
     app1:master:app1:f()
     app1:v1.2  :app1:f()
 
+f($char) = $c
+
