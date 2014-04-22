@@ -253,3 +253,7 @@ f({connect,_,To,_,_} = Signal, To, 1+2 bxor 3 = 0) =
     "prefix"++Str = S
     [$p,$r,$e,$f,$i,$x|_] = S
 
+b :: t | f
+h :: (b, b) -> b
+h (A, B) = A band B
+

@@ -5,7 +5,8 @@ root : block+ EOF ;
 
 block : export
       | import_
-      | def ;
+      | def
+      | spec ;
 
 /// Ops | Also some tokens as ANTLR4 concatenates lexemes.
 
