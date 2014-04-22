@@ -234,3 +234,7 @@ f()= # _ separating digits
     1_00#9_999_957
     10.000_001E-2_345
 
+b :: t | f
+h :: (b, b) -> b
+h (A, B) = A band B
+

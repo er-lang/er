@@ -4,7 +4,8 @@ root : block+ EOF ;
 
 block : export
       | import_
-      | def ;
+      | def
+      | spec ;
 
 /// Blanks
 
