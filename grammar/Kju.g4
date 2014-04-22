@@ -98,7 +98,8 @@ guard : when exprA ;
 /// spec
 
 spec : atom '::' tyFun
-     | atom '::' tyFun when tyGuards ;
+     | atom '::' tyFun when tyGuards
+     | atom '::' tyMax (lra tyMax)+ ;
 
 tyGuards : tyGuard+ ;
 tyGuard : subtype
