@@ -105,14 +105,10 @@ tyGuard : subtype
         | var '::' tyMax ;
 
 tyMaxs : tyMax (',' tyMax)* ;
-tyMax : var '::' tyMaxAlt
-      |          tyMaxAlt ;
+tyMax : (var '::')? type ('|' type)* ;
 
-tyMaxAlt : type '|' tyMaxAlt
-         | type ;
-
-subtype :       atom (':' atom)? '(' tyMaxs?  ')'
-        | angll atom (':' atom)?    (tyMax+)? anglr ;
+subtype :       atom (':' atom)? '(' tyMaxs? ')'
+        | angll atom (':' atom)?     tyMax*  anglr ;
 
 type : type '..'     type
      | type addOp    type
