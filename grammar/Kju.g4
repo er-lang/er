@@ -56,11 +56,14 @@ Var : [A-Z_] ~[ \t\r\n()\[\]{}:;,>=|*/+-]* ; //[_a-zA-Z0-9]*
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
 
+fragment // Not only groups of 3; matches nums without _; all nums possible.
+NUM : ([0-9] '_'?)* [0-9] ;
+
 float_ : Float ;
-Float : [0-9]+ '.' [0-9]+  ([Ee] [+-]? [0-9]+)? ;
+Float : NUM '.' NUM  ([Ee] [+-]? NUM)? ;
 
 integer : Integer ;
-Integer : [0-9]+ ('#' [0-9a-zA-Z]+)? ;
+Integer : NUM ('#' (NUM | [0-9a-zA-Z]+))? ;
 
 char_ : Char ;
 Char : '$' ('\\'? ~[\r\n] | '\\' [0-9] [0-9] [0-9]) ;
