@@ -1,5 +1,5 @@
 # kju • [A BEAM language](https://github.com/fenollp/kju)
-An attempt to resolve the syntax & horrible compile error reports issues.
+An attempt to solve Erlang's syntax quirks & horrible compile-time error reports.
 
     cue |kjuː| (action signaling to an actor to begin performance | reminder | ~queue)
     kju K-ju Kaiju
