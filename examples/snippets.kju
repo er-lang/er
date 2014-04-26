@@ -234,3 +234,9 @@ f()= # _ separating digits
     1_00#9_999_957
     10.000_001E-2_345
 
+f()= # Match ranges
+    case Age of
+        1 -> new_born
+        13..19 -> teen
+        "that".."this" -> that_this
+    end
