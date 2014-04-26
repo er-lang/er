@@ -113,6 +113,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     + Unboxing & inlining such as `compile's inline_list_funcs`
     * Grammar issues regarding record/maps and no ','?: scan for 'Var#name'.
     + Prepend 'fun ' to º|•-notation.
+    - `a | b | c` as match-multiple notation.
 * Compile to Erlang/Core Erlang. clang level of expressivity in errors. Colors available.
 
 ## Step 2
