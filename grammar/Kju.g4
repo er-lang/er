@@ -239,7 +239,7 @@ tr :  '{' exprA '..' exprA '}'  ;
 
 begin : 'begin' seqExprs 'end' ;
 
-if_ : 'if' exprA 'then' seqExprs 'else' seqExprs 'end' ;
+if_ : 'if' exprA seqExprs 'else' seqExprs 'end' ;
 
 case_ : 'case' exprA of 'end' ;
 

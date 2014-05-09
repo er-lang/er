@@ -36,7 +36,7 @@ t () =
     end
 
 i (Arg1) =
-    if not Arg1 then false else false end
+    if not Arg1 false else false end
 
 len (A) =
     case A of
