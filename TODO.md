@@ -1,7 +1,6 @@
 # To do
 
 ## Grammar
-* Implement binaries
 * Implement records|maps
 * Devise grammar for `callback`s
 
