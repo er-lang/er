@@ -17,7 +17,7 @@ WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 orelse : '||' | 'orelse' ;  // || && will are to replace their synonyms
 andalso : '&&' | 'andalso' ;
 
-compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:=' ;
+compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:=' | '\u2264' | '\u2265' | '\u2260' ;
 
 listOp : '++' | '--' ;
 
@@ -30,14 +30,14 @@ prefixOp : '+' | '-' | 'not' | 'bnot' ;
 
 when : 'when' | '|' ;  // | is just to test support. Will not be part of language.
 
-etc : '...' ;//| '…' ;
+etc : '...' | '\u2026' ;
 
 fun_ : 'fun' ;
 
-lra : '->' ;//| '→' ;
+lra : '->' | '\u2192' ;
 
-angll : '<' ;//| '‹' ;
-anglr : '>' ;//| '›' ;
+angll : '<' | '\u2039' ;
+anglr : '>' | '\u203A' ;
 
 generator : '<-' | '<=' | '<~' | '<:' ;
 
