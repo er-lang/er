@@ -126,12 +126,17 @@ type : type '..'     type
      //| tyRecord
      //| tyMap
      | '{' tyMaxs? '}'
-     //| binaryType
+     | tyBinary
      | fun_ '(' tyFun? ')' ;
 
 tyFun : '(' (etc | tyMaxs)? ')' lra tyMax ;
 
-//binaryType
+tyBinary : '<<'                               '>>'
+         | '<<' tyBinaryBase                  '>>'
+         | '<<'                  tyBinaryUnit '>>'
+         | '<<' tyBinaryBase ',' tyBinaryUnit '>>' ;
+tyBinaryBase : var ':'         type ;
+tyBinaryUnit : var ':' var '*' type ;
 
 /// expr | seqExprs | exprA
 
@@ -165,7 +170,7 @@ expr600 :             prefixOp   (exprMax|last)
 exprMax : atomic
         //| recordExpr
         | list
-        //| binary
+        | binary
         | tuple
         | lr | br | tr // range
         | lc | bc | tc // comprehension
@@ -198,7 +203,7 @@ matchable : var
           | atomic
           //| recordExpr
           | list
-          //| binary
+          | binary
           | tuple
           | '(' matchable ')'
           | matchable '=' matchable
@@ -225,7 +230,10 @@ tail :           ']'
 
 //recordExpr : '‹'
 
-// binary : '<<'
+binary : '<<' binElements? '>>' ;
+binElements : binElement (',' binElement)* ;
+binElement : exprA (':' exprM)? ('/' binType+)? ;
+binType : atom (':' integer)? ;
 
 tuple : '{' exprAs? '}' ;
 
