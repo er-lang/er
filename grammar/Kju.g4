@@ -1,4 +1,5 @@
 grammar Kju;
+import Lexer;
 
 root : block+ EOF ;
 
@@ -6,23 +7,16 @@ block : export
       | import_
       | def ;
 
-/// Blanks
+/// Ops | Also some tokens as ANTLR4 concatenates lexemes.
 
-Comment : '#' ~[\r\n]* '\r'? '\n' -> channel(HIDDEN) ;
-
-WS : [ \t\r\n]+ -> channel(HIDDEN) ;
-
-/// Ops | Also some tokens b/c ANTLR4 concatenates lexemes.
-
-orelse : '||' | 'orelse' ;  // || && will are to replace their synonyms
+orelse : '||' | 'orelse' ;  // || && are to replace their synonyms
 andalso : '&&' | 'andalso' ;
 
-compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:=' ;
+compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:=' | '\u2264' | '\u2265' | '\u2260' ;
 
 listOp : '++' | '--' ;
 
-addOp : '+' | '-' | 'bsl' | 'bsr'
-      | 'or' | 'xor' | 'bor' | 'bxor' ;
+addOp : '+' | '-' | 'bsl' | 'bsr' | 'or' | 'xor' | 'bor' | 'bxor' ;
 
 mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
 
@@ -30,46 +24,25 @@ prefixOp : '+' | '-' | 'not' | 'bnot' ;
 
 when : 'when' | '|' ;  // | is just to test support. Will not be part of language.
 
-etc : '...' ;//| '…' ;
+etc : '...' | '\u2026' ;
 
 fun_ : 'fun' ;
 
-lra : '->' ;//| '→' ;
+lra : '->' | '\u2192' ;
 
-angll : '<' ;//| '‹' ;
-anglr : '>' ;//| '›' ;
+angll : '<' | '\u2039' ;
+anglr : '>' | '\u203a' ;
 
 generator : '<-' | '<=' | '<~' | '<:' ;
 
 /// Tokens
 
 atom : Atom ;
-Atom :     [a-z] ~[ \t\r\n()\[\]{}:;,/>]* //[_a-zA-Z0-9]*
-     | '$' [a-z] ~[ \t\r\n()\[\]{}:;,/>]+
-     | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
-    // Add A-Z to the negative match to forbid camelCase
-    // Add '›' and other unicode? rhs.
-
 var : Var ;
-Var : [A-Z_] ~[ \t\r\n()\[\]{}:;,>=|*/+-]* ; //[_a-zA-Z0-9]*
-
-// When using negative match, be sure to also negative match
-//   previously-defined rules.
-
-fragment // Not only groups of 3; matches nums without _; all nums possible.
-NUM : ([0-9] '_'?)* [0-9] ;
-
 float_ : Float ;
-Float : NUM '.' NUM  ([Ee] [+-]? NUM)? ;
-
 integer : Integer ;
-Integer : NUM ('#' (NUM | [0-9a-zA-Z]+))? ;
-
 char_ : Char ;
-Char : '$' ('\\'? ~[\r\n] | '\\' [0-9] [0-9] [0-9]) ;
-
 string : String+ ;
-String : '"' ( '\\' (~'\\'|'\\') | ~[\\""] )* '"' ;
 
 /// export
 

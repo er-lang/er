@@ -237,3 +237,9 @@ f()= # _ separating digits
 f :: () -> <<_:Integer, _:_*OtherInteger>>
 f()= <<42, 3:2, g():(h()), 1+2:3/ba be bi>>
 
+my_other_function :: (‹names›, ‹places›) → ‹atom›
+my_other_function (Names, Places) =
+  R1 = ø(Ø, Ça, Names)
+  R2 = µ(Ð, Æ, Places)
+  if R1 ≥ R2 ok else ko end
+
