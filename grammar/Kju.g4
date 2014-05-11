@@ -37,21 +37,24 @@ fun_ : 'fun' ;
 lra : '->' | '\u2192' ;
 
 angll : '<' | '\u2039' ;
-anglr : '>' | '\u203A' ;
+anglr : '>' | '\u203a' ;
 
 generator : '<-' | '<=' | '<~' | '<:' ;
+
+fragment Ll : [\u0061-\u007a] | '\u00b5' | '\u00df' | [\u00e0-\u00ff] ;//… http://www.fileformat.info/info/unicode/category/Ll/list.htm
+fragment Lu : [\u0041-\u005a] | [\u00c0-\u00de] ;//… http://www.fileformat.info/info/unicode/category/Lu/list.htm
 
 /// Tokens
 
 atom : Atom ;
-Atom :     [a-z] ~[ \t\r\n()\[\]{}:;,/>]* //[_a-zA-Z0-9]*
-     | '$' [a-z] ~[ \t\r\n()\[\]{}:;,/>]+
+Atom :     Ll ~([ \t\r\n()\[\]{}:;,/>]|'\u203a'|'\u2192')* //[_a-zA-Z0-9]*
+     | '$' Ll ~([ \t\r\n()\[\]{}:;,/>]|'\u203a'|'\u2192')+
      | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
     // Add '›' and other unicode? rhs.
 
 var : Var ;
-Var : [A-Z_] ~[ \t\r\n()\[\]{}:;,>=|*/+-]* ; //[_a-zA-Z0-9]*
+Var : (Lu|'_') ~[ \t\r\n()\[\]{}:;,>=|*/+-]* ; //[_a-zA-Z0-9]*
 
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
