@@ -247,3 +247,8 @@ my_other_function (Names, Places) =
 # There is only 1 LC here.
 f()= [[log(E) | E <- LogVars] | DebugOn]
 
+f({connect,_,To,_,_} = Signal, To, 1+2 = 3) =
+    S = ("prefixed string")
+    "prefix"++Str = S
+    [$p,$r,$e,$f,$i,$x|_] = S
+

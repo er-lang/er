@@ -10,8 +10,8 @@ WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 
 /// Tokens
 
-Atom :     Ll ~([ \t\r\n()\[\]{}:;,/>]|'\u203a'|'\u2192')* //[_a-zA-Z0-9]*
-     | '$' Ll ~([ \t\r\n()\[\]{}:;,/>]|'\u203a'|'\u2192')+
+Atom :     Ll ~([ \t\r\n()\[\]{}:;,>|/]|'\u203a'|'\u2192')* //[_a-zA-Z0-9]*
+     | '$' Ll ~([ \t\r\n()\[\]{}:;,>|/]|'\u203a'|'\u2192')+
      | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
     // Add '›' and other unicode? rhs.
