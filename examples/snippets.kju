@@ -243,3 +243,7 @@ my_other_function (Names, Places) =
   R2 = µ(Ð, Æ, Places)
   if R1 ≥ R2 ok else ko end
 
+#50
+# There is only 1 LC here.
+f()= [[log(E) | E <- LogVars] | DebugOn]
+
