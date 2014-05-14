@@ -247,3 +247,9 @@ my_other_function (Names, Places) =
 # There is only 1 LC here.
 f()= [[log(E) | E <- LogVars] | DebugOn]
 
+# http://www.erlang.org/doc/reference_manual/expressions.html#id77958
+f({connect,_,To,_,_} = Signal, To, 1+2 bxor 3 = 0) =
+    S = ("prefixed string") # That's embarrassing
+    "prefix"++Str = S
+    [$p,$r,$e,$f,$i,$x|_] = S
+

@@ -171,17 +171,14 @@ exprM : lastOnly | exprMax ;
 last : functionCall | lastOnly ;
 
 matchables : matchable (',' matchable)* ;
-matchable : var
-          | atom
-          | atomic
-          //| recordExpr
-          | list
-          | binary
-          | tuple
-          | '(' matchable ')'
-          | matchable '=' matchable
-          | (var|list) listOp (var|list) // and recordExpr
-          | prefixOp (char_|integer|float_) ;
+matchable : matchable   listOp matchable
+          | matchable    addOp matchable
+          | matchable    mulOp matchable
+          |           prefixOp matchable
+          | matchable      '=' matchable // lesser precedence
+          | var | atom | '(' matchable ')'
+          | atomic //| mapExpr | recordExpr
+          | list | binary | tuple ;
 
 /// Detailed expressions
 
