@@ -10,7 +10,7 @@ f()= thiS() W=ill tot:ally(W + ork)
 g()= i-ll(give) my:hand() to_cut
 
 length ([])    = 0
-length ([_|T]) = 1 + :(T)  #% ‘:’ references the currently defined function, here: ‘length’
+length ([_|T]) = 1 + :(T)  # ‘:’ references the currently defined function, here: ‘length’
 
 #5
 f () =
@@ -22,7 +22,7 @@ f () =
 
 'f' () =
     receive
-#%       {'ok', Ref} -> 'do_somth'('arg1', 2) {'down', 'node', Ref}
+#       {'ok', Ref} -> 'do_somth'('arg1', 2) {'down', 'node', Ref}
         {'ok', WrongRef} when 'is_reference'(WrongRef) -> 'smth'() 'not the one'
         'error' ->     {'ignore', 'not_monitored', FD}
     end
@@ -128,7 +128,7 @@ len (L) | is_list(L)  = length(L)
 
 len :: (<list>) -> <pos_integer>
 len (L) = length(L)
-#% len :: (‹tuple›) -> ‹pos_integer›
+# len :: (‹tuple›) -> ‹pos_integer›
 len (T) when is_tuple(T) = size(T)
 
 '!' (0) = 1
@@ -139,7 +139,7 @@ len (T) when is_tuple(T) = size(T)
 '!' () =
     fun (0) -> 1
         (N) when N > 0 ->
-            N * :(N - 1) #% ‘:’ also works on funs.
+            N * :(N - 1) # ‘:’ also works on funs.
     end
 
 flat.map (Fun, List) =
