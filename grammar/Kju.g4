@@ -174,7 +174,7 @@ matchables : matchable (',' matchable)* ;
 matchable : matchable   listOp matchable
           | matchable    addOp matchable
           | matchable    mulOp matchable
-          | matchable prefixOp matchable
+          |           prefixOp matchable
           | matchable      '=' matchable // lesser precedence
           | var | atom | '(' matchable ')'
           | atomic //| mapExpr | recordExpr
