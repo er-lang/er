@@ -174,7 +174,7 @@ matchable : matchable   listOp matchable
           |               unOp matchable
           | matchable      '=' matchable // lesser precedence
           | '(' matchable ')'
-          | var
+          | var | atom
           | term ;//| recordExpr
 
 /// Detailed expressions
