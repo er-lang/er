@@ -183,11 +183,11 @@ params : '(' exprAs? ')' ;
 functionCall : mf  params
              | mf_ params ;
 
-term : atom
-     | char_
+term : char_
      | integer
      | float_
      | string
+     | // atom can't fit here, but it's a term.
      | list
      | binary
      | tuple ;//| map
