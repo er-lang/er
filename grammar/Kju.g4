@@ -20,7 +20,7 @@ addOp : '+' | '-' | 'bsl' | 'bsr' | 'or' | 'xor' | 'bor' | 'bxor' ;
 
 mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
 
-prefixOp : '+' | '-' | 'not' | 'bnot' ;
+unOp : '+' | '-' | 'not' | 'bnot' ;
 
 when : 'when' | '|' ;  // | is just to test support. Will not be part of language.
 
@@ -86,10 +86,10 @@ tyMax : (var '::')? type ('|' type)* ;
 subtype :       atom (':' atom)? '(' tyMaxs? ')'
         | angll atom (':' atom)?     tyMax*  anglr ;
 
-type : type '..'     type
-     | type addOp    type
-     | type mulOp    type
-     |      prefixOp type
+type : type '..'  type
+     | type addOp type
+     | type mulOp type
+     |       unOp type
      | '(' tyMax ')'
      | var | atom | integer
      | subtype
@@ -119,25 +119,25 @@ expr    : (expr125|lastOnly) '=' (expr|last)
 expr125 : (expr150|last)     '!' (expr125|last)
         |  expr150 ;
 
-expr150 : (expr160|last) orelse  (expr150|last)
+expr150 : (expr160|last)  orelse (expr150|last)
         |  expr160 ;
 
 expr160 : (expr200|last) andalso (expr160|last)
         |  expr200 ;
 
-expr200 : (expr300|last) compOp  (expr200|last)
+expr200 : (expr300|last)  compOp (expr200|last)
         |  expr300 ;
 
-expr300 : (expr400|last) listOp  (expr300|last)
+expr300 : (expr400|last)  listOp (expr300|last)
         |  expr400 ;
 
-expr400 : (expr500|last) addOp   (expr400|last)
+expr400 : (expr500|last)   addOp (expr400|last)
         |  expr500 ;
 
-expr500 : (expr600|last) mulOp   (expr500|last)
+expr500 : (expr600|last)   mulOp (expr500|last)
         |  expr600 ;
 
-expr600 :             prefixOp   (exprMax|last)
+expr600 :                   unOp (exprMax|last)
         |                         exprMax ;
 
 exprMax : atomic
@@ -174,7 +174,7 @@ matchables : matchable (',' matchable)* ;
 matchable : matchable   listOp matchable
           | matchable    addOp matchable
           | matchable    mulOp matchable
-          |           prefixOp matchable
+          |               unOp matchable
           | matchable      '=' matchable // lesser precedence
           | var | atom | '(' matchable ')'
           | atomic //| mapExpr | recordExpr
