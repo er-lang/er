@@ -140,11 +140,8 @@ expr500 : (expr600|last)   mulOp (expr500|last)
 expr600 :                   unOp (exprMax|last)
         |                         exprMax ;
 
-exprMax : atomic
+exprMax : term
         //| recordExpr
-        | list
-        | binary
-        | tuple
         | lr | br | tr // range
         | lc | bc | tc // comprehension
         | begin
@@ -176,9 +173,9 @@ matchable : matchable   listOp matchable
           | matchable    mulOp matchable
           |               unOp matchable
           | matchable      '=' matchable // lesser precedence
-          | var | atom | '(' matchable ')'
-          | atomic //| mapExpr | recordExpr
-          | list | binary | tuple ;
+          | '(' matchable ')'
+          | var
+          | term ;//| recordExpr
 
 /// Detailed expressions
 
@@ -186,17 +183,22 @@ params : '(' exprAs? ')' ;
 functionCall : mf  params
              | mf_ params ;
 
-atomic : char_
-       | integer
-       | float_
-       | string
-       ;
+term : atom
+     | char_
+     | integer
+     | float_
+     | string
+     | list
+     | binary
+     | tuple ;//| map
 
 list : '['       ']'
      | '[' exprA tail ;
 tail :           ']'
      | '|' exprA ']'
      | ',' exprA tail ;
+
+//map :
 
 //recordExpr : '‹'
 
