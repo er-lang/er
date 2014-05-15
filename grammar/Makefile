@@ -2,7 +2,7 @@ GRA = Kju
 
 all: $(GRA).tokens
 
-$(GRA).tokens: $(GRA).g4
+$(GRA).tokens: $(GRA).g4 Lexer.g4
 	antlr4 $<
 	javac  $(GRA)*.java
 
