@@ -10,13 +10,19 @@ WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 
 /// Tokens
 
-Atom :     Ll ~([ \t\r\n()\[\]{}:;,>|/]|'\u203a'|'\u2192')* //[_a-zA-Z0-9]*
-     | '$' Ll ~([ \t\r\n()\[\]{}:;,>|/]|'\u203a'|'\u2192')+
+fragment //    ≈ [_a-zA-Z0-9]
+NOT_SPECIAL1 : ~([ \t\r\n()\[\]{}:;,>|/] | '\u203a' | '\u2192') ;
+
+fragment //    ≈ [_a-zA-Z0-9]
+NOT_SPECIAL2 : ~ [ \t\r\n()\[\]{}:;,>|/=*+-] ;
+
+Atom :     Ll NOT_SPECIAL1*
+     | '$' Ll NOT_SPECIAL1+
      | '\'' ( '\\' (~'\\'|'\\') | ~[\\''] )* '\'' ;
     // Add A-Z to the negative match to forbid camelCase
     // Add '›' and other unicode? rhs.
 
-Var : (Lu|'_') ~[ \t\r\n()\[\]{}:;,>=|*/+-]* ; //[_a-zA-Z0-9]*
+Var : (Lu|'_') NOT_SPECIAL2* ;
 
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
