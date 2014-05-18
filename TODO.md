@@ -7,4 +7,4 @@
 * `-type`
 
 ## Parser
-* Haskell: `parsec` + lexer + pretty_printer
+* Haskell: [uu-parsinglib](http://hackage.haskell.org/package/uu-parsinglib) or `parsec` + lexer + pretty_printer
