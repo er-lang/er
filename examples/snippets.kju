@@ -265,3 +265,21 @@ feeder    (red_panda) = fun () -> bamboo      end
 feeder :: (squid)     -> ‹feed     ‹squid_food››
 feeder    (squid)     = fun () -> sperm_whale end
 
+key-value-stores() =
+    # Creation
+  M0 = % {k => v}
+  R0 = %r{k =  v}
+  P0 = % {k =  v}
+    # Update
+  M1 = %M  {k := v2}
+  R1 = %R r{k  = v2}
+  P1 = %P  {k  = v2}
+    # Read
+  V = %M1  {k}
+  V = %R1 r{k}
+  V = %P1  {k}
+    # Matching
+  % {k := V} = M1
+  %r{k  = V} = R1
+  % {k  = V} = P1
+

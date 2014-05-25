@@ -11,10 +11,10 @@ WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 /// Tokens
 
 fragment //    ≈ [_a-zA-Z0-9]
-ATOM_NOTSPECIALS : ~([ \t\r\n()\[\]{}:;,>|/]     | '\u203a' | '\u2192') ;
+ATOM_NOTSPECIALS : ~([ \t\r\n()\[\]{}:;,>|/=%]    | '\u203a' | '\u2192') ;
 
 fragment //    ≈ [_a-zA-Z0-9]
-VAR_NOTSPECIALS :  ~([ \t\r\n()\[\]{}:;,>|/=*+-] | '\u203a' | '\u2192') ;
+VAR_NOTSPECIALS :  ~([ \t\r\n()\[\]{}:;,>|/=%*+-] | '\u203a' | '\u2192') ;
 
 Atom :  Ll              ATOM_NOTSPECIALS*
      | '$' ATOM_NOTSPECIALS ATOM_NOTSPECIALS+ // = '$' ATOM_NOTSPECIALS{2,}

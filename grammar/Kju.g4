@@ -145,8 +145,7 @@ expr500 : (expr600|last)   mulOp (expr500|last)
 expr600 :                   unOp (exprMax|last)
         |                         exprMax ;
 
-exprMax : term
-        //| recordExpr
+exprMax : term | kvs
         | lr | br | tr // range
         | lc | bc | tc // comprehension
         | begin
@@ -180,7 +179,7 @@ matchable : matchable   listOp matchable
           | matchable      '=' matchable // lesser precedence
           | '(' matchable ')'
           | var | atom
-          | term ;//| recordExpr
+          | term | kvs ;
 
 /// Detailed expressions
 
@@ -192,10 +191,10 @@ term : char_
      | integer
      | float_
      | string
-  // | atom can't fit here, but it's a term.
+  // | atom can't fit here, but it's a term. Idem map and proplist.
      | list
      | binary
-     | tuple ;//| map
+     | tuple ;
 
 list : '['       ']'
      | '[' exprA tail ;
@@ -203,9 +202,14 @@ tail :           ']'
      | '|' exprA ']'
      | ',' exprA tail ;
 
-//map :
-
-//recordExpr : '‹'
+// Key-Value Stores
+kvs : map | record | proplist ;
+map :      '%' var?      '{' (exprM (':='|'=>') exprA (',' exprM (':='|'=>') exprA)*)? '}'
+    |      '%' var?      '{'  exprM                                                    '}' ;
+record :   '%' var? atom '{' (exprM '='         exprA (',' exprM '='         exprA)*)? '}'
+       |   '%' var? atom '{'  exprM                                                    '}' ;
+proplist : '%' var?      '{' (exprM '='         exprA (',' exprM '='         exprA)*)? '}'
+         | '%' var?      '{'  exprM                                                    '}' ;
 
 binary : '<<' binElements? '>>' ;
 binElements : binElement (',' binElement)* ;
