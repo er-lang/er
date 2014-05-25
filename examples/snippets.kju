@@ -234,7 +234,6 @@ f()= # _ separating digits
     1_00#9_999_957
     10.000_001E-2_345
 
-<<<<<<< HEAD
 f :: () -> <<_:Integer, _:_*OtherInteger>>
 f()= <<42, 3:2, g():(h()), 1+2:3/ba be bi>>
 
