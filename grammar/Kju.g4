@@ -5,7 +5,8 @@ root : block+ EOF ;
 
 block : export
       | import_
-      | def ;
+      | def
+      | defty ;
 
 /// Ops | Also some tokens as ANTLR4 concatenates lexemes.
 
@@ -71,10 +72,14 @@ args : '(' matchables? ')' ;
 
 guard : when exprA ;
 
+/// defty
+
+defty :       atom '(' tyMaxs? ')'   '::' tyMax (when tyGuards)?
+      | angll atom     tyMax*  anglr '::' tyMax (when tyGuards)? ;
+
 /// spec
 
-spec : atom '::' tyFun
-     | atom '::' tyFun when tyGuards ;
+spec :  atom '::' tyFun (when tyGuards)? ;
 
 tyGuards : tyGuard+ ;
 tyGuard : subtype
@@ -83,8 +88,8 @@ tyGuard : subtype
 tyMaxs : tyMax (',' tyMax)* ;
 tyMax : (var '::')? type ('|' type)* ;
 
-subtype :       atom (':' atom)? '(' tyMaxs? ')'
-        | angll atom (':' atom)?     tyMax*  anglr ;
+subtype :       atom (':' atom)* '(' tyMaxs? ')'
+        | angll atom (':' atom)*     tyMax*  anglr ;
 
 type : type '..'  type
      | type addOp type
