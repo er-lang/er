@@ -74,7 +74,8 @@ guard : when exprA ;
 
 /// defty
 
-defty : atom '::' tyMax (when tyGuards)? ;
+defty :       atom '(' tyMaxs? ')'   '::' tyMax (when tyGuards)?
+      | angll atom     tyMax*  anglr '::' tyMax (when tyGuards)? ;
 
 /// spec
 
