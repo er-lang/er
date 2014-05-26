@@ -300,3 +300,5 @@ nesting() ->
   {P> name := Name}  {Name> first := First}
   First = {{M> name}> first}                # Same thing, but uses is_map.
 
+f()=  {a} {a=b} {a=b, c=d} {b, c=d}
+
