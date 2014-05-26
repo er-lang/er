@@ -145,7 +145,7 @@ expr500 : (expr600|last)   mulOp (expr500|last)
 expr600 :                   unOp (exprMax|last)
         |                         exprMax ;
 
-exprMax : term | kvs
+exprMax : kvs | term
         | lr | br | tr // range
         | lc | bc | tc // comprehension
         | begin
@@ -179,7 +179,7 @@ matchable : matchable   listOp matchable
           | matchable      '=' matchable // lesser precedence
           | '(' matchable ')'
           | var | atom
-          | term | kvs ;
+          | kvs | term ;
 
 /// Detailed expressions
 
