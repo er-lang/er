@@ -153,8 +153,7 @@ exprMax : kvs | term
         | case_
         | receive
         | fun
-        | try_
-        ;
+        | try_ ;
 
 lastOnly : var
          | atom
@@ -203,13 +202,13 @@ tail :           ']'
      | ',' exprA tail ;
 
 // Key-Value Stores
-kvs : map | record | proplist ;
-map :      '%' var?      '{' (exprM (':='|'=>') exprA (',' exprM (':='|'=>') exprA)*)? '}'
-    |      '%' var?      '{'  exprM                                                    '}' ;
-record :   '%' var? atom '{' (exprM '='         exprA (',' exprM '='         exprA)*)? '}'
-       |   '%' var? atom '{'  exprM                                                    '}' ;
-proplist : '%' var?      '{' (exprM '='         exprA (',' exprM '='         exprA)*)? '}'
-         | '%' var?      '{'  exprM                                                    '}' ;
+kvs : map | record | kv ;
+map :      '{' (exprM       '>')?  exprM (':='|'=>') exprA (',' exprM (':='|'=>') exprA)*   '}' | '%{' '}' ;
+//  |      '{' (exprM       '>')?  exprM                                                    '}' ;
+record :   '{'  exprM? atom '>'   (exprM '='         exprA (',' exprM '='         exprA)*)? '}'
+       |   '{'  exprM? atom '>'    exprM                                                    '}' ;
+kv :       '{' (exprM       '>')?  exprM '='         exprA (',' exprM '='         exprA)*   '}' | '@{' '}'
+   |       '{' (exprM       '>')?  exprM                                                    '}' ;
 
 binary : '<<' binElements? '>>' ;
 binElements : binElement (',' binElement)* ;

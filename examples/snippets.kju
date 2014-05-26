@@ -266,35 +266,37 @@ feeder :: (squid)     -> ‹feed     ‹squid_food››
 feeder    (squid)     = fun () -> sperm_whale end
 
 key-value-stores() =
-    # Creation
-  M0 = % {k => v}
-  R0 = %r{k =  v}
-  P0 = % {k =  v}
-    # Update
-  M1 = %M  {k := v2}
-  R1 = %R r{k  = v2}
-  P1 = %P  {k  = v2}
-    # Read
-  V = %M1  {k}
-  V = %R1 r{k}
-  V = %P1  {k}
-    # Matching
-  % {k := V} = M1
-  %r{k  = V} = R1
-  % {k  = V} = P1
+    ## Neutral
+  M' = %{}
+  R' = {r>}
+  P' = @{}
+    ## Creation
+  M0 = {k => v}
+  R0 = {r> k = v}
+  P0 = {k = v}
+    ## Update
+  M1 = {M0> k := v2}
+  R1 = {R0 r> k = v2}
+  P1 = {P0> k = v2}
+    ## Read
+  V = {M1> k}
+  V = {R1 r> k}
+  V = {P1> k}
+    ## Matching
+  {k := V}   = M1
+  {r> k = V} = R1
+  {k = V}    = P1
 
 #55
 nesting() ->
-    # Records
-  P = %person{name= %name{first="Robert",last="Virding"}, phone=123}
-  First = %(%P person{name}) name{first}
-# First = {{P person> name} name> first}
-    # Maps
-  P' = %{name=> %{first=>"Robert",last=>"Virding"}, phone=>123}
-  First = %(%P'{name}){first}
-# First = {{P'> name}> first}
-    # Proplists
-  P'' = %{name= %{first="Robert",last="Virding"}, phone=123}
-  First = %(%P''{name}){first} # Disambiguation from maps at runtime
-# First = {{P''> name}> first}
+    ## Proplists (or Dicts ?)
+  P = {name= {first="Robert",last="Virding"}, phone=120+3}
+  First = {{P''> name}> first}
+    ## Records
+  R = {person> name= {name> first="Robert",last="Virding"}, phone=120+3}
+  First = {{R person> name} name> first}
+    ## Maps
+  M = {name=> {first=>"Robert",last=>"Virding"}, phone=>120+3}
+  {P> name := Name}  {Name> first := First}
+  First = {{M> name}> first}                # Same thing, but uses is_map.
 
