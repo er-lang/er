@@ -208,7 +208,7 @@ map :      '{' (exprM       '>')?  exprM (':='|'=>') exprA (',' exprM (':='|'=>'
 record :   '{'  exprM? atom '>'   (exprM '='         exprA (',' exprM '='         exprA)*)? '}'
        |   '{'  exprM? atom '>'    exprM                                                    '}' ;
 kv :       '{' (exprM       '>')?  exprM '='         exprA (',' exprM '='         exprA)*   '}' | '@{' '}'
-   |       '{' (exprM       '>')?  exprM                                                    '}' ;
+   |       '{'  exprM       '>'    exprM                                                    '}' ;
 
 binary : '<<' binElements? '>>' ;
 binElements : binElement (',' binElement)* ;
