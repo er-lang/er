@@ -283,3 +283,18 @@ key-value-stores() =
   %r{k  = V} = R1
   % {k  = V} = P1
 
+#55
+nesting() ->
+    # Records
+  P = %person{name= %name{first="Robert",last="Virding"}, phone=123}
+  First = %(%P person{name}) name{first}
+# First = {{P person> name} name> first}
+    # Maps
+  P' = %{name=> %{first=>"Robert",last=>"Virding"}, phone=>123}
+  First = %(%P'{name}){first}
+# First = {{P'> name}> first}
+    # Proplists
+  P'' = %{name= %{first="Robert",last="Virding"}, phone=123}
+  First = %(%P''{name}){first} # Disambiguation from maps at runtime
+# First = {{P''> name}> first}
+
