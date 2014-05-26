@@ -201,14 +201,14 @@ tail :           ']'
      | '|' exprA ']'
      | ',' exprA tail ;
 
-// Key-Value Stores
+// Key-Value Stores -- Activate either `map`'s key access or `kv`.
 kvs : map | record | kv ;
-map :      '{' (exprM       '>')?  exprM (':='|'=>') exprA (',' exprM (':='|'=>') exprA)*   '}' | '%{' '}' ;
-//  |      '{' (exprM       '>')?  exprM                                                    '}' ;
-record :   '{'  exprM? atom '>'   (exprM '='         exprA (',' exprM '='         exprA)*)? '}'
-       |   '{'  exprM? atom '>'    exprM                                                    '}' ;
-kv :       '{' (exprM       '>')?  exprM '='         exprA (',' exprM '='         exprA)*   '}' | '@{' '}'
-   |       '{'  exprM       '>'    exprM                                                    '}' ;
+map :    '{' (exprM       '>')?  exprM (':='|'=>') exprA (',' exprM (':='|'=>') exprA)*   '}' | '{' Ma '}' ;
+//  |    '{'  exprM       '>'    exprM                                                    '}' ;
+record : '{'  exprM? atom '>'   (exprM '='         exprA (',' exprM '='         exprA)*)? '}'
+       | '{'  exprM? atom '>'    exprM                                                    '}' ;
+kv :     '{' (exprM       '>')?  exprM '='         exprA (',' exprM '='         exprA)*   '}' | '{' KVa '}'
+   |     '{'  exprM       '>'    exprM                                                    '}' ;
 
 binary : '<<' binElements? '>>' ;
 binElements : binElement (',' binElement)* ;

@@ -267,9 +267,9 @@ feeder    (squid)     = fun () -> sperm_whale end
 
 key-value-stores() =
     ## Neutral
-  M' = %{}
+  M' = {=>}
   R' = {r>}
-  P' = @{}
+  P' = { =}
     ## Creation
   M0 = {k => v}
   R0 = {r> k = v}

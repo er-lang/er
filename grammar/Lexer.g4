@@ -27,6 +27,10 @@ Var : (Lu|'_')           VAR_NOTSPECIALS* ;
 // When using negative match, be sure to also negative match
 //   previously-defined rules.
 
+Ma : '=>' ;
+Me : ':=' ;
+KVa : '=' ;
+
 fragment // Not only groups of 3; matches nums without _; all nums possible.
 NUM : ([0-9] '_'?)* [0-9] ;
 
