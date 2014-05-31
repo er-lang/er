@@ -58,7 +58,7 @@ b () =
         stuff
     end
 
-p&to_list (Arg) =
+'p&to_list' (Arg) =
     case Arg of
         T | is_tuple(T) ->  [p(X) X | X <~ T]
         L | is_list(L) ->   [p(X) X | X <- L]
