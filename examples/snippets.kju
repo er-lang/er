@@ -279,7 +279,7 @@ key-value-stores() =
   R1 = {R0 r> k = v2}
   P1 = {P0> k = v2}
     ## Read
-  V = {M1> k}   # could use ':>' to differentiate from kv
+  V = {M1> k}   # could s/>/:>/ to differentiate from kv
   V = {R1 r> k}
   V = {P1> k}
     ## Matching
@@ -307,6 +307,11 @@ some_more () =
     FoggyPlaces = [X | {X, fog} <- {montreal=storms, london=fog, paris=sun}] # if kv is proplist
     FoggyPlaces = [X | X := fog <- {montreal=>storms, london=>fog, paris=>sun}]
     {boston => foggy, london => foggy} = {X => foggy | X <- [london,boston]} # mc problem
-#   X = M#{c}#{y}
+#   X = M#{c}#{y} could be {{M> c}> y} (or {{M c} Y} (but the empty record?))
     NPants = {pants> _ = undef}
+
+note () =
+    M   = {  A > B  => ju()}  # Updates A. (let's find a separator ≠ '>')
+    M'  = { (A > B) => true}  # New map with boolean key
+    M'' = {g()> A>B => yoto}  # Permissive syntax!
 

@@ -1,7 +1,6 @@
 # To do
 
 ## Grammar
-* Implement records|maps
 * Devise grammar for `-callback`s
 * Think about allowing the range operator `..` in pattern matching
 

@@ -145,7 +145,7 @@ expr500 : (expr600|last)   mulOp (expr500|last)
 expr600 :                   unOp (exprMax|last)
         |                         exprMax ;
 
-exprMax : kvs | term
+exprMax : record | term
         | lr | br | tr // range. mr?
         | lc | bc | mc | tc // comprehension
         | begin
@@ -178,7 +178,7 @@ matchable : matchable   listOp matchable
           | matchable      '=' matchable // lesser precedence
           | '(' matchable ')'
           | var | atom
-          | kvs | term ;
+          | record | term ;
 
 /// Detailed expressions
 
@@ -190,7 +190,8 @@ term : char_
      | integer
      | float_
      | string
-  // | atom can't fit here, but it's a term. Idem map and proplist.
+  // | atom can't fit here, but it's a term.
+     | map | kv
      | list
      | binary
      | tuple ;
@@ -202,13 +203,13 @@ tail :           ']'
      | ',' exprA tail ;
 
 // Key-Value Stores -- Activate either `map`'s key access or `kv`.
-kvs : map | record | kv ;
-map :    '{' (exprM       '>')?  exprM (':='|'=>') exprA (',' exprM (':='|'=>') exprA)*   '}' | '{' Ma '}' ;
-//  |    '{'  exprM       '>'    exprM                                                    '}' ;
-record : '{'  exprM? atom '>'   (exprM '='         exprA (',' exprM '='         exprA)*)? '}'
-       | '{'  exprM? atom '>'    exprM                                                    '}' ;
-kv :     '{' (exprM       '>')?  exprM '='         exprA (',' exprM '='         exprA)*   '}' | '{' KVa '}'
-   |     '{'  exprM       '>'    exprM                                                    '}' ;
+S : '>' ;
+record : '{' atom S '}'   | '{' exprA atom S  atom  '}'
+       | '{'  exprA? atom S    atom  '='         exprA (',' atom  '='         exprA)* '}' ;
+map :    '{' Ma     '}' //| '{' exprA      S  exprM '}'
+    |    '{' (exprA       S)?  exprA (':='|'=>') exprA (',' exprA (':='|'=>') exprA)* '}' ;
+kv :     '{' KVa    '}'   | '{' exprA      S  exprM '}'
+   |     '{' (exprA       S)?  exprM '='         exprA (',' exprM '='         exprA)* '}' ;
 
 binary : '<<' binElements? '>>' ;
 binElements : binElement (',' binElement)* ;
