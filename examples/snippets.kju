@@ -297,7 +297,7 @@ nesting() ->
   First = {{R person> name} name> first}
     ## Maps
   M = {name=> {first=>"Robert",last=>"Virding"}, phone=>120+3}
-  {P> name := Name}  {Name> first := First}
+  {P> name := Name}  {Name> first := First} #
   First = {{M> name}> first}                # Same thing, but uses is_map.
 
 f()=  {a} {a=b} {a=b, c=d} {b, c=d}  # tuple kv kv tuple
@@ -306,7 +306,7 @@ some_more () =
     {"favorite" := Animal, Animal := Name} = {Pets> "favorite" := "dog"}
     FoggyPlaces = [X | {X, fog} <- {montreal=storms, london=fog, paris=sun}] # if kv is proplist
     FoggyPlaces = [X | X := fog <- {montreal=>storms, london=>fog, paris=>sun}]
-    {boston => foggy, london => foggy} = {X => foggy | X <- [london,boston]} # mc problem
+    {boston => foggy, london => foggy} = {X => foggy | X <- [london,boston]}
 #   X = M#{c}#{y} could be {{M> c}> y} (or {{M c} Y} (but the empty record?))
     NPants = {pants> _ = undef}
 
@@ -314,4 +314,13 @@ note () =
     M   = {  A > B  => ju()}  # Updates A. (let's find a separator ≠ '>')
     M'  = { (A > B) => true}  # New map with boolean key
     M'' = {g()> A>B => yoto}  # Permissive syntax!
+
+name   of {first :: string(), last :: string()}  # Also creates type 'name{}'
+name() :: name{}                                 # just as in Erlang
+# export_bis name/0  # Now that name is an exportable type…
+person of {name::name(), phone::‹pos_integer›}
+record_def_and_usage () ->
+    R' = {name> first="Robert", last="Virding"}
+    R = {person> name=R', phone=123}
+    First = {{R person> name} name> first}
 

@@ -5,8 +5,9 @@ root : block+ EOF ;
 
 block : export
       | import_
-      | def
-      | defty ;
+      | defrecord
+      | defty
+      | def ;
 
 /// Ops | Also some tokens as ANTLR4 concatenates lexemes.
 
@@ -59,6 +60,12 @@ import_ : 'import' fas 'from' atom
 
 repo : string atom ;
 
+/// record
+
+defrecord : atom 'of' '{' (tyRecordField (',' tyRecordField)*)? '}' ;
+
+tyRecordField : atom ('::' type ('|' type)*)? ;
+
 /// def
 
 def : spec?     func
@@ -101,13 +108,15 @@ type : type '..'  type
      | '['               ']'
      | '[' tyMax         ']'
      | '[' tyMax ',' etc ']'
-     //| tyRecord
-     //| tyMap
+     | tyRecord
+     //| tyMap :waiting on OTP people
      | '{' tyMaxs? '}'
      | tyBinary
      | fun_ '(' tyFun? ')' ;
 
 tyFun : '(' (etc | tyMaxs)? ')' lra tyMax ;
+
+tyRecord : atom '{' '}' ;
 
 tyBinary : '<<'                               '>>'
          | '<<' tyBinaryBase                  '>>'
