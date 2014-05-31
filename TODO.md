@@ -1,8 +1,8 @@
 # To do
 
 ## Grammar
-* Implement records|maps
 * Devise grammar for `-callback`s
+* `export_type`
 * Think about allowing the range operator `..` in pattern matching
 
 ## Parser

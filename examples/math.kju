@@ -4,18 +4,18 @@
 
 ## math: some ubiquitous math functions.
 
-export fac/1 fib/1.
+export fac/1 fib/1
 
 ## API
 
-fac (0) = 1.
+fac (0) = 1
 fac (N) when N > 0, ‹integer N› =
-    N * :(N -1).
+    N * :(N -1)
 
-fib (0) = 0.
-fib (1) = 1.
+fib (0) = 0
+fib (1) = 1
 fib (N) =
-    :(N -1) + :(N -2).
+    :(N -1) + :(N -2)
 
 ## Internals
 

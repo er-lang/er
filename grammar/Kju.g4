@@ -5,15 +5,17 @@ root : block+ EOF ;
 
 block : export
       | import_
-      | def
-      | defty ;
+      | defrecord
+      | defty
+      | def ;
 
 /// Ops | Also some tokens as ANTLR4 concatenates lexemes.
 
-orelse : '||' | 'orelse' ;  // || && are to replace their synonyms
+orelse :  '||' | 'orelse'  ;  // || && are to replace their synonyms
 andalso : '&&' | 'andalso' ;
 
-compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:=' | '\u2264' | '\u2265' | '\u2260' ;
+compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:='
+       | '\u2264' | '\u2265' | '\u2260' ; // ≤ ≥ ≠
 
 listOp : '++' | '--' ;
 
@@ -25,16 +27,15 @@ unOp : '+' | '-' | 'not' | 'bnot' ;
 
 when : 'when' | '|' ;  // | is just to test support. Will not be part of language.
 
-etc : '...' | '\u2026' ;
+etc : '...' | '\u2026' ; // …
 
 fun_ : 'fun' ;
 
-lra : '->' | '\u2192' ;
+lra :  '->' | '\u2192' ; // →
+angll : '<' | '\u2039' ; // ‹
+anglr : '>' | '\u203a' ; // ›
 
-angll : '<' | '\u2039' ;
-anglr : '>' | '\u203a' ;
-
-generator : '<-' | '<=' | '<~' | '<:' ;
+generator : '<-' | '<=' | '<~' ;
 
 /// Tokens
 
@@ -59,6 +60,12 @@ import_ : 'import' fas 'from' atom
 
 repo : string atom ;
 
+/// record
+
+defrecord : atom 'of' '{' (tyRecordField (',' tyRecordField)*)? '}' ;
+
+tyRecordField : atom ('::' type ('|' type)*)? ;
+
 /// def
 
 def : spec?     func
@@ -70,7 +77,7 @@ fun_func : fa           ('='|lra) seqExprs ;
 
 args : '(' matchables? ')' ;
 
-guard : when exprA ;
+guard : when exprA ; // && || replaces Erlang's ,;
 
 /// defty
 
@@ -101,13 +108,15 @@ type : type '..'  type
      | '['               ']'
      | '[' tyMax         ']'
      | '[' tyMax ',' etc ']'
-     //| tyRecord
-     //| tyMap
+     | tyRecord
+     //| tyMap :waiting on OTP people
      | '{' tyMaxs? '}'
      | tyBinary
      | fun_ '(' tyFun? ')' ;
 
-tyFun : '(' (etc | tyMaxs)? ')' lra tyMax ;
+tyFun : '(' (etc|tyMaxs)? ')' lra tyMax ;
+
+tyRecord : atom '{' '}' ;
 
 tyBinary : '<<'                               '>>'
          | '<<' tyBinaryBase                  '>>'
@@ -145,17 +154,15 @@ expr500 : (expr600|last)   mulOp (expr500|last)
 expr600 :                   unOp (exprMax|last)
         |                         exprMax ;
 
-exprMax : term
-        //| recordExpr
-        | lr | br | tr // range
-        | lc | bc | tc // comprehension
+exprMax : record | term
+        |      lr | br | tr // ranges
+        | mc | lc | bc | tc // comprehensions
         | begin
         | if_
         | case_
         | receive
         | fun
-        | try_
-        ;
+        | try_ ;
 
 lastOnly : var
          | atom
@@ -180,7 +187,7 @@ matchable : matchable   listOp matchable
           | matchable      '=' matchable // lesser precedence
           | '(' matchable ')'
           | var | atom
-          | term ;//| recordExpr
+          | record | term ;
 
 /// Detailed expressions
 
@@ -193,9 +200,10 @@ term : char_
      | float_
      | string
   // | atom can't fit here, but it's a term.
+     | map | kv
      | list
      | binary
-     | tuple ;//| map
+     | tuple ;
 
 list : '['       ']'
      | '[' exprA tail ;
@@ -203,9 +211,14 @@ tail :           ']'
      | '|' exprA ']'
      | ',' exprA tail ;
 
-//map :
-
-//recordExpr : '‹'
+// Key-Value Stores -- Activate either `map`'s key access or `kv`.
+S : '>' ;
+record : '{' atom S '}'   | '{' exprA atom S  atom  '}'
+       | '{'  exprA? atom S    atom  '='         exprA (',' atom  '='         exprA)* '}' ;
+map :    '{' Ma     '}' //| '{' exprA      S  exprM '}'
+    |    '{' (exprA       S)?  exprA (':='|'=>') exprA (',' exprA (':='|'=>') exprA)* '}' ;
+kv :     '{' KVa    '}'   | '{' exprA      S  exprM '}'
+   |     '{' (exprA       S)?  exprM '='         exprA (',' exprM '='         exprA)* '}' ;
 
 binary : '<<' binElements? '>>' ;
 binElements : binElement (',' binElement)* ;
@@ -214,9 +227,10 @@ binType : atom (':' integer)? ;
 
 tuple : '{' exprAs? '}' ;
 
-lc :  '[' seqExprs gens ']'  ;
-bc : '<<' seqExprs gens '>>' ;
-tc :  '{' seqExprs gens '}'  ;
+lc :  '[' seqExprs         gens ']'  ;
+bc : '<<' seqExprs         gens '>>' ;
+mc :  '{' exprA '=>' exprA gens '}'  ; //seqExprs ?
+tc :  '{' seqExprs         gens '}'  ;
 
 lr :  '[' exprA '..' exprA ']'  ;
 br : '<<' exprA '..' exprA '>>' ;
@@ -258,7 +272,8 @@ mf_ : (lastOnly ':')+ lastOnly ;
 
 gens : gen_ (gen_ | gen | exprA)* ;
 gen_ : '|' gen ;
-gen : matchable generator exprA ;
+gen : matchable ':=' matchable '<-'      exprA
+    | matchable                generator exprA ;
 
 catchClauses : catchClause+ ;
 catchClause : exprM? ':'? (clause|clauseGuard) ;
