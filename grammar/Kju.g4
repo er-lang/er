@@ -266,7 +266,6 @@ clauseGuard : matchable guard lra seqExprs ;
 funClause : args       guard? lra seqExprs ;
 
 mf :            ':'
-   |            ':'   lastOnly
    |                  lastOnly ;
 mf_ : (lastOnly ':')+ lastOnly ;
 

@@ -324,3 +324,9 @@ record_def_and_usage () ->
     R = {person> name=R', phone=123}
     First = {{R person> name} name> first}
 
+#60
+f() = # These lines are the same
+    a = a  :g()
+    a = (a):g()
+    a = a:g()
+
