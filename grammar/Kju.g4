@@ -11,10 +11,11 @@ block : export
 
 /// Ops | Also some tokens as ANTLR4 concatenates lexemes.
 
-orelse : '||' | 'orelse' ;  // || && are to replace their synonyms
+orelse :  '||' | 'orelse'  ;  // || && are to replace their synonyms
 andalso : '&&' | 'andalso' ;
 
-compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:=' | '\u2264' | '\u2265' | '\u2260' ;
+compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:='
+       | '\u2264' | '\u2265' | '\u2260' ; // ≤ ≥ ≠
 
 listOp : '++' | '--' ;
 
@@ -26,14 +27,13 @@ unOp : '+' | '-' | 'not' | 'bnot' ;
 
 when : 'when' | '|' ;  // | is just to test support. Will not be part of language.
 
-etc : '...' | '\u2026' ;
+etc : '...' | '\u2026' ; // …
 
 fun_ : 'fun' ;
 
-lra : '->' | '\u2192' ;
-
-angll : '<' | '\u2039' ;
-anglr : '>' | '\u203a' ;
+lra :  '->' | '\u2192' ; // →
+angll : '<' | '\u2039' ; // ‹
+anglr : '>' | '\u203a' ; // ›
 
 generator : '<-' | '<=' | '<~' ;
 
@@ -77,7 +77,7 @@ fun_func : fa           ('='|lra) seqExprs ;
 
 args : '(' matchables? ')' ;
 
-guard : when exprA ;
+guard : when exprA ; // && || replaces Erlang's ,;
 
 /// defty
 
@@ -114,7 +114,7 @@ type : type '..'  type
      | tyBinary
      | fun_ '(' tyFun? ')' ;
 
-tyFun : '(' (etc | tyMaxs)? ')' lra tyMax ;
+tyFun : '(' (etc|tyMaxs)? ')' lra tyMax ;
 
 tyRecord : atom '{' '}' ;
 
@@ -155,8 +155,8 @@ expr600 :                   unOp (exprMax|last)
         |                         exprMax ;
 
 exprMax : record | term
-        | lr | br | tr // range. mr?
-        | lc | bc | mc | tc // comprehension
+        |      lr | br | tr // ranges
+        | mc | lc | bc | tc // comprehensions
         | begin
         | if_
         | case_
@@ -234,7 +234,6 @@ tc :  '{' seqExprs         gens '}'  ;
 
 lr :  '[' exprA '..' exprA ']'  ;
 br : '<<' exprA '..' exprA '>>' ;
-//mr ?
 tr :  '{' exprA '..' exprA '}'  ;
 
 begin : 'begin' seqExprs 'end' ;
