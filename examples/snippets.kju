@@ -302,3 +302,11 @@ nesting() ->
 
 f()=  {a} {a=b} {a=b, c=d} {b, c=d}  # tuple kv kv tuple
 
+some_more () =
+    {"favorite" := Animal, Animal := Name} = {Pets> "favorite" := "dog"}
+    FoggyPlaces = [X | {X, fog} <- {montreal=storms, london=fog, paris=sun}] # if kv is proplist
+    FoggyPlaces = [X | X := fog <- {montreal=>storms, london=>fog, paris=>sun}]
+    {boston => foggy, london => foggy} = {X => foggy | X <- [london,boston]} # mc problem
+#   X = M#{c}#{y}
+    NPants = {pants> _ = undef}
+

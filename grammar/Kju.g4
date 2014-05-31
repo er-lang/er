@@ -34,7 +34,7 @@ lra : '->' | '\u2192' ;
 angll : '<' | '\u2039' ;
 anglr : '>' | '\u203a' ;
 
-generator : '<-' | '<=' | '<~' | '<:' ;
+generator : '<-' | '<=' | '<~' ;
 
 /// Tokens
 
@@ -146,8 +146,8 @@ expr600 :                   unOp (exprMax|last)
         |                         exprMax ;
 
 exprMax : kvs | term
-        | lr | br | tr // range
-        | lc | bc | tc // comprehension
+        | lr | br | tr // range. mr?
+        | lc | bc | mc | tc // comprehension
         | begin
         | if_
         | case_
@@ -217,12 +217,14 @@ binType : atom (':' integer)? ;
 
 tuple : '{' exprAs? '}' ;
 
-lc :  '[' seqExprs gens ']'  ;
-bc : '<<' seqExprs gens '>>' ;
-tc :  '{' seqExprs gens '}'  ;
+lc :  '[' seqExprs         gens ']'  ;
+bc : '<<' seqExprs         gens '>>' ;
+mc :  '{' exprA '=>' exprA gens '}'  ; //seqExprs ?
+tc :  '{' seqExprs         gens '}'  ;
 
 lr :  '[' exprA '..' exprA ']'  ;
 br : '<<' exprA '..' exprA '>>' ;
+//mr ?
 tr :  '{' exprA '..' exprA '}'  ;
 
 begin : 'begin' seqExprs 'end' ;
@@ -261,7 +263,8 @@ mf_ : (lastOnly ':')+ lastOnly ;
 
 gens : gen_ (gen_ | gen | exprA)* ;
 gen_ : '|' gen ;
-gen : matchable generator exprA ;
+gen : matchable ':=' matchable '<-'      exprA
+    | matchable                generator exprA ;
 
 catchClauses : catchClause+ ;
 catchClause : exprM? ':'? (clause|clauseGuard) ;
