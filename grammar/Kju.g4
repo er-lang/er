@@ -44,7 +44,7 @@ var : Var ;
 float_ : Float ;
 integer : Integer ;
 char_ : Char ;
-string : String ;
+string : String | BString ;
 
 /// export
 

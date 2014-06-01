@@ -10,11 +10,11 @@
 set -m
 #   http://stackoverflow.com/a/12777848/1418165
 
-function P(){
+function P () {
     printf "\e[1;3m%s\e[0m\n" "$1"
 }
 
-function Parse(){
+function Parse () {
     java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 $*
 }
 
@@ -43,7 +43,7 @@ do
             diff -u "$T/$i.tree" "$ttree"
 	    if [[ $? -ne 0 ]]; then
                 P "	Something is wrong with test #$i"
-                open "$T/$i.png"
+                open "$T/$i.png" || exit 3
                 echo "$code" | Parse -gui
             fi
         fi
