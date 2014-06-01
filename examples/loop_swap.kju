@@ -3,22 +3,20 @@
 export
          start/0
     codeswitch/1
-end
 
 start () =
-    loop(0).
+    loop(0)
 
 loop (Sum) =
-    <-  # ‘receive’ is much better on many levels.
-    | {increment, Count} ->
+    receive
+      {increment, Count} ->
         :(Sum + Count)
-    | {counter, Pid} ->
+      {counter, Pid} ->
         Pid ! {counter, Sum}
         :(Sum)
-    | code_switch ->
-        :codeswitch(Sum)
-        ## Force the use of 'codeswitch/1' from the latest ?MODULE version
-    end.
+      code_switch ->
+        ?MODULE:codeswitch(Sum)
+    end
 
 codeswitch /1 =
-    fun loop/1. # ie. codeswitch(A) -> loop(A). Fun-Fundef notation.
+    fun loop/1 # ie. codeswitch(A) -> loop(A). Fun-Fundef notation.

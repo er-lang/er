@@ -1,19 +1,19 @@
 %%
 %% %CopyrightBegin%
-%% 
+%%
 %% Copyright Ericsson AB 1996-2011. All Rights Reserved.
-%% 
+%%
 %% The contents of this file are subject to the Erlang Public License,
 %% Version 1.1, (the "License"); you may not use this file except in
 %% compliance with the License. You should have received a copy of the
 %% Erlang Public License along with this software. If not, it can be
 %% retrieved online at http://www.erlang.org/.
-%% 
+%%
 %% Software distributed under the License is distributed on an "AS IS"
 %% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
 %% the License for the specific language governing rights and limitations
 %% under the License.
-%% 
+%%
 %% %CopyrightEnd%
 %%
 -module(pool).
@@ -29,17 +29,17 @@
 %% a node report a change in load, we insert it accordingly
 
 % User interface Exports ...
--export([start/1, 
-	 start/2, 
+-export([start/1,
+	 start/2,
 	 stop/0,
-	 get_nodes/0, 
-	 get_nodes_and_load/0, 
+	 get_nodes/0,
+	 get_nodes_and_load/0,
 	 get_node/0,
-	 pspawn/3, 
+	 pspawn/3,
 	 attach/1,
 	 pspawn_link/3]).
 
-%% Internal Exports 
+%% Internal Exports
 -export([statistic_collector/0,
 	 do_spawn/4,
 	 init/1,
@@ -47,8 +47,8 @@
 	 handle_cast/2,
 	 handle_info/2,
 	 terminate/2]).
-	 
-%% User interface 
+
+%% User interface
 
 %% Start up using the .hosts.erlang file
 
@@ -105,15 +105,15 @@ pspawn_link(M, F, A) ->
     P.
 
 start_nodes([], _, _) -> [];
-start_nodes([Host|Tail], Name, Args) -> 
-    case slave:start(Host, Name, Args) of 
+start_nodes([Host|Tail], Name, Args) ->
+    case slave:start(Host, Name, Args) of
 	{error, {already_running, Node}} ->
 	    io:format("Can't start node on host ~w due to ~w~n",[Host, {already_running, Node}]),
 	    [Node | start_nodes(Tail, Name, Args)];
 	{error, R} ->
 	    io:format("Can't start node on host ~w due to ~w~n",[Host, R]),
 	    start_nodes(Tail, Name, Args);
-	{ok, Node} -> 
+	{ok, Node} ->
 	    [Node | start_nodes(Tail, Name, Args)]
     end.
 
@@ -204,7 +204,7 @@ statistic_collector() ->
 
 statistic_collector(0) -> exit(normal);
 statistic_collector(I) ->
-    sleep(300),  
+    sleep(300),
     case global:whereis_name(pool_master) of
 	undefined ->
 	    statistic_collector(I-1);
@@ -220,7 +220,7 @@ stat_loop(M, Old) ->
 	Old ->
 	    stat_loop(M, Old);
 	NewLoad ->
-	    M ! {node(), load, NewLoad}, %% async 
+	    M ! {node(), load, NewLoad}, %% async
 	    stat_loop(M, NewLoad)
     end.
 

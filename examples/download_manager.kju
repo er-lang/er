@@ -1,0 +1,287 @@
+###---------------------------------------------------------------------
+### Created by: Fredrik Gustafsson
+### Creation date: 2011-10-18
+### Refactored date: 2011-11-23
+###---------------------------------------------------------------------
+### Description module downloading_manager
+###---------------------------------------------------------------------
+### Parses the torrent file and handles the content
+### which will be handed over to its children
+###---------------------------------------------------------------------
+### Exports
+###---------------------------------------------------------------------
+### start(.*torrent file name, Pid of gui module)
+###   spawns a new process running the init method and returns its pid.
+###---------------------------------------------------------------------
+### init(.*torrent file name, Pid of gui module)
+###   initiates the information in the torrent file and
+### spawns peers
+###---------------------------------------------------------------------
+### is_valid_info_hash()
+###   checks if the info hash from peer is the same as
+### ours.
+###---------------------------------------------------------------------
+### get_my_id()
+###   Returns our id.
+###---------------------------------------------------------------------
+### get_my_info_hash()
+###   Returns the info hash for the current task
+###---------------------------------------------------------------------
+### get_info_clean()
+###   Returns the info hash in another clean format
+###---------------------------------------------------------------------
+
+export start/2  init/2 is_valid_info_hash/2
+       get_my_id/1 get_my_info_hash/1 get_info_clean/1
+
+## Functions exported for testing only commented further down
+export get_torrent_data/1 get_announce_list/1 get_pieces/1
+	 get_piece_length/1get_length_and_name/1
+
+start(File, GUIPid) ->
+    spawn_link(?MODULE, init, [File, GUIPid])
+
+init(File, GUIPid) ->
+    process_flag(trap_exit, true)
+    link(GUIPid)
+    {dict, Dict} = get_torrent_data(File)
+    Info_raw = dict:fetch(“info”, Dict)
+    Info_bencoded =  bencode:encode(Info_raw)
+    Nr_of_pieces = length(get_pieces({dict, Dict}))
+    Info_hash = list_to_binary(sha:sha1raw(Info_bencoded))
+    GUIPid ! {hash, {sha:sha1hash(Info_hash),Nr_of_pieces}}
+    Peers_pid = peers:start(self(), get_announce_list({dict, Dict}),
+			    get_pieces({dict, Dict}),
+			    get_piece_length({dict, Dict}),
+			    get_length_and_name({dict, Dict}), File)
+    link(Peers_pid)
+    loop(Peers_pid, Info_hash,Info_bencoded, gui_basic:createUniqueId(),
+	 GUIPid, 0)
+
+is_valid_info_hash(Info_from_peer, Pid) ->
+    Pid ! {valid_info, self(), Info_from_peer}
+    receive
+	Any -> Any end
+
+get_my_id(Dl_pid) ->
+    Dl_pid ! {get_id, self()}
+    receive
+	{reply, Reply} ->
+	    Reply
+    end
+
+get_my_info_hash(Dl_pid) ->
+    Dl_pid ! {get_my_info_hash, self()}
+    receive
+	{reply, Reply} ->
+	    Reply
+    end
+
+get_info_clean(Dl_pid) ->
+    Dl_pid ! {get_clean_info, self()}
+    receive
+	{reply, Reply} ->
+	    Reply
+    end
+
+##--------------------------------------------------------------------
+## Function: loop/1
+## Purpose: Sends information to GUI and corresponds
+## to messages from its children.
+## Args: Peers_pid: The pid of peers module
+## Info_hash: Our info hash format 1
+## Info_clean: Our info hash format 2
+## My_id: Our unique id.
+## GUI_pid : The pid of gui module
+## Counter that checks so that we send a message
+## only once to GUI.
+## Returns:-
+##--------------------------------------------------------------------
+
+loop(Peers_pid, Info_hash, Info_clean, My_id, GUI_pid, Counter) ->
+    receive
+	{get_clean_info, From} ->
+	    From ! {reply, Info_clean}
+	    :(Peers_pid, Info_hash, Info_clean, My_id, GUI_pid, Counter)
+	{valid_info, From, Info_from_peer} ->
+	    From ! binary_to_list(Info_hash) =:= Info_from_peer
+	    :(Peers_pid, Info_hash, Info_clean, My_id, GUI_pid, Counter)
+	{get_id, From} ->
+	    From ! {reply, My_id}
+	    :(Peers_pid, Info_hash, Info_clean, My_id, GUI_pid, Counter)
+	{get_my_info_hash, From} ->
+	    From ! {reply, Info_hash}
+	    :(Peers_pid, Info_hash, Info_clean, My_id, GUI_pid, Counter)
+	{this_tracker, Tracker} ->
+	    GUI_pid ! {tracker, Tracker}
+	    :(Peers_pid, Info_hash, Info_clean, My_id, GUI_pid, Counter)
+	{'EXIT', Peers_pid, _Reason} ->
+	    exit(self(), kill)
+	stop -> ok
+    after 3000 ->
+	    Peers_pid ! {get_downloaded, self()}
+	    receive
+		{reply, {Downloaded, Current_pieces}} ->
+		    case Downloaded of
+			100 ->
+			    case Counter of
+				0 ->
+				    GUI_pid ! {percentage, {Downloaded,
+							    Current_pieces}}
+				     :(Peers_pid, Info_hash, Info_clean,
+					  My_id, GUI_pid, 1)
+				_ ->
+				    ok
+			    end
+			_ ->
+			    GUI_pid ! {percentage, {Downloaded, Current_pieces}}
+		    end
+	    end
+	    :(Peers_pid, Info_hash, Info_clean, My_id, GUI_pid, Counter)
+    end
+
+##--------------------------------------------------------------------
+## Function: get_torrent_data/1
+## Purpose: decodes the torrent file
+## Args: File: The file path to the torrent file
+## Returns: Either, {dict, Dict} when the torrent file
+## has been successfully read or {error, no_file} if
+## the file cant be read.
+##--------------------------------------------------------------------
+
+get_torrent_data(File) ->
+    case  file:read_file(File) of
+		{ok, Text} ->
+		    case bencode:decode(Text) of
+			{{dict, Dict}, _Remainder} ->
+			    {dict, Dict}
+		    end
+		_  ->
+		    {error, no_file}
+	    end
+
+##--------------------------------------------------------------------
+## Function: get_announce_list/1
+## Purpose: Returns the list of trackers in the
+## announce list.
+## Args: {dict, Dict}: The dictionary of the torrent
+## file
+## Returns: The list of trackers.
+##--------------------------------------------------------------------
+
+get_announce_list({dict, Dict}) ->
+     case dict:find(“announce-list”, Dict) of
+	 {ok,{_, List}} ->
+	     List
+	 error ->
+	     {ok, Link} = dict:find(“announce”, Dict)
+	     [{ok, binary_to_list(Link)}]
+     end
+
+##--------------------------------------------------------------------
+## Function: get_pieces/1
+## Purpose:  Grabs the pieces from the dictionary
+## Args: {dict, Dict}, the dictionary of the torrent file
+## Returns: The list of the pieces
+##--------------------------------------------------------------------
+
+get_pieces({dict, Dict}) ->
+    {_, Info_dict} = dict:fetch(“info”, Dict)
+    Pieces = dict:fetch(“pieces”, Info_dict)
+    handle_pieces(binary_to_list(Pieces),[], 1, [])
+
+##--------------------------------------------------------------------
+## Function: get_piece_length/1
+## Purpose: Grabs the piece length of the task from
+## the dictionary of the torrent file.
+## Args: {dict, Dict}, dictionary of the torrent file
+## Returns: The piece length
+##--------------------------------------------------------------------
+
+get_piece_length({dict, Dict}) ->
+    {_, Info_dict} = dict:fetch(“info”, Dict)
+    dict:fetch(“piece length”, Info_dict)
+
+##--------------------------------------------------------------------
+## Function: get_length_and_name/1
+## Purpose: Grab the length(s), the name(s), the
+## length(s) of the task and the path where the
+## file is going to be placed.
+## Args: {dict, Dict}: The dictionary of the torrent
+## file
+## Returns: A tuple of the length(s), the name(s) of
+## the file(s), the length(s) of the file(s) and the path
+##--------------------------------------------------------------------
+
+get_length_and_name({dict, Dict}) ->
+    {_, Info_dict} = dict:fetch(“info”, Dict)
+    case dict:find(“files”, Info_dict) of
+	{ok, {_,Files_dict}} ->
+	    {get_length(Files_dict, 0),
+	     get_names(Files_dict), get_lengths_list(Files_dict),
+	     dict:fetch(“name”, Info_dict)}
+	error ->
+	    Name_of_files = dict:fetch(“name”, Info_dict)
+	    Length = dict:fetch(“length”, Info_dict)
+	    {Length,
+	     [binary_to_list(Name_of_files)], [Length], ""}
+    end
+
+##--------------------------------------------------------------------
+## Function: get_length/2
+## Purpose: Backend to calculate the total length
+## of a multiple file task.
+## Args: List: of lengths
+## Total: The total length for the task.
+## Returns: The total length.
+##--------------------------------------------------------------------
+
+get_length([], Total) ->
+    Total
+get_length([{_,H}|T], Total) ->
+    {ok, Value} = dict:find(“length”, H)
+    get_length(T, Total+Value)
+
+##--------------------------------------------------------------------
+## Function: get_lengths_list/1
+## Purpose: Returning the length(s) of the file(s)
+## in a list.
+## Args:  List with length(s)
+## Returns: The list with lengths
+##--------------------------------------------------------------------
+
+get_lengths_list([]) ->
+    []
+get_lengths_list([{_,H}|T]) ->
+    {ok, Value} = dict:find(“length”,H)
+    [Value|get_lengths_list(T)]
+
+##--------------------------------------------------------------------
+## Function: get_names/1
+## Purpose: Returning the names of the files
+## Args: List with file names.
+## Returns: The list with file names.
+##--------------------------------------------------------------------
+
+get_names([]) ->
+    []
+get_names([{_, H}|T]) ->
+    {ok, {list, [Value]}} = dict:find(“path”, H)
+    [binary_to_list(Value)|get_names(T)]
+
+##--------------------------------------------------------------------
+## Function: handle_pieces/4
+## Purpose: backend to grab the pieces from a list.
+## Args: List: of pieces
+## Piece_list: the new piece list
+## Byte: Accumulator for calculating bytes.
+## New_list: the new list of pieces
+## Returns: A list of pieces.
+##--------------------------------------------------------------------
+
+handle_pieces([], Piece_list, _Byte, New_list) ->
+    lists:reverse([lists:reverse(Piece_list)|New_list])
+handle_pieces([H|T],Piece_list, Byte, New_list) when Byte ≤ 20 ->
+    handle_pieces(T,[H|Piece_list], Byte+1, New_list)
+handle_pieces(List, Piece_list, _Byte, New_list)  ->
+    handle_pieces(List,[], 1, [lists:reverse(Piece_list)|New_list])

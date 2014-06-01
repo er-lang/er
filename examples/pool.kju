@@ -10,8 +10,7 @@
 
 # User interface Exports ...
 export
-                  start/1
-                  start/2
+                  start/1,2
                    stop/0
               get_nodes/0
      get_nodes_and_load/0
@@ -19,18 +18,15 @@ export
                  pspawn/3
                  attach/1
             pspawn_link/3
-end
 
 ## Internal Exports
 export
     statistic_collector/0
                do_spawn/4
                    init/1
-            handle_call/3
-            handle_cast/2
+            handle_call/3,2
             handle_info/2
               terminate/2
-end
 
 ## User interface
 
@@ -123,7 +119,6 @@ handle_call (get_node, _From, [{Load,N}|Tail]) =
     {reply, N, Tail++[{Load+1, N}]}
 handle_call ({attach, Node}, _From, Nodes) =
     if lists:keymember(Node, 2, Nodes)
-    then
         {reply, already_attached, Nodes}
     else
         erlang:monitor_node(Node, true)
@@ -162,7 +157,7 @@ do_spawn (Gl, M, F, A) =
 insert_node ({Load,Node},[{L,Node}|Tail]) when Load > L =
     ## We have a raised load here
     pure_insert({Load,Node},Tail)
-insert_node ({Load,Node},[{L,N}|Tail]) when Load =< L =
+insert_node ({Load,Node},[{L,N}|Tail]) when Load ≤ L =
     ## Move forward in the list
     T = lists:keydelete(Node,2,[{L,N}|Tail])
     [{Load,Node} | T]

@@ -9,7 +9,7 @@ export fac/1 fib/1
 ## API
 
 fac (0) = 1
-fac (N) when N > 0, ‹integer N› =
+fac (N) when N > 0 && is_integer(N) =
     N * :(N -1)
 
 fib (0) = 0

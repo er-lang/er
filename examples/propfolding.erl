@@ -1,0 +1,18 @@
+-module(propfolding).
+-export([get/1]).
+
+get (Doc) ->
+    {Stars, AreaID, CheckinDate, HotelID, Rooms} =
+        lists:foldl(
+          fun
+              ({<<"stars">>, Stars},             Acc) -> setelement(1, Acc, Stars);
+              ({<<"areaID">>, AreaID},           Acc) -> setelement(2, Acc, AreaID);
+              ({<<"checkinDate">>, <<Year:4, $-, Month:2, $-, Day:2>>}, Acc) ->
+                  setelement(3, Acc, binary_to_integer(<<Year/binary, Month/binary, Day/binary>>));
+              ({<<"hotelID">>, HotelID},         Acc) -> setelement(4, Acc, HotelID);
+              ({<<"rooms">>, Rooms},             Acc) -> setelement(5, Acc, Rooms)
+          end,
+          {undef, undef, undef, undef, undef},
+          Doc),
+    %% blablabla
+    ok.

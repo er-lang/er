@@ -1,6 +1,6 @@
-## +hipe +'{parse_transform,inline}'
 # -*- kju, coding: utf-8 -*-
-export string/1 end
+## +hipe +'{parse_transform,inline}'
+export string/1
 
 string :: (‹string›) → {ok | error, ‹term›}
 string (Str) =
@@ -8,4 +8,4 @@ string (Str) =
     case yrl_parser:parse(Tokens) of
         {ok, Tree} → {ok, Tree}
         Error → {error, Error} # MAY print stuff
-    end.
+    end

@@ -173,8 +173,8 @@ it would be equally valid to write:
 ```haskell
 print_list(File, List) =
     {ok, Stream} = file:open(File, write)
-    foreach(fun(File) -> 
-                io:format(Stream,"~p~n",[File]) 
+    foreach(fun(File) ->
+                io:format(Stream,"~p~n",[File])
             end, List)
     file:close(Stream)
 ```
@@ -197,7 +197,7 @@ map(F, [])    = []
 any(Pred, [H|T]) =
     if Pred(H) then true
     else any(Pred, T) end
-any(Pred, []) 
+any(Pred, [])
     false
 ```
 <!--- ... --->
