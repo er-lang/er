@@ -333,3 +333,8 @@ f() = # These lines are the same
 f() = {"bla\nbla\"bla", “bla\nbla\”bla”}
       <<"Hello", $\s, "World!">> = “Hello World!”
 
+decode :: (<<_:64,_:_*8>>) -> {id => <<_:11>>,timestamp => char()}
+decode(<<_:12, Len:4, Timestamp:16, 0:3, Id:11/bitstring, 0:18,
+       Data:Len/binary, _/binary>>) ->
+  {id => Id, data => Data, timestamp => Timestamp}
+

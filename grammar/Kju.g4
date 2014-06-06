@@ -109,7 +109,7 @@ type : type '..'  type
      | '[' tyMax         ']'
      | '[' tyMax ',' etc ']'
      | tyRecord
-     //| tyMap :waiting on OTP people
+     | tyMap
      | '{' tyMaxs? '}'
      | tyBinary
      | fun_ '(' tyFun? ')' ;
@@ -117,6 +117,8 @@ type : type '..'  type
 tyFun : '(' (etc|tyMaxs)? ')' lra tyMax ;
 
 tyRecord : atom '{' '}' ;
+
+tyMap : '{' Ma '}' | '{' tyMax '=>' tyMax (',' tyMax '=>' tyMax)* '}' ;
 
 tyBinary : '<<'                               '>>'
          | '<<' tyBinaryBase                  '>>'
