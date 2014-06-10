@@ -22,10 +22,15 @@ function before_FROM? () {
     [[ $FROM -ne 0 ]] && [[ $1 -lt $FROM ]]
 }
 
+function in_EXCEPT? () {
+    echo ${EXCEPT[@]/"$1"/"WAS_FOUND"} | grep -q "WAS_FOUND"
+}
+
 file="$1"; k=0
 
 T=${T:-'test'}
 FROM=${FROM:-1}
+EXCEPT=${EXCEPT[@]:-()}
 
 P "Checking '$file'. (stop by removing the generated parser, ^C won't do)."
 
@@ -34,6 +39,7 @@ while IFS='' read -r -d $'\n' line
 do
     [[ ! -f Kju.tokens ]] && P 'No parser found!' && exit 2
     if [[ '' = "$line" ]]; then
+        in_EXCEPT?   $i && code='' && ((i++)) && continue
         before_FROM? $i && code='' && ((i++)) && continue
         P "Snippet $i:"
         echo "$code"
