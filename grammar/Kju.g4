@@ -1,7 +1,7 @@
 grammar Kju;
 import Lexer;
 
-root : block+ EOF ;
+root : block* EOF ;
 
 block : export
       | import_
