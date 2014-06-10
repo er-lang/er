@@ -18,7 +18,7 @@ function Parse () {
     java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 $*
 }
 
-function beforeFROM? () {
+function before_FROM? () {
     [[ $FROM -ne 0 ]] && [[ $1 -lt $FROM ]]
 }
 
@@ -34,7 +34,7 @@ while IFS='' read -r -d $'\n' line
 do
     [[ ! -f Kju.tokens ]] && P 'No parser found!' && exit 2
     if [[ '' = "$line" ]]; then
-        beforeFROM? $i && code='' && ((i++)) && continue
+        before_FROM? $i && code='' && ((i++)) && continue
         P "Snippet $i:"
         echo "$code"
         ttree="$T/_$i.tree"
