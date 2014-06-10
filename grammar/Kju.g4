@@ -56,9 +56,9 @@ fa : atom '/' integer (',' integer)* ;
 /// import
 
 import_ : 'import' fas 'from' atom
-        | 'import' repo+ ;
+    ;// | 'import' repo+ ;
 
-repo : string atom ;
+// repo : string atom ;
 
 /// record
 
