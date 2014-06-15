@@ -3,6 +3,9 @@
 ## Grammar
 * Devise grammar for `-callback`s
 * `export_type`
+* `-opaque`
+* `|>`-notation for funs & comprehensions
+* `-include`, `-include_lib`
 * Think about allowing the range operator `..` in pattern matching
 
 ## Parser
