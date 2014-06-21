@@ -9,6 +9,8 @@
 * Think about allowing the range operator `..` in pattern matching
 * Move `or` & `and` up so that `C == $\n or C == $\t` is `(C == $\n) or (C == $\t)` (this would inhibit usage of `orelse` & `andalso` in cases where they are not needed)
 * Refactor `expr` & `last` and such now that all grammar is “secure”
+* Lex atoms: `^[0-9][^\s]+`
+* Unicode power to numbers? (superscript)
 
 ## Parser
 * Haskell: [uu-parsinglib](http://hackage.haskell.org/package/uu-parsinglib) or `parsec` + lexer + pretty_printer
