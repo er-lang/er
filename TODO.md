@@ -14,6 +14,11 @@
 * Refactor `expr` & `last` and such now that all grammar is “secure”
 * Lex atoms: `^[0-9][^\s]+`
 * Unicode power to numbers? (superscript)
+* Use `#{` instead of just `{` for kvs. This will help for empty kvs. Also easier to read.
+* Check that `a < x < b` really parses to `x \in ]a;b[`
+* Move `grammar/*` in `.` so that people will actually read it, instead of `criticisms.md`
+* Add grammar for preprocessor, if possible. (`#` on col0, scrambled text between parens, …)
 
 ## Parser
 * Haskell: [uu-parsinglib](http://hackage.haskell.org/package/uu-parsinglib) or `parsec` + lexer + pretty_printer
+* Or just look for a C backend to ANTLR4.
