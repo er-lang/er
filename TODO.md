@@ -21,6 +21,8 @@
 * Use `#{` instead of just `{` for kvs. This will help for empty kvs. Also easier to read.
 * Move `grammar/*` in `.` so that people will actually read it, instead of `criticisms.md`
 * Add grammar for preprocessor, if possible. (`#` on col0, scrambled text between parens, …)
+* Augment `if…else…end` to `if…elsif…else…end`? Is it really Erlangish? see core of `if…end`
+    * `if ‹expr› ‹seqExprs› (elseif ‹expr› ‹seqExprs›)* else ‹seqExprs› end`
 * Move `and` & `or` precedences' has high as their exception-gulping counterparts (more power)
     * because `C == $\n or C == $\t` > `(C == $\n) or (C == $\t)`
 * Check that `a < x < b` really parses to `x \in ]a;b[`
