@@ -21,4 +21,8 @@
 
 ## Parser
 * Haskell: [uu-parsinglib](http://hackage.haskell.org/package/uu-parsinglib) or `parsec` + lexer + pretty_printer
-* Or just look for a C backend to ANTLR4.
+* Or just look for a C backend to ANTLR4. Or an Erlang one. Or an haskell one.
+
+## Documentation
+* Put up a pretty and quick one-pager™ on [fenollp.github.io/kju](fenollp.github.io/kju)
+* Clean up `README.md` and re-define direction.
