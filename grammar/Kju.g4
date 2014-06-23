@@ -1,3 +1,5 @@
+// EBNF LL(*) grammar. Lexer split due to size.
+
 grammar Kju;
 import Lexer;
 
