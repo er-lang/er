@@ -83,7 +83,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     + Better lexing overall: allow hyphens/others to happen in atom names such as `tree-sum`
     + Add `rev/1` (for lists) like `hd/1` or `tail/1`. Recursion and linked lists often make use of `lists:reverse/1`.
     + May allow position of generator be swapped regarding `|` (or `||`)
-    + Add Go-channels/ObjC-[]: a new operator that sends then immediately receives using unique Ref.
+    + Add Go-channels/ObjC-[]: `!!` sends then immediately receives using unique Ref.
     + `-compile(export_all).` not a language construct. Only the compile option. (Bad use is bad)
     * To counter EEP38-like problems, `--pedantic` would warn about funclauses appart from each other.
     * `--static` MAY suggest to use `lists:flatmap/2` when it finds `lists:foldr(F,[])/1 ◊ lists:append/2`, …
@@ -109,20 +109,20 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     + One of the jobs of `--static`: http://erlang.org/pipermail/erlang-questions/2010-June/051868.html
     * A spec enables optimisation, eg: on calls to polymorphic functions.
     - Look into embedded specs to display terms. Eg: `f :: () -> ‹string› f()=[]`, `> f() #=> ""`
-    + Get rid of the need of a package manager using Go's package semantics
-    + Unboxing & inlining such as `compile's inline_list_funcs`
+    + Get rid of the need of a package manager using Go's package semantics. There's *.app.src for that.
+    + Unboxing & inlining such as `compile's inline_list_funcs`. And unboxing of stdlib functions.
     * Grammar issues regarding record/maps and no `,`?: scan for 'Var#name'.
     + Prepend `fun ` to º|•-notation.
     - `a | b | c` as match-multiple notation.
-* Compile to Erlang/Core Erlang. clang level of expressivity in errors. Colors available.
+    * `#include <app1>` = `-include_lib("app1/include/app1.hrl").` If that fails then `-include("include/app1.hrl").`
+    * `#include "include/defines.hrl" with ?macro1/0 ?macro2/2` for reading clarity
+* Compile to Core Erlang. clang level of expressivity in errors. Colors available.
+* **Lightning-fast compilation times**
 
 ## Step 2
 * Consistent stdlib. Whole rework of the API. Look at C++'s or Haskell's for containers.
-* Binaries are strings by default, not lists.
+- Binaries are strings by default, not lists.
 * Additions to stdlib: UTF-8 strings, …
-* Compiling directly to BEAM?
-* Fully featured LLVM backend.
+- Compiling directly to BEAM?
+- Fully featured LLVM backend.
 * A package manager a-la Homebrew-Hackage-AUR. Community-managed and stuff.
-
-## Step 3
-* ???
