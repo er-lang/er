@@ -1,10 +1,20 @@
-# kju • [A BEAM language](https://github.com/fenollp/kju)
-An attempt to solve Erlang's syntax quirks & horrible compile-time error reports.
+# kju • [An evolution from Erlang's syntax](https://github.com/fenollp/kju)
+An attempt to improve Erlang's syntax quirks & horrible compile-time error reports.
+
+This project **implements a grammar** similar to Erlang's *while much less verbose*. Note: grammar is at worst `LL(*)` (to be determined). For example, Erlang could do without its “weird” line terminators while remaining ambiguity-free as a language (and you don't need to replace them with indentation-based parsing). Lua did it. Go kind of did it. Why wouldn't Erlang do it? and shut off the Erlang's-syntax-is-weird naysaying at the same time
+
+This project is also **a compiler** from said grammar to Core Erlang and has to meet the following constraints:
+* instant compile times
+* syntax error reports that live up to clang's
+* extending compile-passes should be easy
+* compiler should be built from grammar file
+
+
+## Kju, the name
 
     cue |kjuː| (action signaling to an actor to begin performance | reminder | ~queue)
     kju K-ju Kaiju
     Le monstre magnifique
-    The magnificent monster
 
 Maybe Kim Jong-Un in that it is a merciless tool.
 
