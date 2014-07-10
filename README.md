@@ -127,6 +127,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * `#include <app1>` = `-include_lib("app1/include/app1.hrl").` If that fails then `-include("include/app1.hrl").`
     * `#include "include/defines.hrl" with ?macro1/0 ?macro2/2` for reading clarity
     * Allow `=` in guards as `=:=`, though warn about `==` & floats when possible
+    * Rewrite unused-output *-comprehensions as `foreach/2`. Eg: `_ = [‹body› | ‹arg›<-‹input›]` becomes `lists:foreach(fun (‹arg›) -> ‹body› end, ‹input›)`. So as not to build an output.
 * Compile to Core Erlang. clang level of expressivity in errors. Colors available.
 * **Lightning-fast compilation times**
 
