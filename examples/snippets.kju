@@ -81,7 +81,7 @@ try…catch () =
     end
 
 #15
-'π' () = 3.1415926535
+π () = 3.1415926535
 
 brilliant! () =  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>
 
