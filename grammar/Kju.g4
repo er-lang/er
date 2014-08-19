@@ -17,15 +17,15 @@ orelse :  '||' | 'orelse'  ;  // || && are to replace their synonyms
 andalso : '&&' | 'andalso' ;
 
 compOp : '<' | '=<' | '==' | '>=' | '>' | '/=' | '=/=' | '=:='
-       | '\u2264' | '\u2265' | '\u2260' ; // ≤ ≥ ≠
+       | '\u2264'|'\u2265' | '\u2260'|'\u2248' | '\u2261'|'\u2262' ; // ≤ ≥ ≠ ≈ ≡ ≢
 
 listOp : '++' | '--' ;
 
-addOp : '+' | '-' | 'bsl' | 'bsr' | 'or' | 'xor' | 'bor' | 'bxor' ;
+addOp : '+' | '-' | 'bsl' | 'bsr' | 'or' | 'xor' | 'bor' | 'bxor' | '\u22c1' ; // ⋁
 
-mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' ;
+mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' | '\u22c0' ; // ⋀
 
-unOp : '+' | '-' | 'not' | 'bnot' ;
+unOp : '+' | '-' | 'not' | 'bnot' | '\u00ac' ; // ¬
 
 when : 'when' | '|' ;  // | is just to test support. Will not be part of language.
 
@@ -36,8 +36,10 @@ fun_ : 'fun' ;
 lra :  '->' | '\u2192' ; // →
 angll : '<' | '\u2039' ; // ‹
 anglr : '>' | '\u203a' ; // ›
+bangll : '<<' | '\u00ab' ; // «
+banglr : '>>' | '\u00bb' ; // »
 
-generator : '<-' | '<=' | '<~' ;
+generator : '<-' | '<=' | '<~' | '\u2190' | '\u21d0' | '\u219c' ; // ← ⇐ ↜
 
 /// Tokens
 

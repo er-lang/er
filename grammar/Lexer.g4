@@ -10,13 +10,12 @@ WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 
 /// Tokens
     // Add A-Z to the negative match to forbid camelCase
-    // Add '›' and other unicode? rhs.
 
 fragment //    ≈ [_a-zA-Z0-9]
-ATOM_NOTSPECIALS : ~([ \t\r\n()\[\]{}:;,>|&/=]    | '\u203a' | '\u2192') ; // › →
+ATOM_NOTSPECIALS : ~([ \t\r\n()\[\]{}:;,>|&/=]    | '\u203a' | '\u2264'|'\u2265'|'\u2260'|'\u2248'|'\u2261'|'\u2262' | '\u2190'|'\u21d0'|'\u219c' | '\u00ac'|'\u22c0'|'\u22c1') ; // › ≤ ≥ ≠ ≈ ≡ ≢ ← ⇐ ↜ ¬ ⋀ ⋁
 
 fragment //    ≈ [_a-zA-Z0-9]
-VAR_NOTSPECIALS :  ~([ \t\r\n()\[\]{}:;,>|&/=*+-] | '\u203a' | '\u2192') ; // › →
+VAR_NOTSPECIALS :  ~([ \t\r\n()\[\]{}:;,>|&/=*+-] | '\u203a' | '\u2264'|'\u2265'|'\u2260'|'\u2248'|'\u2261'|'\u2262' | '\u2190'|'\u21d0'|'\u219c' | '\u00ac'|'\u22c0'|'\u22c1') ; // › ≤ ≥ ≠ ≈ ≡ ≢ ← ⇐ ↜ ¬ ⋀ ⋁
 
 Atom :  Ll              ATOM_NOTSPECIALS*
      | '$' ATOM_NOTSPECIALS ATOM_NOTSPECIALS+ // = '$' ATOM_NOTSPECIALS{2,}
