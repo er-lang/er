@@ -118,9 +118,9 @@ type : type '..'  type
 
 tyFun : '(' (etc|tyMaxs)? ')' lra tyMax ;
 
-tyRecord : atom '{' '}' ;
+tyRecord : '#{' atom '}' ;
 
-tyMap : '{' Ma '}' | '{' tyMax '=>' tyMax (',' tyMax '=>' tyMax)* '}' ;
+tyMap : '#{' '}' | '#{' tyMax '=>' tyMax (',' tyMax '=>' tyMax)* '}' ;
 
 tyBinary : '<<'                               '>>'
          | '<<' tyBinaryBase                  '>>'
@@ -204,7 +204,7 @@ term : char_
      | float_
      | string
   // | atom can't fit here, but it's a term.
-     | map | kv
+     | map
      | list
      | binary
      | tuple ;
@@ -215,14 +215,12 @@ tail :           ']'
      | '|' exprA ']'
      | ',' exprA tail ;
 
-// Key-Value Stores -- Activate either `map`'s key access or `kv`.
+// Key-Value Stores
 S : '>' ;
-record : '{' atom S '}'   | '{' exprA atom S  atom  '}'
-       | '{'  exprA? atom S    atom  '='         exprA (',' atom  '='         exprA)* '}' ;
-map :    '{' Ma     '}' //| '{' exprA      S  exprM '}'
-    |    '{' (exprA       S)?  exprA (':='|'=>') exprA (',' exprA (':='|'=>') exprA)* '}' ;
-kv :     '{' KVa    '}'   | '{' exprA      S  exprM '}'
-   |     '{' (exprA       S)?  exprM '='         exprA (',' exprM '='         exprA)* '}' ;
+record : '#{' atom '}'   | '#{' exprA atom S  atom  '}'
+       | '#{'  exprA? atom S    (atom|var)    '=' exprA (',' (atom|var)    '=' exprA)* '}' ;
+map :    '#{'      '}'   | '#{' exprA      S  exprM '}'
+    |    '#{' (exprA       S)?  exprA (':='|'=>') exprA (',' exprA (':='|'=>') exprA)* '}' ;
 
 binary : '<<' binElements? '>>' ;
 binElements : binElement (',' binElement)* ;
@@ -233,7 +231,7 @@ tuple : '{' exprAs? '}' ;
 
 lc :  '[' seqExprs         gens ']'  ;
 bc : '<<' seqExprs         gens '>>' ;
-mc :  '{' exprA '=>' exprA gens '}'  ; //seqExprs ?
+mc : '#{' exprA '=>' exprA gens '}'  ; //seqExprs ?
 tc :  '{' seqExprs         gens '}'  ;
 
 lr :  '[' exprA '..' exprA ']'  ;
