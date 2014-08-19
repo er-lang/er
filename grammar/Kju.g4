@@ -64,8 +64,9 @@ repo : string atom ;
 
 /// record
 
-defrecord : atom 'of' '{' (tyRecordField (',' tyRecordField)*)? '}' ;
+defrecord : atom 'of' tyRecordFields ;
 
+tyRecordFields : '{' (tyRecordField (',' tyRecordField)*)? '}' ;
 tyRecordField : atom ('::' type ('|' type)*)? ;
 
 /// def
@@ -120,7 +121,9 @@ tyFun : '(' (etc|tyMaxs)? ')' lra tyMax ;
 
 tyRecord : '#{' atom '}' ;
 
-tyMap : '#{' '}' | '#{' tyMax '=>' tyMax (',' tyMax '=>' tyMax)* '}' ;
+tyMap : '#{' tyMapAssocs? '}' ;
+tyMapAssocs : tyMapAssoc (',' tyMapAssoc)* ;
+tyMapAssoc : tyMax '=>' tyMax ;
 
 tyBinary : '<<'                               '>>'
          | '<<' tyBinaryBase                  '>>'
@@ -218,9 +221,13 @@ tail :           ']'
 // Key-Value Stores
 S : '>' ;
 record : '#{' atom '}'   | '#{' exprA atom S  atom  '}'
-       | '#{'  exprA? atom S    (atom|var)    '=' exprA (',' (atom|var)    '=' exprA)* '}' ;
+       | '#{'  exprA? atom S    recAssocs '}' ;
 map :    '#{'      '}'   | '#{' exprA      S  exprM '}'
-    |    '#{' (exprA       S)?  exprA (':='|'=>') exprA (',' exprA (':='|'=>') exprA)* '}' ;
+    |    '#{' (exprA       S)?  mapAssocs '}' ;
+recAssocs : recAssoc (',' recAssoc)* ;
+mapAssocs : mapAssoc (',' mapAssoc)* ;
+recAssoc : (atom|var)    '=' exprA ;
+mapAssoc : exprA (':='|'=>') exprA ;
 
 binary : '<<' binElements? '>>' ;
 binElements : binElement (',' binElement)* ;
