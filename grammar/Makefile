@@ -13,5 +13,5 @@ distclean:
 	$(if $(wildcard $(GRA)*.tokens), rm -f *.class *.java *.tokens)
 
 test: $(GRA).tokens
-	EXCEPT=(45) ./test/check.sh ../examples/snippets.kju
+	./test/check.sh ../examples/snippets.kju
 .PHONY: test
