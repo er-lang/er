@@ -18,7 +18,6 @@
 * Refactor `expr` & `last` and such now that all grammar is “secure”
 * Lex atoms: `^[0-9][^\s]+`
 * Unicode power to numbers? (superscript) `10⁴²`
-* Move `grammar/*` in `.` so that people will actually read it, instead of `criticisms.md`
 * Add grammar for preprocessor, if possible. (`#` on col0, scrambled text between parens, …)
 * Augment `if…else…end` to `if…elsif…else…end`? Is it really Erlangish? see core of `if…end`
     * `if ‹expr› ‹seqExprs› (elseif ‹expr› ‹seqExprs›)* else ‹seqExprs› end`
