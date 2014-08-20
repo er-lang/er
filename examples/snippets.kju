@@ -99,7 +99,7 @@ i-am-impressed () =
 
 export a/0 b/1 c/234
 
-f()= {2..3} <<-6..18>> [g()-2..Max]
+f()= {2..3} <<-6..18>> [Min..g()-2]
 
 #20
 f()= [1|[2|[3|[]]]]
@@ -327,4 +327,27 @@ decode :: (<<_:64,_:_*8>>) -> #{id => <<_:11>>,timestamp => char()}
 decode(<<_:12, Len:4, Timestamp:16, 0:3, Id:11/bitstring, 0:18,
        Data:Len/binary, _/binary>>) ->
   #{id => Id, data => Data, timestamp => Timestamp}
+
+ty_long_var_assoc() :: f(T,Q,W) when T::Q::W::text()
+processor() :: fun((T) -> T) when T::text()
+##
+analyze :: ([#{document}], [processor()]) -> [#{tokenized_document}]
+analyze (Documents, Processors) =
+    plists:map(  # Done in parallel
+      fun (Document) ->
+              Words = tokenize(#{Document document> text}, “”, [])
+              #{tokenized_document>
+                 url   = #{Document document> url}
+               , words = [apply_processors(Processors,Word) | Word<-Words] }
+      end, Documents)
+##
+normalizer/1 :: processor()
+normalizer (Word) =
+    processor(fun string:to_lower/1, Word)
+##
+processor :: (processor(), T) -> T | T::text()
+processor (Fun, Binary) =
+    << <<E>> = Element
+       <<Fun(E)>>
+    | <<Element:1/binary>> <= Binary>>
 

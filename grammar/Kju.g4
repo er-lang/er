@@ -54,8 +54,8 @@ string : String | BString ;
 
 export : 'export' fas ;
 
-fas : fa+ ;
-fa : atom '/' integer (',' integer)* ;
+fas : (fa (',' integer)*)+ ;
+fa : atom '/' integer ;
 
 /// import
 
@@ -91,11 +91,12 @@ defty :       atom '(' tyMaxs? ')'   '::' tyMax (when tyGuards)?
 
 /// spec
 
-spec :  atom '::' tyFun (when tyGuards)? ;
+spec : atom '::'  tyFun          (when tyGuards)?
+     | fa   '::' (tyFun|subtype) (when tyGuards)? ;
 
 tyGuards : tyGuard+ ;
 tyGuard : subtype
-        | var '::' tyMax ;
+        | (var '::')+ tyMax ;
 
 tyMaxs : tyMax (',' tyMax)* ;
 tyMax : (var '::')? type ('|' type)* ;

@@ -1,3 +1,4 @@
 grammar/*.class
 grammar/*.tokens
 grammar/*.java
+test/_*
