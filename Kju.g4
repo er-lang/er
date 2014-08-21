@@ -36,8 +36,8 @@ fun_ : 'fun' ;
 lra :  '->' | '\u2192' ; // →
 angll : '<' | '\u2039' ; // ‹
 anglr : '>' | '\u203a' ; // ›
-bangll : '<<' | '\u00ab' ; // «
-banglr : '>>' | '\u00bb' ; // »
+bil : '<<' | '\u00ab' ; // «
+bir : '>>' | '\u00bb' ; // »
 
 generator : '<-' | '<=' | '<~' | '\u2190' | '\u21d0' | '\u219c' ; // ← ⇐ ↜
 
@@ -128,10 +128,10 @@ tyMap : '#{' tyMapAssocs? '}' ;
 tyMapAssocs : tyMapAssoc (',' tyMapAssoc)* ;
 tyMapAssoc : tyMax '=>' tyMax ;
 
-tyBinary : '<<'                               '>>'
-         | '<<' tyBinaryBase                  '>>'
-         | '<<'                  tyBinaryUnit '>>'
-         | '<<' tyBinaryBase ',' tyBinaryUnit '>>' ;
+tyBinary : bil                               bir
+         | bil tyBinaryBase                  bir
+         | bil                  tyBinaryUnit bir
+         | bil tyBinaryBase ',' tyBinaryUnit bir ;
 tyBinaryBase : var ':'         type ;
 tyBinaryUnit : var ':' var '*' type ;
 
@@ -232,21 +232,21 @@ mapAssocs : mapAssoc (',' mapAssoc)* ;
 recAssoc : (atom|var)    '=' exprA ;
 mapAssoc : exprA (':='|'=>') exprA ;
 
-binary : '<<' binElements? '>>' ;
+binary : bil binElements? bir ;
 binElements : binElement (',' binElement)* ;
 binElement : exprA (':' exprM)? ('/' binType+)? ;
 binType : atom (':' integer)? ;
 
 tuple : '{' exprAs? '}' ;
 
-lc :  '[' seqExprs         gens ']'  ;
-bc : '<<' seqExprs         gens '>>' ;
-mc : '#{' exprA '=>' exprA gens '}'  ; //seqExprs ?
-tc :  '{' seqExprs         gens '}'  ;
+lc :  '[' seqExprs         gens ']' ;
+bc :  bil seqExprs         gens bir ;
+mc : '#{' exprA '=>' exprA gens '}' ; //seqExprs ?
+tc :  '{' seqExprs         gens '}' ;
 
-lr :  '[' exprA '..' exprA ']'  ;
-br : '<<' exprA '..' exprA '>>' ;
-tr :  '{' exprA '..' exprA '}'  ;
+lr :  '[' exprA '..' exprA ']' ;
+br :  bil exprA '..' exprA bir ;
+tr :  '{' exprA '..' exprA '}' ;
 
 begin : 'begin' seqExprs 'end' ;
 

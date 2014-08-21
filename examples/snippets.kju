@@ -195,10 +195,10 @@ factorial' /1 =
   end
 
 #40
-f()=  fun io:format("~p\n")/1 (dg)/0
-f()= (fun io:format("~p\n")/1)(dg)/0
+f()=  fun io:format("~p\n")/1 (dg)/0  # fun declaration then division of (dg)
+f()= (fun io:format("~p\n")/1)(dg)/0  # fun declaration then application to dg then division
 
-f()= fun (fun io:format("~p\n")/1)(dg)/0
+f()= fun (fun io:format("~p\n")/1)(dg)/0  # 2 fun declarations, no division
 
 import map/2 foreach/2 from lists
 
@@ -249,7 +249,7 @@ f()= [[log(E) | E <- LogVars] | DebugOn]
 
 # http://www.erlang.org/doc/reference_manual/expressions.html#id77958
 f({connect,_,To,_,_} = Signal, To, 1+2 bxor 3 = 0) =
-    S = "prefixed string"
+    S = "prefixed string"  # Note: static string concatenation not supported
     "prefix"++Str = S
     [$p,$r,$e,$f,$i,$x|_] = S
 
