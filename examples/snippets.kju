@@ -126,13 +126,13 @@ f() = case asd of a -> a s -> smth (d) -> ah-ah! end
 len :: (list()) -> pos_integer() | 0
 len (L) | is_list(L)  = length(L)
 
-len :: (<list>) -> <pos_integer>
+len :: (list()) -> pos_integer()
 len (L) = length(L)
-# len :: (‹tuple›) -> ‹pos_integer›
+# len :: (tuple()) -> pos_integer()
 len (T) when is_tuple(T) = size(T)
 
 '!' (0) = 1
-'!' :: (N) -> M when N::<pos_integer> M::<pos_integer>
+'!' :: (N) -> M when N::pos_integer() M::pos_integer()
 '!' (N) = N * :(N - 1)
 
 '!' :: () -> fun((N) -> N) when N::pos_integer()
@@ -158,7 +158,7 @@ f()= [ (a()):loop() ]
 
 f()= A = B = C = d
 
-zip :: ([<term>], [<term>]) -> [{<term>,<term>}]
+zip :: ([term()], [term()]) -> [{term(),term()}]
 ## <=> zip :: lists:zip/2
 zip ([X|Xs], [Y|Ys]) =
     [{X',Y'} | X' <- [X|Xs]
@@ -237,7 +237,8 @@ f()= # _ separating digits
 f :: () -> <<_:Integer, _:_*OtherInteger>>
 f()= <<42, 3:2, g():(h()), 1+2:3/ba be bi>>
 
-my_other_function :: (‹names›, ‹places›) → ‹atom›
+# my_other_function :: (‹names›, ‹places›) → ‹atom›  abandoned notation
+my_other_function :: (names(), places()) → atom()
 my_other_function (Names, Places) =
   R1 = ø(Ø, Ça, Names)
   R2 = µ(Ð, Æ, Places)
@@ -257,12 +258,12 @@ b() :: true | false
 h :: (b(), b()) -> b()
 h (A, B) = A band B
 
-‹red_panda_food› :: bamboo | birds | eggs | berries
-‹squid_food›     :: sperm_whale
-‹feed A› :: fun(() -> A)
-feeder :: (red_panda) -> ‹feed ‹red_panda_food››
+red_panda_food() :: bamboo | birds | eggs | berries
+squid_food()     :: sperm_whale
+feed(A) :: fun(() -> A)
+feeder :: (red_panda) -> feed(red_panda_food())
 feeder    (red_panda) = fun () -> bamboo      end
-feeder :: (squid)     -> ‹feed     ‹squid_food››
+feeder :: (squid)     -> feed(    squid_food())
 feeder    (squid)     = fun () -> sperm_whale end
 
 key-value-stores() =
@@ -308,7 +309,7 @@ note () =
 name   of {first :: string(), last :: string()}  # Also creates type '#{name}'
 name() :: #{name}
 # export_bis name/0  # Now that name is an exportable type…
-person of {name::name(), phone::‹pos_integer›}
+person of {name::name(), phone::pos_integer()}
 record_def_and_usage () ->
     R' = #{name> first="Robert", last="Virding"}
     R = #{person> name=R', phone=123}

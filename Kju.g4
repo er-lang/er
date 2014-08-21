@@ -34,8 +34,6 @@ etc : '...' | '\u2026' ; // …
 fun_ : 'fun' ;
 
 lra :  '->' | '\u2192' ; // →
-angll : '<' | '\u2039' ; // ‹
-anglr : '>' | '\u203a' ; // ›
 bil : '<<' | '\u00ab' ; // «
 bir : '>>' | '\u00bb' ; // »
 
@@ -86,8 +84,7 @@ guard : when exprA ; // && || replaces Erlang's ,;
 
 /// defty
 
-defty :       atom '(' tyMaxs? ')'   '::' tyMax (when tyGuards)?
-      | angll atom     tyMax*  anglr '::' tyMax (when tyGuards)? ;
+defty : atom '(' tyMaxs? ')' '::' tyMax (when tyGuards)? ;
 
 /// spec
 
@@ -101,8 +98,7 @@ tyGuard : subtype
 tyMaxs : tyMax (',' tyMax)* ;
 tyMax : (var '::')? type ('|' type)* ;
 
-subtype :       atom (':' atom)* '(' tyMaxs? ')'
-        | angll atom (':' atom)*     tyMax*  anglr ;
+subtype : atom (':' atom)* '(' tyMaxs? ')' ;
 
 type : type '..'  type
      | type addOp type

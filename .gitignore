@@ -1,4 +1,4 @@
-grammar/*.class
-grammar/*.tokens
-grammar/*.java
+Kju*.class
+Kju*.tokens
+Kju*.java
 test/_*
