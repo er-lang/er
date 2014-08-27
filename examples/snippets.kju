@@ -352,3 +352,9 @@ processor (Fun, Binary) =
        <<Fun(E)>>
     | <<Element:1/binary>> <= Binary>>
 
+conf of { dirs = []
+        , destination = filename:join(cwd(), "docs/erldocs")
+        , includes = [ cwd() ++ "/include"
+                     , cwd() ]
+        }
+

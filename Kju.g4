@@ -67,7 +67,7 @@ repo : string atom ;
 defrecord : atom 'of' tyRecordFields ;
 
 tyRecordFields : '{' (tyRecordField (',' tyRecordField)*)? '}' ;
-tyRecordField : atom ('::' type ('|' type)*)? ;
+tyRecordField : atom ('=' exprA)? ('::' type ('|' type)*)? ;
 
 /// def
 
