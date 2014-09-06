@@ -7,10 +7,10 @@ len (L) | is_list(L)  = length(L)
 len (T) | is_tuple(T) = size(T)
 
 f()= thiS() W=ill tot:ally(W + ork)
-g()= i-ll(give) my:hand() to_cut
+g()= i_ll(give) my:hand() to_cut
 
-length ([])    = 0
-length ([_|T]) = 1 + :(T)  # ‘:’ references the currently defined function, here: ‘length’
+length ([])    -> 0
+length ([_|T]) -> 1 + :(T)  # ‘:’ references the currently defined function, here: ‘length’
 
 #5
 f () =
@@ -35,10 +35,11 @@ t () =
         error:Reason -> {'EXIT',{Reason,erlang:get_stacktrace()}}
     end
 
-i (Arg1) =
-    if not Arg1 false else false end
+i (Arg1) ->
+    cond not Arg1 -> false
+         true     -> false end
 
-len (A) =
+len (A) ->
     case A of
         L when is_list(L) ->
             length(L)
@@ -47,7 +48,7 @@ len (A) =
     end
 
 #10
-p (Str) =
+p (Str) ->
     F = fun io:format("~p\n")/1
     F(Str)
 
@@ -58,7 +59,7 @@ b () =
         stuff
     end
 
-'p&to_list' (Arg) =
+'p&to_list' (Arg) ->
     case Arg of
         T | is_tuple(T) ->  [p(X) X | X <~ T]
         L | is_list(L) ->   [p(X) X | X <- L]
@@ -85,7 +86,7 @@ try…catch () =
 
 brilliant! () =  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>
 
-i-am-impressed () =
+i+am+impressed () =
     work()
     try
         talk()
@@ -110,7 +111,7 @@ many_args (A, [H|T], "str", -2) = ok
 
 fun_clauses () =
     fun (123) -> "123"
-        (231) -> deux-trois-un
+        (231) -> 'deux-trois-un'
         (stop) ->
             bla(1, 2, B, [$*])
             babebibobu()
@@ -120,7 +121,7 @@ fun_clauses () =
             end
     end
 
-f() = case asd of a -> a s -> smth (d) -> ah-ah! end
+f() = case asd of a -> a s -> smth (d) -> ah+ah! end
 
 #25
 len :: (list()) -> pos_integer() | 0
@@ -131,7 +132,7 @@ len (L) = length(L)
 # len :: (tuple()) -> pos_integer()
 len (T) when is_tuple(T) = size(T)
 
-'!' (0) = 1
+'!' (0) -> 1
 '!' :: (N) -> M when N::pos_integer() M::pos_integer()
 '!' (N) = N * :(N - 1)
 
@@ -142,14 +143,14 @@ len (T) when is_tuple(T) = size(T)
             N * :(N - 1) # ‘:’ also works on funs.
     end
 
-flat.map (Fun, List) =
+flat.map (Fun, List) ->
     (fun append/1 . fun map/2) (Fun, List)
 
 #30
-flatmap /2 =
+flatmap /2 ->
     fun append/1 . fun map/2
 
-f /1 =
+f /1 ->
     fun (0) -> 1
         (N) -> N * :(N - 1)
     end
@@ -169,7 +170,7 @@ zip ([], []) = [] # Using a list comprehension implementation, this line is usel
 # However, a warning should be thrown as the second fun_clause is useless.
 
 #35
-fizz_buzz (N) =
+fizz_buzz (N) ->
     [case {X rem 3, X rem 5} of
         {0, 0} -> fizzbuzz
         {0, _} -> fizz
@@ -184,7 +185,7 @@ export start/1,2
 verify_int (Int, Max) =
     false || verify_strict_int(Int) && verify_strict_int(Max) && Int =< Max
 
-factorial' /1 =
+factorial' /1 ->
   fun
     (f ) -> fun :/1
     (f') -> fun :()/1
@@ -226,7 +227,7 @@ main () =
     app1:master:app1:f()
     app1:v1.2  :app1:f()
 
-f($char) = $c
+f('$char') -> $c
 
 f()= # _ separating digits
     1_000
@@ -235,17 +236,17 @@ f()= # _ separating digits
     10.000_001E-2_345
 
 f :: () -> <<_:Integer, _:_*OtherInteger>>
-f()= <<42, 3:2, g():(h()), 1+2:3/ba be bi>>
+f()= <<42, 3:2, g():(h()), 1+2:3/ba-be-bi>>
 
 # my_other_function :: (‹names›, ‹places›) → ‹atom›  abandoned notation
 my_other_function :: (names(), places()) → atom()
 my_other_function (Names, Places) =
   R1 = ø(Ø, Ça, Names)
   R2 = µ(Ð, Æ, Places)
-  if R1 ≥ R2 ok else ko end
+  if R1 ≥ R2 ok if not ko
 
 #50
-# There is only 1 LC here.
+# There is only 1 (L)Comprehension here.
 f()= [[log(E) | E <- LogVars] | DebugOn]
 
 # http://www.erlang.org/doc/reference_manual/expressions.html#id77958
@@ -266,54 +267,54 @@ feeder    (red_panda) = fun () -> bamboo      end
 feeder :: (squid)     -> feed(    squid_food())
 feeder    (squid)     = fun () -> sperm_whale end
 
-key-value-stores() =
+'key-value-stores'() =
     ## Neutral
   M' = #{}
   R' = #{r}
     ## Creation
   M0 = #{k => v}
-  R0 = #{r> k = v}
+  R0 = #{r  k = v}
     ## Update
-  M1 = #{M0> k := v2}
-  R1 = #{R0 r> k = v2}
+  M1 = #{M0 k := v2}
+  R1 = #{R0 r  k = v2}
     ## Read
-  V = #{M1> k}
-  V = #{R1 r> k}
+  V = #{M1   k}
+  V = #{R1 r k}
     ## Matching
   #{k := V}   = M1
-  #{r> k = V} = R1
+  #{r  k = V} = R1
 
 #55
 nesting() ->
     ## Records
-  R = #{person> name= #{name> first="Robert",last="Virding"}, phone=120+3}
-  First = #{#{R person> name} name> first}
+  R = #{person name= #{name first="Robert",last="Virding"}, phone=120+3}
+  First = #{#{R person name} name first}
     ## Maps
   M = #{name=> #{first=>"Robert",last=>"Virding"}, phone=>120+3}
-  First = #{#{M> name}> first}
+  First = #{#{M name} first}
 
 f()=  {a} {a=b} {a=b, c=d} {b, c=d}  # 4 tuples
 
 some_more () =
-    #{"favorite" := Animal, Animal := Name} = #{Pets> "favorite" := "dog"}
+    #{"favorite" := Animal, Animal := Name} = #{Pets "favorite" := "dog"}
     FoggyPlaces = [X | X := fog <- #{montreal=>storms, london=>fog, paris=>sun}]
-    #{boston => foggy, london => foggy} = #{X => foggy | X <- [london,boston]}
-#   X = M#{c}#{y} could be #{#{M> c}> y} (or {{M c} Y} (but the empty record?))
-    NPants = #{pants> _ = undef}
+    #{boston := foggy, london := foggy} = #{X => foggy | X <- [london,boston]}
+#   X = M#{c}#{y} is #{#{M c} y}
+    NPants = #{pants _ = undef}
 
 note () =
-    M   = #{  A > B  => true}  # Updates A. (let's find a separator ≠ '>')
-    M'  = #{ (A > B) => true}  # New map with boolean key
-    M'' = #{g()> A>B => yo()}  # Permissive syntax!
+    M   = #{A   B => true}       # Updates A
+    M'  = #{A > B => true}       # New map with boolean key
+    M'' = #{g()  A > B => yo()}  # Permissive syntax!
 
 name   of {first :: string(), last :: string()}  # Also creates type '#{name}'
 name() :: #{name}
 # export_bis name/0  # Now that name is an exportable type…
 person of {name::name(), phone::pos_integer()}
 record_def_and_usage () ->
-    R' = #{name> first="Robert", last="Virding"}
-    R = #{person> name=R', phone=123}
-    First = #{#{R person> name} name> first}
+    R' = #{name  first="Robert", last="Virding"}
+    R = #{person  name=R', phone=123}
+    First = #{#{R person  name} name  first}
 
 #60
 f() = # These lines are the same
@@ -326,7 +327,7 @@ f() = {"bla\nbla\"bla", “bla\nbla\”bla”}
 
 decode :: (<<_:64,_:_*8>>) -> #{id => <<_:11>>,timestamp => char()}
 decode(<<_:12, Len:4, Timestamp:16, 0:3, Id:11/bitstring, 0:18,
-       Data:Len/binary, _/binary>>) ->
+       Data:Len/binary, _/binary>>) =
   #{id => Id, data => Data, timestamp => Timestamp}
 
 ty_long_var_assoc() :: f(T,Q,W) when T::Q::W::text()
@@ -336,9 +337,9 @@ analyze :: ([#{document}], [processor()]) -> [#{tokenized_document}]
 analyze (Documents, Processors) =
     plists:map(  # Done in parallel
       fun (Document) ->
-              Words = tokenize(#{Document document> text}, “”, [])
-              #{tokenized_document>
-                 url   = #{Document document> url}
+              Words = tokenize(#{Document document  text}, “”, [])
+              #{tokenized_document
+                 url   = #{Document document  url}
                , words = [apply_processors(Processors,Word) | Word<-Words] }
       end, Documents)
 ##
@@ -357,4 +358,11 @@ conf of { dirs = []
         , includes = [ cwd() ++ "/include"
                      , cwd() ]
         }
+
+#65
+f()-> if if not a<b a if not b
+        "1"
+      if not 2*b
+
+w()= #{ key => C = 1 + 2 }
 

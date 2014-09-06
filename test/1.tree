@@ -1,1 +1,1 @@
-(root (block (def (func (atom f) (args ( )) = (seqExprs (lastOnly (atom ok)))))) <EOF>)
+(root (block (def (func (atom f) (args ( )) = (seqExprs (expr (exprMax (term (atom ok)))))))) <EOF>)

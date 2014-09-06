@@ -1,1 +1,1 @@
-(root (block (def (fun_func (fa (atom flatmap) / (integer 2)) = (seqExprs (expr (expr125 (expr150 (expr160 (expr200 (expr300 (expr400 (expr500 (expr600 (exprMax (fun (fun (fun_ fun) (mf (lastOnly (atom append))) / (integer 1)) . (fun (fun_ fun) (mf (lastOnly (atom map))) / (integer 2))))))))))))))))) <EOF>)
+(root (block (def (fun_func (fa (atom flatmap) / (integer 2)) (lra ->) (seqExprs (expr (fun (fun (fun_ fun) (mf (exprMax (term (atom append)))) / (integer 1)) . (fun (fun_ fun) (mf (exprMax (term (atom map)))) / (integer 2)))))))) <EOF>)

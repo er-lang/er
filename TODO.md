@@ -15,16 +15,11 @@
 * `|>`-notation for funs & comprehensions
 * `-include`, `-include_lib` as `#include`*
 * Think about allowing the range operator `..` in pattern matching
-* Refactor `expr` & `last` and such now that all grammar is “secure”
 * Lex atoms: `^[0-9][^\s]+`
 * Unicode power to numbers? (superscript) `10⁴²`
 * Add grammar for preprocessor, if possible. (`#` on col0, scrambled text between parens, …)
-* Augment `if…else…end` to `if…elsif…else…end`? Is it really Erlangish? see core of `if…end`
-    * `if ‹expr› ‹seqExprs› (elseif ‹expr› ‹seqExprs›)* else ‹seqExprs› end`
-    * No `elseif`s, `cond` will suffice. On reserving `else`: `if not` can do…
 * Move `and` & `or` precedences' has high as their exception-gulping counterparts (more power)
     * because `C == $\n or C == $\t` > `(C == $\n) or (C == $\t)`
-* Check that `a < x < b` really parses to `x \in ]a;b[`
 
 ## Parser
 * Haskell: [uu-parsinglib](http://hackage.haskell.org/package/uu-parsinglib) or `parsec` + lexer + pretty_printer
