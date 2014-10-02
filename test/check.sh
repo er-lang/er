@@ -15,7 +15,7 @@ function P () {
 }
 
 function Parse () {
-    java -Xmx8g org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 $*
+    java org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 $*
 }
 
 function before_FROM? () {
