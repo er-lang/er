@@ -1,1 +1,1 @@
-(root (block (def (func (atom f) (args ( )) = (seqExprs (expr (fun (fun_ fun) (funClause (args ( (matchables (matchable (var Thu))) )) (lra ->) (seqExprs (expr (exprMax (term (atom gaim)))))) end)))))) <EOF>)
+(root (block (def (func (atom f) (args ( )) (lra ->) (seqExprs (expr (fun (fun_ fun) (funClause (args ( (matchables (matchable (var Thu))) )) (lra ->) (seqExprs (expr (exprMax (term (atom gaim)))))) end)))))) <EOF>)

@@ -1,33 +1,33 @@
 # -*- coding: utf-8 -*-
 ## Add snippets at EoF
 ## Separate them with \n\n; the last also.
-f()= ok
+f()-> ok
 
-len (L) | is_list(L)  = length(L)
-len (T) | is_tuple(T) = size(T)
+len (L) | is_list(L)  -> length(L)
+len (T) | is_tuple(T) -> size(T)
 
-f()= thiS() W=ill tot:ally(W + ork)
-g()= i_ll(give) my:hand() to_cut
+f()-> thiS() W=ill tot:ally(W + ork)
+g()-> i_ll(give) my:hand() to_cut
 
 length ([])    -> 0
 length ([_|T]) -> 1 + :(T)  # ‘:’ references the currently defined function, here: ‘length’
 
 #5
-f () =
+f () ->
     case orddict:find(Node, Nodes) of
         {ok, Ref} -> {down, node, Ref}
         {ok, WrongRef} | is_reference(WrongRef) -> 'not the one'
         error ->     {ignore, not_monitored, FD}
     end
 
-'f' () =
+'f' () ->
     receive
 #       {'ok', Ref} -> 'do_somth'('arg1', 2) {'down', 'node', Ref}
         {'ok', WrongRef} when 'is_reference'(WrongRef) -> 'smth'() 'not the one'
         'error' ->     {'ignore', 'not_monitored', FD}
     end
 
-t () =
+t () ->
     try Expr
     catch
         throw:Term -> Term
@@ -52,7 +52,7 @@ p (Str) ->
     F = fun io:format("~p\n")/1
     F(Str)
 
-b () =
+b () ->
     begin
         do()
         some()
@@ -66,9 +66,9 @@ b () =
         B | is_binary(B) -> [p(X) X | X <= B]
     end
 
-map (F, A) | is_tuple(A) = {F(X) | X <~ A}
+map (F, A) | is_tuple(A) -> {F(X) | X <~ A}
 
-try…catch () =
+try…catch () ->
     try bla() Expression of
         SuccessfulPattern1 ->
             Expression1
@@ -82,11 +82,11 @@ try…catch () =
     end
 
 #15
-π () = 3.1415926535
+π () -> 3.1415926535
 
-brilliant! () =  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>
+brilliant! () ->  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>
 
-i+am+impressed () =
+i+am+impressed () ->
     work()
     try
         talk()
@@ -100,16 +100,16 @@ i+am+impressed () =
 
 export a/0 b/1 c/234
 
-f()= {2..3} <<-6..18>> [Min..g()-2]
+f()-> {2..3} <<-6..18>> [Min..g()-2]
 
 #20
-f()= [1|[2|[3|[]]]]
+f()-> [1|[2|[3|[]]]]
 
-f()= fun (Thu) -> gaim end
+f()-> fun (Thu) -> gaim end
 
-many_args (A, [H|T], "str", -2) = ok
+many_args (A, [H|T], "str", -2) -> ok
 
-fun_clauses () =
+fun_clauses () ->
     fun (123) -> "123"
         (231) -> 'deux-trois-un'
         (stop) ->
@@ -121,23 +121,23 @@ fun_clauses () =
             end
     end
 
-f() = case asd of a -> a s -> smth (d) -> ah+ah! end
+f() -> case asd of a -> a s -> smth (d) -> ah+ah! end
 
 #25
 len :: (list()) -> pos_integer() | 0
-len (L) | is_list(L)  = length(L)
+len (L) | is_list(L)  -> length(L)
 
 len :: (list()) -> pos_integer()
-len (L) = length(L)
+len (L) -> length(L)
 # len :: (tuple()) -> pos_integer()
-len (T) when is_tuple(T) = size(T)
+len (T) when is_tuple(T) -> size(T)
 
 '!' (0) -> 1
 '!' :: (N) -> M when N::pos_integer() M::pos_integer()
-'!' (N) = N * :(N - 1)
+'!' (N) -> N * :(N - 1)
 
 '!' :: () -> fun((N) -> N) when N::pos_integer()
-'!' () =
+'!' () ->
     fun (0) -> 1
         (N) when N > 0 ->
             N * :(N - 1) # ‘:’ also works on funs.
@@ -150,22 +150,22 @@ flat.map (Fun, List) ->
 flatmap /2 ->
     fun append/1 . fun map/2
 
-f /1 ->
+f/1 ->
     fun (0) -> 1
         (N) -> N * :(N - 1)
     end
 
-f()= [ (a()):loop() ]
+f()-> [ (a()):loop() ]
 
-f()= A = B = C = d
+f()-> A = B = C = d
 
 zip :: ([term()], [term()]) -> [{term(),term()}]
-## <=> zip :: lists:zip/2
-zip ([X|Xs], [Y|Ys]) =
+## <=> zip/2 :: lists:zip/2
+zip ([X|Xs], [Y|Ys]) ->
     [{X',Y'} | X' <- [X|Xs]
              | Y' <- [Y|Ys]]
     # <=> [{X,Y} | :(Xs, Ys)]
-zip ([], []) = [] # Using a list comprehension implementation, this line is useless.
+zip ([], []) -> [] # Using a list comprehension implementation, this line is useless.
 # However, it shows that the spec only applies to the first fun_clause.
 # However, a warning should be thrown as the second fun_clause is useless.
 
@@ -178,11 +178,11 @@ fizz_buzz (N) ->
         {_, _} -> X
      end | X <- [1..N]]
 
-f()= string:sub_string(OptStr, P, P + 2) >= "3.4"
+f()-> string:sub_string(OptStr, P, P + 2) >= "3.4"
 
 export start/1,2
 
-verify_int (Int, Max) =
+verify_int (Int, Max) ->
     false || verify_strict_int(Int) && verify_strict_int(Max) && Int =< Max
 
 factorial' /1 ->
@@ -196,14 +196,14 @@ factorial' /1 ->
   end
 
 #40
-f()=  fun io:format("~p\n")/1 (dg)/0  # fun declaration then division of (dg)
-f()= (fun io:format("~p\n")/1)(dg)/0  # fun declaration then application to dg then division
+f()->  fun io:format("~p\n")/1 (dg)/0  # fun declaration then division of (dg)
+f()-> (fun io:format("~p\n")/1)(dg)/0  # fun declaration then application to dg then division
 
-f()= fun (fun io:format("~p\n")/1)(dg)/0  # 2 fun declarations, no division
+f()-> fun (fun io:format("~p\n")/1)(dg)/0  # 2 fun declarations, no division
 
 import map/2 foreach/2 from lists
 
-f()= # Integers
+f()-> # Integers
     A = 10
     B = -234
     C = 16#AB10F
@@ -214,7 +214,7 @@ f()= # Integers
     G = -56.654
     H = 12.34E-10
 
-f()= ok = a:b()
+f()-> ok = a:b()
 
 #45
 import ## Depends on 2 versions of same package:
@@ -222,52 +222,52 @@ import ## Depends on 2 versions of same package:
     "github.com/anon42/app1" v1.2
     "bitbucket.org/user2/repo2" master
 export main/0
-main () =
+main () ->
     ok = app2:bla(bla, bla)
     app1:master:app1:f()
     app1:v1.2  :app1:f()
 
 f('$char') -> $c
 
-f()= # _ separating digits
+f()-> # _ separating digits
     1_000
     1_23_777
     1_00#9_999_957
     10.000_001E-2_345
 
 f :: () -> <<_:Integer, _:_*OtherInteger>>
-f()= <<42, 3:2, g():(h()), 1+2:3/ba-be-bi>>
+f()-> <<42, 3:2, g():(h()), 1+2:3/ba-be-bi>>
 
 # my_other_function :: (‹names›, ‹places›) → ‹atom›  abandoned notation
 my_other_function :: (names(), places()) → atom()
-my_other_function (Names, Places) =
+my_other_function (Names, Places) ->
   R1 = ø(Ø, Ça, Names)
   R2 = µ(Ð, Æ, Places)
   if R1 ≥ R2 ok if not ko
 
 #50
 # There is only 1 (L)Comprehension here.
-f()= [[log(E) | E <- LogVars] | DebugOn]
+f()-> [[log(E) | E <- LogVars] | DebugOn]
 
 # http://www.erlang.org/doc/reference_manual/expressions.html#id77958
-f({connect,_,To,_,_} = Signal, To, 1+2 bxor 3 = 0) =
+f({connect,_,To,_,_} = Signal, To, 1+2 bxor 3 = 0) ->
     S = "prefixed string"  # Note: static string concatenation not supported
     "prefix"++Str = S
     [$p,$r,$e,$f,$i,$x|_] = S
 
 b() :: true | false
 h :: (b(), b()) -> b()
-h (A, B) = A band B
+h (A, B) -> A band B
 
 red_panda_food() :: bamboo | birds | eggs | berries
 squid_food()     :: sperm_whale
 feed(A) :: fun(() -> A)
 feeder :: (red_panda) -> feed(red_panda_food())
-feeder    (red_panda) = fun () -> bamboo      end
+feeder    (red_panda)-> fun () -> bamboo      end
 feeder :: (squid)     -> feed(    squid_food())
-feeder    (squid)     = fun () -> sperm_whale end
+feeder    (squid)    -> fun () -> sperm_whale end
 
-'key-value-stores'() =
+'key-value-stores'() ->
     ## Neutral
   M' = #{}
   R' = #{r}
@@ -293,16 +293,16 @@ nesting() ->
   M = #{name=> #{first=>"Robert",last=>"Virding"}, phone=>120+3}
   First = #{#{M name} first}
 
-f()=  {a} {a=b} {a=b, c=d} {b, c=d}  # 4 tuples
+f()->  {a} {a=b} {a=b, c=d} {b, c=d}  # 4 tuples
 
-some_more () =
+some_more () ->
     #{"favorite" := Animal, Animal := Name} = #{Pets "favorite" := "dog"}
     FoggyPlaces = [X | X := fog <- #{montreal=>storms, london=>fog, paris=>sun}]
     #{boston := foggy, london := foggy} = #{X => foggy | X <- [london,boston]}
 #   X = M#{c}#{y} is #{#{M c} y}
     NPants = #{pants _ = undef}
 
-note () =
+note () ->
     M   = #{A   B => true}       # Updates A
     M'  = #{A > B => true}       # New map with boolean key
     M'' = #{g()  A > B => yo()}  # Permissive syntax!
@@ -317,24 +317,24 @@ record_def_and_usage () ->
     First = #{#{R person  name} name  first}
 
 #60
-f() = # These lines are the same
+f() -> # These lines are the same
     a = a  :g()
     a = (a):g()
     a = a:g()
 
-f() = {"bla\nbla\"bla", “bla\nbla\”bla”}
+f() -> {"bla\nbla\"bla", “bla\nbla\”bla”}
       <<"Hello", $\s, "World!">> = “Hello World!”
 
 decode :: (<<_:64,_:_*8>>) -> #{id => <<_:11>>,timestamp => char()}
 decode(<<_:12, Len:4, Timestamp:16, 0:3, Id:11/bitstring, 0:18,
-       Data:Len/binary, _/binary>>) =
+       Data:Len/binary, _/binary>>) ->
   #{id => Id, data => Data, timestamp => Timestamp}
 
 ty_long_var_assoc() :: f(T,Q,W) when T::Q::W::text()
 processor() :: fun((T) -> T) when T::text()
 ##
 analyze :: ([#{document}], [processor()]) -> [#{tokenized_document}]
-analyze (Documents, Processors) =
+analyze (Documents, Processors) ->
     plists:map(  # Done in parallel
       fun (Document) ->
               Words = tokenize(#{Document document  text}, “”, [])
@@ -344,11 +344,11 @@ analyze (Documents, Processors) =
       end, Documents)
 ##
 normalizer/1 :: processor()
-normalizer (Word) =
+normalizer (Word) ->
     processor(fun string:to_lower/1, Word)
 ##
 processor :: (processor(), T) -> T | T::text()
-processor (Fun, Binary) =
+processor (Fun, Binary) ->
     << <<E>> = Element
        <<Fun(E)>>
     | <<Element:1/binary>> <= Binary>>
@@ -365,5 +365,5 @@ f()-> if if not a<b a if not b
         "1"
       if not 2*b
 
-w()= #{ key => C = 1 + 2 }
+w()-> #{ key => C = 1 + 2 }
 

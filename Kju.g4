@@ -76,9 +76,9 @@ tyRecordField : atom ('=' expr)? (dim type ('|' type)*)? ;
 def : spec?     func
     | spec? fun_func ;
 
-func : atom args guard? ('='|lra) seqExprs ;
+func : atom args guard? lra seqExprs ;
 
-fun_func : fa           ('='|lra) seqExprs ;
+fun_func : fa           lra seqExprs ;
 
 args : '(' matchables? ')' ;
 

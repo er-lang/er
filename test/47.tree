@@ -1,1 +1,1 @@
-(root (block (def (func (atom f) (args ( )) = (seqExprs (expr (exprMax (term (integer 1_000)))) (expr (exprMax (term (integer 1_23_777)))) (expr (exprMax (term (integer 1_00#9_999_957)))) (expr (exprMax (term (float_ 10.000_001E-2_345)))))))) <EOF>)
+(root (block (def (func (atom f) (args ( )) (lra ->) (seqExprs (expr (exprMax (term (integer 1_000)))) (expr (exprMax (term (integer 1_23_777)))) (expr (exprMax (term (integer 1_00#9_999_957)))) (expr (exprMax (term (float_ 10.000_001E-2_345)))))))) <EOF>)
