@@ -1,1 +1,1 @@
-(root (block (def (func (atom b) (args ( )) = (seqExprs (expr (begin begin (seqExprs (expr (functionCall (mf (exprMax (term (atom do)))) (params ( )))) (expr (functionCall (mf (exprMax (term (atom some)))) (params ( )))) (expr (exprMax (term (atom stuff))))) end)))))) <EOF>)
+(root (block (def (func (atom b) (args ( )) (lra ->) (seqExprs (expr (begin begin (seqExprs (expr (functionCall (mf (exprMax (term (atom do)))) (params ( )))) (expr (functionCall (mf (exprMax (term (atom some)))) (params ( )))) (expr (exprMax (term (atom stuff))))) end)))))) <EOF>)
