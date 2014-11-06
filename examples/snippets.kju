@@ -357,6 +357,7 @@ conf of { dirs = []
         , destination = filename:join(cwd(), "docs/erldocs")
         , includes = [ cwd() ++ "/include"
                      , cwd() ]
+        , logfile ∷ string() | binary()
         }
 
 #65

@@ -13,6 +13,8 @@ block : export
 
 /// Ops | Also some tokens as ANTLR4 concatenates lexemes.
 
+dim : '::' | '\u2237' ; // ∷
+
 orelse :  '||' | 'orelse'  ;  // || && are to replace their synonyms
 andalso : '&&' | 'andalso' ;
 
@@ -67,7 +69,7 @@ repo : string atom ;
 defrecord : atom 'of' tyRecordFields ;
 
 tyRecordFields: '{' (tyRecordField (',' tyRecordField)*)? '}' ;
-tyRecordField : atom ('=' expr)? ('::' type ('|' type)*)? ;
+tyRecordField : atom ('=' expr)? (dim type ('|' type)*)? ;
 
 /// def
 
@@ -84,19 +86,19 @@ guard : when expr ; // && || replaces Erlang's ,; (in guards)
 
 /// defty
 
-defty : atom '(' tyMaxs? ')' '::' tyMax (when tyGuards)? ;
+defty : atom '(' tyMaxs? ')' dim tyMax (when tyGuards)? ;
 
 /// spec
 
-spec : atom '::'  tyFun          (when tyGuards)?
-     | fa   '::' (tyFun|subtype) (when tyGuards)? ;
+spec : atom dim  tyFun          (when tyGuards)?
+     | fa   dim (tyFun|subtype) (when tyGuards)? ;
 
 tyGuards: tyGuard+ ;
 tyGuard : subtype
-        | (var '::')+ tyMax ;
+        | (var dim)+ tyMax ;
 
 tyMaxs: tyMax (',' tyMax)* ;
-tyMax : (var '::')? type ('|' type)* ;
+tyMax : (var dim)? type ('|' type)* ;
 
 subtype : atom (':' atom)* '(' tyMaxs? ')' ;
 
