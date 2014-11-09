@@ -5,11 +5,9 @@ import Lexer;
 
 root : block* EOF ;
 
-block : export
-      | import_
-      | defrecord
-      | defty
-      | def ;
+block : defty
+      | def
+      | attribute ;
 
 /// Ops | Also some tokens as ANTLR4 concatenates lexemes.
 
@@ -50,23 +48,13 @@ integer : Integer ;
 char_ : Char ;
 string : String | BString ;
 
-/// export
+/// attribute
 
-export : 'export' fas ;
+attribute : atom (term|fas) 'of' (term|tyRecordFields)
+          | atom (term|fas) ;
 
 fas: (fa (',' integer)*)+ ;
 fa : atom '/' integer ;
-
-/// import
-
-import_ : 'import' fas 'from' atom
-        | 'import' repo+ ;
-
-repo : string atom ;
-
-/// record
-
-defrecord : atom 'of' tyRecordFields ;
 
 tyRecordFields: '{' (tyRecordField (',' tyRecordField)*)? '}' ;
 tyRecordField : atom ('=' expr)? (dim type ('|' type)*)? ;

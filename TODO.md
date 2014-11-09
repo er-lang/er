@@ -1,16 +1,8 @@
 # To do
 
 ## Grammar
-* Allow `module ‹atom›`
-* Devise a way of introducing new attributes all matching 1 grammar rule
-    * `‹atom AttrName› ‹term Param› (of ‹term RestIfNeeded›)?`
 * Devise grammar for `-callback`s
     * `callback`
-* `export_type` (prefer less awkward naming)
-    * `types`
-* `-opaque`
-    * `opaque`
-* Note: `export`, `callback` and other attribute names needn't be reserved atoms: with PEGs…
 * Note: unused common ASCII operators: `%`, `^`, `&`, `~`, `backquote`, `;`, `\`
 * `|>`-notation for funs & comprehensions
     * Would it need `∘` | `º` ?

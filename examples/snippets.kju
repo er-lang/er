@@ -201,7 +201,7 @@ f()-> (fun io:format("~p\n")/1)(dg)/0  # fun declaration then application to dg 
 
 f()-> fun (fun io:format("~p\n")/1)(dg)/0  # 2 fun declarations, no division
 
-import map/2 foreach/2 from lists
+import map/2 foreach/2 of lists
 
 f()-> # Integers
     A = 10
@@ -217,10 +217,10 @@ f()-> # Integers
 f()-> ok = a:b()
 
 #45
-import ## Depends on 2 versions of same package:
-    "github.com/anon42/app1" master
-    "github.com/anon42/app1" v1.2
-    "bitbucket.org/user2/repo2" master
+ ## Depends on 2 versions of same package:
+import master of "github.com/anon42/app1"
+import v1.2   of "github.com/anon42/app1"
+import master of "bitbucket.org/user2/repo2"
 export main/0
 main () ->
     ok = app2:bla(bla, bla)
@@ -307,10 +307,10 @@ note () ->
     M'  = #{A > B => true}       # New map with boolean key
     M'' = #{g()  A > B => yo()}  # Permissive syntax!
 
-name   of {first :: string(), last :: string()}  # Also creates type '#{name}'
+record name of {first :: string(), last :: string()}  # Also creates type '#{name}'
 name() :: #{name}
 # export_bis name/0  # Now that name is an exportable type…
-person of {name::name(), phone::pos_integer()}
+record person of {name::name(), phone::pos_integer()}
 record_def_and_usage () ->
     R' = #{name  first="Robert", last="Virding"}
     R = #{person  name=R', phone=123}
@@ -353,12 +353,13 @@ processor (Fun, Binary) ->
        <<Fun(E)>>
     | <<Element:1/binary>> <= Binary>>
 
-conf of { dirs = []
-        , destination = filename:join(cwd(), "docs/erldocs")
-        , includes = [ cwd() ++ "/include"
-                     , cwd() ]
-        , logfile ∷ string() | binary()
-        }
+record conf
+    of { dirs = []
+       , destination = filename:join(cwd(), "docs/erldocs")
+       , includes = [ cwd() ++ "/include"
+                    , cwd() ]
+       , logfile ∷ string() | binary()
+       }
 
 #65
 f()-> if if not a<b a if not b
@@ -366,4 +367,32 @@ f()-> if if not a<b a if not b
       if not 2*b
 
 w()-> #{ key => C = 1 + 2 }
+
+module some_attributes
+behaviour gen_server
+##
+export start_link/0
+export        init/1
+       handle_call/3
+       handle_cast/2
+       handle_info/2
+         terminate/2
+       code_change/3
+record state of {}
+##
+start_link () ->
+    gen_server:start_link({local,'?MODULE'}, '?MODULE', [], [])
+##
+init ([]) ->
+    {ok, #{state}}
+handle_call (_Request, _From, State) ->
+    {reply, ignored, State}
+handle_cast (_Msg, State) ->
+    {noreply, State}
+handle_info (_Info, State) ->
+    {noreply, State}
+terminate (_Reason, _State) ->
+    ok
+code_change (_OldVsn, State, _Extra) ->
+    {ok, State}
 
