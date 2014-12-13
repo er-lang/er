@@ -1,5 +1,48 @@
-# kju • [An evolution from Erlang's syntax](https://github.com/fenollp/kju)
+# kju — [A modern non-Ruby syntax for Erlang](https://github.com/fenollp/kju)
+
 An attempt to improve Erlang's syntax quirks & horrible compile-time error reports.
+
+
+```haskell
+zip :: ([A], [B]) -> [{A,B}]
+    when A::B::term()
+zip ([X|Xs], [Y|Ys]) ->
+    [{X',Y'} | X' <- [X|Xs]
+             | Y' <- [Y|Ys]]
+# Uses EEP19's comprehension multigenerators
+```
+
+
+```c
+module some_attributes
+behaviour gen_server
+
+export start_link/0
+export        init/1
+       handle_call/3
+       handle_cast/2
+       handle_info/2
+         terminate/2
+       code_change/3
+record state of {}
+
+start_link () ->
+    gen_server:start_link({local,'?MODULE'}, '?MODULE', [], [])
+
+init ([]) ->
+    {ok, #{state}}
+handle_call (_Request, _From, State) ->
+    {reply, ignored, State}
+handle_cast (_Msg, State) ->
+    {noreply, State}
+handle_info (_Info, State) ->
+    {noreply, State}
+terminate (_Reason, _State) ->
+    ok
+code_change (_OldVsn, State, _Extra) ->
+    {ok, State}
+```
+
 
 This project **implements a grammar** similar to Erlang's *while much less verbose*. Note: grammar is at worst `LL(*)` (to be determined). For example, Erlang could do without its “weird” line terminators while remaining ambiguity-free as a language (and you don't need to replace them with indentation-based parsing). Lua did it. Go kind of did it. Why wouldn't Erlang do it? and shut off the Erlang's-syntax-is-weird naysaying at the same time
 
