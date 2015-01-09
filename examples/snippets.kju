@@ -396,3 +396,8 @@ terminate (_Reason, _State) ->
 code_change (_OldVsn, State, _Extra) ->
     {ok, State}
 
+count (Items) ->
+    R = Items |> fun sum/1
+              |> fun (_1) -> io:format("~p\n", [_1]) end
+    ok = R
+

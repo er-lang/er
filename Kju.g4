@@ -33,7 +33,9 @@ etc : '...' | '\u2026' ; // …
 
 fun_ : 'fun' ;
 
-lra :  '->' | '\u2192' ; // →
+pipeOp : '|>' ;
+
+lra : '->' | '\u2192' ; // →
 bil : '<<' | '\u00ab' ; // «
 bir : '>>' | '\u00bb' ; // »
 
@@ -143,6 +145,7 @@ expr : functionCall
      | receive
      | fun
      | try_
+     | expr (pipeOp fun)+
      | exprMax ;
 
 exprMax : var | '(' expr ')'
