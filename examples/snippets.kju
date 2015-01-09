@@ -401,3 +401,9 @@ count (Items) ->
               |> fun (_1) -> io:format("~p\n", [_1]) end
     ok = R
 
+brackets () ->
+    <| `X + `Y |> = <| 1 + 2 + 3 |>
+    {op,_,'+', {integer,_,1}
+             , {integer,_,2}} = X
+    {op,_,'+', {integer,_,3}} = Y
+
