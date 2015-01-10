@@ -147,7 +147,8 @@ expr : functionCall
      | try_
      | expr   (pipeOp expr)+
      | expr composeOp expr
-     | '<|' ('`' expr | expr) '|>'
+     | '`'  expr
+     | '<|' expr '|>'
      | exprMax ;
 
 exprMax : var | '(' expr ')'
@@ -161,7 +162,8 @@ matchable : matchable  mulOp matchable
           | matchable listOp matchable
           |             unOp matchable
           | matchable    '=' matchable // Lesser precedence
-          | '<|' ('`' matchable | matchable) '|>'
+          | '`'  matchable
+          | '<|' matchable '|>'
           | var | '(' matchable ')'
           | term | record ;
 
