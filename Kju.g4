@@ -32,7 +32,7 @@ when : 'when' | '|' ;  //Just to test support of |. Will not be part of language
 etc : '...' | '\u2026' ; // …
 
 fun_ : 'fun' ;
-
+composeOp : '.' ;
 pipeOp : '|>' ;
 
 lra : '->' | '\u2192' ; // →
@@ -145,7 +145,8 @@ expr : functionCall
      | receive
      | fun
      | try_
-     | expr (pipeOp fun)+
+     | expr   (pipeOp expr)+
+     | expr composeOp expr
      | exprMax ;
 
 exprMax : var | '(' expr ')'
@@ -232,8 +233,7 @@ fun : fun_ mf       '/' integer
     | fun_ mf_      '/' (var|integer)
     | fun_ mf  args '/' integer
     | fun_ mf_ args '/' (var|integer)
-    | fun_ funClause+ 'end'
-    | fun '.' fun ;
+    | fun_ funClause+ 'end' ;
 
 try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
      | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs 'end'
