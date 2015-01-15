@@ -401,6 +401,17 @@ count (Items) ->
               |> fun (_1) -> io:format("~p\n", [_1]) end
     ok = R
 
+read (ASTPattern) ->
+    ASTPattern = <| {echo, `Msg} |>
+    receive
+        ASTPattern -> element(2, ASTPattern)
+    end
+
+#70
+f()->
+    F = fun coucou/1
+    <| [1..10] |> F |>
+
 brackets () ->
     <| `X + `Y |> = <| 1 + 2 + 3 |>
     {op,_,'+', {integer,_,1}
