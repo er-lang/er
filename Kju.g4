@@ -136,7 +136,6 @@ expr : functionCall
      | expr   orelse expr
      |          unOp expr
      | matchable '=' expr
-     |      lr | br | tr // Ranges
      | mc | lc | bc | tc // Comprehensions
      | begin
      | if_
@@ -177,7 +176,8 @@ term : char_
      | map
      | list
      | binary
-     | tuple ;
+     | tuple
+     | lr | br | tr ; // Ranges
 
 list : '['      ']'
      | '[' expr tail ;

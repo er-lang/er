@@ -1,0 +1,1 @@
+(root (block (def (func (atom test_range_matching) (args ( (matchables (matchable (var Thing))) )) (lra ->) (seqExprs (expr (case_ case (expr (exprMax (var Thing))) (of of (clauses (clause (matchable (term (lr [ (expr (exprMax (term (integer 1)))) .. (expr (exprMax (term (integer 6)))) ]))) (lra ->) (seqExprs (expr (exprMax (term (atom coucou)))))))) end)))))) <EOF>)

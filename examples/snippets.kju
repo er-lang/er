@@ -401,3 +401,6 @@ count (Items) ->
               |> fun (_1) -> io:format("~p\n", [_1]) end
     ok = R
 
+test_range_matching (Thing) ->
+    case Thing of [1..6] -> coucou end
+
