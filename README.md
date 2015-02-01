@@ -158,6 +158,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     - Exporting `Mod:Fun/A` for wrapper modules. `Fun` locally defined => error.
     - Given `auto-spec-guards addition`, `--f-ascetic-guard-additions`. Don't add guards where Dialyzer says they are not needed.
     - `myfunc :: othermodule:similarfunc/2` ie. use `-spec`s from other modules (DRY). (Makes sense together with wrapper-notation) Enable only for STDlib's exported funcs? Cons: modularity is lost; odd that there is no `fun` keyword; cohabitation with `callback`s is unclear; more importantly, it leads to hiding stuff; maybe same spec, but linking it to another func's is weird as this func would behave differently.
+    - Match integer ranges using “naked” `..` (2 cons: matching this is easy enough & naked `..` is worse thanusage of real ranges or disjoint union)
 
 ## Step 1
 * The whole point is to make Erlang/OTP look postmodern, readable and elegant.
