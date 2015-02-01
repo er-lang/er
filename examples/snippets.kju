@@ -3,8 +3,8 @@
 ## Separate them with \n\n; the last also.
 f()-> ok
 
-len (L) | is_list(L)  -> length(L)
-len (T) | is_tuple(T) -> size(T)
+len (L) when is_list(L)  -> length(L)
+len (T) when is_tuple(T) -> size(T)
 
 f()-> thiS() W=ill tot:ally(W + ork)
 g()-> i_ll(give) my:hand() to_cut
@@ -16,7 +16,7 @@ length ([_|T]) -> 1 + :(T)  # ‘:’ references the currently defined function,
 f () ->
     case orddict:find(Node, Nodes) of
         {ok, Ref} -> {down, node, Ref}
-        {ok, WrongRef} | is_reference(WrongRef) -> 'not the one'
+        {ok, WrongRef} when is_reference(WrongRef) -> 'not the one'
         error ->     {ignore, not_monitored, FD}
     end
 
@@ -43,7 +43,7 @@ len (A) ->
     case A of
         L when is_list(L) ->
             length(L)
-        T | is_tuple(T) ->
+        T when is_tuple(T) ->
             size(T)
     end
 
@@ -61,12 +61,12 @@ b () ->
 
 'p&to_list' (Arg) ->
     case Arg of
-        T | is_tuple(T) ->  [p(X) X | X <~ T]
-        L | is_list(L) ->   [p(X) X | X <- L]
-        B | is_binary(B) -> [p(X) X | X <= B]
+        T when is_tuple(T) ->  [p(X) X | X <~ T]
+        L when is_list(L) ->   [p(X) X | X <- L]
+        B when is_binary(B) -> [p(X) X | X <= B]
     end
 
-map (F, A) | is_tuple(A) -> {F(X) | X <~ A}
+map (F, A) when is_tuple(A) -> {F(X) | X <~ A}
 
 try…catch () ->
     try bla() Expression of
@@ -84,7 +84,7 @@ try…catch () ->
 #15
 π () -> 3.1415926535
 
-brilliant! () ->  << case X of Z | m(Z) -> 0 Y -> 1 end | X <~ _>>
+brilliant! () ->  << case X of Z when m(Z) -> 0 Y -> 1 end | X <~ _>>
 
 i+am+impressed () ->
     work()
@@ -125,7 +125,7 @@ f() -> case asd of a -> a s -> smth (d) -> ah+ah! end
 
 #25
 len :: (list()) -> pos_integer() | 0
-len (L) | is_list(L)  -> length(L)
+len (L) when is_list(L) -> length(L)
 
 len :: (list()) -> pos_integer()
 len (L) -> length(L)
@@ -347,7 +347,7 @@ normalizer/1 :: processor()
 normalizer (Word) ->
     processor(fun string:to_lower/1, Word)
 ##
-processor :: (processor(), T) -> T | T::text()
+processor :: (processor(), T) -> T when T::text()
 processor (Fun, Binary) ->
     << <<E>> = Element
        <<Fun(E)>>
@@ -403,4 +403,13 @@ count (Items) ->
 
 test_range_matching (Thing) ->
     case Thing of [1..6] -> coucou end
+
+#70
+test_disjoint_union_matching (Thing) ->
+    case Thing of 1 | 2 | 3 -> hi end
+# <=>
+#   case Thing of
+#       1 when Thing == 1; … end
+# 1. Allow usage of this **|** only inside `case`s or `cond`s!
+# 2. Cleverly warn on such usage: `… T | is_tuple(T) -> …`
 

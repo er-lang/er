@@ -27,8 +27,6 @@ mulOp : '*' | '/' | 'div' | 'rem' | 'and' | 'band' | '\u22c0' ; // ⋀
 
 unOp : '+' | '-' | 'not' | 'bnot' | '\u00ac' ; // ¬
 
-when : 'when' | '|' ;  //Just to test support of |. Will not be part of language.
-
 etc : '...' | '\u2026' ; // …
 
 fun_ : 'fun' ;
@@ -72,16 +70,17 @@ fun_func : fa           lra seqExprs ;
 
 args : '(' matchables? ')' ;
 
-guard : when expr ; // && || replaces Erlang's ,; (in guards)
+// && || replaces Erlang's ,; (in guards)
+guard : 'when' expr ;
 
 /// defty
 
-defty : atom '(' tyMaxs? ')' dim tyMax (when tyGuards)? ;
+defty : atom '(' tyMaxs? ')' dim tyMax ('when' tyGuards)? ;
 
 /// spec
 
-spec : atom dim  tyFun          (when tyGuards)?
-     | fa   dim (tyFun|subtype) (when tyGuards)? ;
+spec : atom dim  tyFun          ('when' tyGuards)?
+     | fa   dim (tyFun|subtype) ('when' tyGuards)? ;
 
 tyGuards: tyGuard+ ;
 tyGuard : subtype
@@ -158,6 +157,7 @@ matchable : matchable  mulOp matchable
           | matchable  addOp matchable
           | matchable listOp matchable
           |             unOp matchable
+          | matchable    '|' matchable // Disjoint union
           | matchable    '=' matchable // Lesser precedence
           | var | '(' matchable ')'
           | term | record ;
