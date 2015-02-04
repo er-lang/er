@@ -1,37 +1,41 @@
 ## +export_all
 ## https://github.com/erlang/otp/blob/master/lib/dialyzer/test/small_SUITE_data/src/maps1.erl
-## File:    maps1.kju
+## File:    maps1.er
 ## Author:  Björn-Egil Dahlberg
 ## Created: 2014-01-17
 ##
 
+
+
+
+
 export recv/3 decode/1
 
-#can_pkt of {id, data :: binary(), timestamp}
+#record can_pkt of {id, data :: binary(), timestamp}
 
-can_pkt() :: { id => term(), data => binary(), timestamp => term() }
+can_pkt() :: #{ id => term(), data => binary(), timestamp => term() }
 channel() :: atom() | pid() | {atom(),_}
 
 recv :: (<<_:64,_:_*8>>, fun((can_pkt()) -> R), channel()) -> R
 recv(Packet, Fun, Chan) ->
-  {id := Can_id, data := Can_data} = P = decode(Packet)
+  #{id := Can_id, data := Can_data} = P = decode(Packet)
   Fun(P)
 
-decode :: (<<_:64,_:_*8>>) -> {id => <<_:11>>,timestamp => char()}
+decode :: (<<_:64,_:_*8>>) -> #{id => <<_:11>>,timestamp => char()}
 decode(<<_:12, Len:4, Timestamp:16, 0:3, Id:11/bitstring, 0:18,
        Data:Len/binary, _/binary>>) ->
-  {id => Id, data => Data, timestamp => Timestamp}
+  #{id => Id, data => Data, timestamp => Timestamp}
 
 
 
 t1() ->
-    {bar=>fun t2/0}
+    #{bar=>fun t2/0}
 
 t2() -> ok
 
-map_state() :: { id => integer(), val => term() }
+map_state() :: #{ id => integer(), val => term() }
 
 update :: (map_state(), term()) -> map_state()
 
-update({ id := Id, val := Val } = M, X) when is_integer(Id) ->
-    {M> val := [Val,X] }
+update(#{ id := Id, val := Val } = M, X) when is_integer(Id) ->
+    #{M val := [Val,X] }

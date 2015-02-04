@@ -1,9 +1,10 @@
-# -*- kju, coding: utf-8 -*-
+# -*- er, coding: utf-8 -*-
 ## +hipe +'{parse_transform,inline}'
 export string/1
 
-string :: (‹string›) → {ok | error, ‹term›}
-string (Str) =
+string :: (string()) → {ok | error, term()}
+string (Str) ->
+    true = '':is_string(Str)
     {ok, Tokens} = xrl_scanner:string(Str)
     case yrl_parser:parse(Tokens) of
         {ok, Tree} → {ok, Tree}

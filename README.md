@@ -1,6 +1,6 @@
-# kju — [A modern non-Ruby syntax for Erlang](https://github.com/fenollp/kju)
+# er — [A modern non-Ruby syntax for Erlang](https://github.com/fenollp/Er)
 
-An attempt to improve Erlang's syntax quirks & horrible compile-time error reports.
+The Er language: an attempt to improve Erlang's syntax quirks & horrible compile-time error reports.
 
 
 ```haskell
@@ -51,14 +51,6 @@ This project is also **a compiler** from said grammar to Core Erlang and has to 
 * extending compile-passes should be easy
 * compiler should be built from grammar file
 
-
-## Kju, the name
-
-    cue |kjuː| (action signaling to an actor to begin performance | reminder | ~queue)
-    kju K-ju Kaiju
-    Le monstre magnifique
-
-Maybe Kim Jong-Un in that it is a merciless tool.
 
 ## Additions | Propositions | Ideas
 + Accepted
@@ -125,7 +117,7 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     * Note: `s/,//g` prevented by `B = A, (B)`. `B = A (B)` is a function call! An intermediary var would solve that ambiguity.
     * Note: `s/,//g` prevented by `B = A, #{b=B}`. `B = A #{b=B}` is a record creation! New syntax for records hinders this.
     * To counter EEP38-like problems, `--pedantic` would warn about funclauses appart from each other.
-    * Add last `receive…end` clause: `_ -> '$kju_ignored_message'` (or warn on debug)
+    * Add last `receive…end` clause: `_ -> '$Er_ignored_message'` (or warn on debug)
     * Provide a word to common spec `ok | {error, err_type()}` like `?oe(err_type())`. (Just an included macro?)
     * `<:` as the maps generator
     * Automatically-defined maps/records (inlined) getters (… not really Erlangish!)
@@ -138,13 +130,13 @@ Maybe Kim Jong-Un in that it is a merciless tool.
     - `'` instead of `$` for chars: `'a, 'b, '\', '\\, '\ `. It'd be nice to allow `$` at ^ of atoms.
     - Possibility following context to use keywords as atoms, like in C++. LALR?
     - Call behaviou?rs interfaces (same concept, helps user to feel she can make her own behaviors)
-    - KJu's `-spec` also adds the guards to a `spec`-ed function (or a `case…of…end` inside fun's clause). Don't add when guard explicitly written.
+    - Er's `-spec` also adds the guards to a `spec`-ed function (or a `case…of…end` inside fun's clause). Don't add when guard explicitly written.
     - http://bugs.ruby-lang.org/issues/5054
     - See if `infix{,r,l} ‹0..9› ‹atom›` is possible with a visitor. `(larg0, larg1) atom (rargs) -> … ` could do!
     - Replace `-spec` types (like `any()`, `[integer()]`) with clearer: `‹any›`, `[‹integer›]`
     - Allow `:my_fun()` calls. Sugar for `?MODULE:my_fun()` calls if exported, [local func otherwise](http://erlang.org/pipermail/erlang-questions/2010-June/051772.html) (NO: introduces ambiguity)
     - Change `|` to `:` (but `M:F` hinders that)
-    - In kju *-comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
+    - In Er, *-comprehensions are computed in a non-explicit order. (most of the time are sugar for pmap)
     - `‹funNameAndArgs› ‹guard›* ‹| guarded-clause›* ‹end›` could describe a function. Like Haskell, yes.
     - Support https://en.wikipedia.org/wiki/SI_prefix#List_of_prefixes as: ‹number› ‹SI letter›
     - Allow using `<-` instead of the `receive` keyword. More dynamic impression of an agent receiving messages, Go's channels.

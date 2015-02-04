@@ -4,7 +4,7 @@
 # , generates a PNG of the AST
 # , checks it against a previously generated PNG.
 
-[[ $# -eq 0 ]] && echo "Usage: [FROM=‹int≥ 1›] [T=‹path test›] $0 ‹a_file.kju›" && exit 1
+[[ $# -eq 0 ]] && echo "Usage: [FROM=‹int≥ 1›] [T=‹path test›] $0 ‹a_file.er›" && exit 1
 
 # Enable job control
 set -m
@@ -15,7 +15,7 @@ function P () {
 }
 
 function Parse () {
-    java org.antlr.v4.runtime.misc.TestRig Kju root -encoding utf8 $*
+    java org.antlr.v4.runtime.misc.TestRig Er root -encoding utf8 $*
 }
 
 function before_FROM? () {
@@ -37,7 +37,7 @@ P "Checking '$file'. (stop by removing the generated parser, ^C won't do)."
 code=''; i=1
 while IFS='' read -r -d $'\n' line
 do
-    [[ ! -f Kju.tokens ]] && P 'No parser found!' && exit 2
+    [[ ! -f Er.tokens ]] && P 'No parser found!' && exit 2
     if [[ '' = "$line" ]]; then
         in_EXCEPT?   $i && code='' && ((i++)) && continue
         before_FROM? $i && code='' && ((i++)) && continue

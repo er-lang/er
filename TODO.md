@@ -17,6 +17,6 @@
 * Or just look for a C backend to ANTLR4. Or an Erlang one. Or an haskell one.
 
 ## Documentation
-* Put up a pretty and quick one-pager™ on [fenollp.github.io/kju](http://fenollp.github.io/kju)
+* Put up a pretty and quick one-pager™ on [fenollp.github.io/er](http://fenollp.github.io/er)
 * Clean up `README.md` and clarify direction.
 * Write a syntax colouring plugin for Pygments or emacs

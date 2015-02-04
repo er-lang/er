@@ -1,6 +1,6 @@
 // EBNF LL(*) grammar. Lexer split due to size.
 
-grammar Kju;
+grammar Er;
 import Lexer;
 
 root : block* EOF ;
