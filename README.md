@@ -173,3 +173,13 @@ This project is also **a compiler** from said grammar to Core Erlang and has to 
 - Compiling directly to BEAM?
 - Fully featured LLVM backend.
 * A package manager a-la Homebrew-Hackage-AUR. Community-managed and stuff.
+    + A package is identified by its SCM address
+    + A package version is a branch or a tag (invalidated when hash of tree changes, due to rebasing for example)
+    * A certain and documented project architecture is enforced
+    * Build metadata should not live in the project tree
+    * Packages (& their versions) live in a flat namespace
+    * Packages are compiled once, then symlinked for dev and copied for releases
+    * To edit a dep change the symlink to an in-dev version of it
+    * During build: dependencies are resolved, packages are fetched and colisions are checked
+    * Xref, Dialyzer and a pretty printer should be executing fast and maybe in the background
+    * Building updates code in the specified REPLs
