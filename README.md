@@ -183,3 +183,5 @@ This project is also **a compiler** from said grammar to Core Erlang and has to 
     * During build: dependencies are resolved, packages are fetched and colisions are checked
     * Xref, Dialyzer and a pretty printer should be executing fast and maybe in the background
     * Building updates code in the specified REPLs
+    * A central folder holds compiled/fetched packages
+    * Updates to the per-project package file (as well as updating deps) wipes generated files and starts anew
