@@ -98,6 +98,7 @@ This project is also **a compiler** from said grammar to Core Erlang and has to 
     + Allow `=` in guards as `=:=`, though warn about `==` & floats when possible
     + Rewrite unused-output *-comprehensions as `foreach/2`. Eg: `_ = [‹body› | ‹arg›<-‹input›]` becomes `lists:foreach(fun (‹arg›) -> ‹body› end, ‹input›)`. So as not to build an output.
     + `--static` should suggest to use `lists:flatmap/2` when it finds `lists:foldr(F,[])/1 ◊ lists:append/2`, …
+    + `case Fun of fun M:F/N -> {M,F,N}  _Lambda -> error end` should be allowed given matching exceptions is
 * Not rejected yet
     * `=` instead of `->` when defining a function (bad: dramatically slows parser down)
     * Explicit language support for behaviors and other OTP principles

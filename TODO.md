@@ -11,6 +11,7 @@
 * Add grammar for preprocessor, if possible. (`#` on col0, scrambled text between parens, …)
 * Move `and` & `or` precedences' has high as their exception-gulping counterparts (more power)
     * because `C == $\n or C == $\t` > `(C == $\n) or (C == $\t)`
+* Parse `(Mod:)?F/N` matching on modules' functions
 
 ## Parser
 * Haskell: [uu-parsinglib](http://hackage.haskell.org/package/uu-parsinglib) or `parsec` + lexer + pretty_printer
