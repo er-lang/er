@@ -185,10 +185,10 @@ export start/1,2
 verify_int (Int, Max) ->
     false || verify_strict_int(Int) && verify_strict_int(Max) && Int =< Max
 
-factorial' /1 ->
+factorial /1 ->
   fun
     (f ) -> fun :/1
-    (f') -> fun :()/1
+    (ff) -> fun :()/1
     (0) -> 1
     (N) when N > 0 -> N * :(N -1)
     (f24) -> fun :(4)/0
