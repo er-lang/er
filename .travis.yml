@@ -1,6 +1,7 @@
 language: java
 jdk: openjdk7
 before_script:
-  - curl -O http://www.antlr.org/download/antlr-4.5-complete.jar
-  - export CLASSPATH="./antlr-4.5-complete.jar:$CLASSPATH"
+  - JAR=antlr-4.5-complete.jar
+  - curl -O http://www.antlr.org/download/$JAR
+  - alias antlr4='java -Xmx500M -cp "./$JAR:$CLASSPATH" org.antlr.v4.Tool'
 script: make test
