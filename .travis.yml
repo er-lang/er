@@ -3,5 +3,7 @@ jdk: openjdk7
 before_script:
   - JAR=antlr-4.5-complete.jar
   - curl -O http://www.antlr.org/download/$JAR
-  - alias antlr4='java -Xmx500M -cp "./$JAR:$CLASSPATH" org.antlr.v4.Tool'
+  - echo -e "#!/bin/bash \n java -Xmx500M -cp ./$JAR:\"$CLASSPATH\" org.antlr.v4.Tool $*" >antlr4
+  - chmod u+x ./antlr4
+  - export PATH=.:"$PATH"
 script: make test
