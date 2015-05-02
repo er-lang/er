@@ -1,0 +1,6 @@
+language: java
+jdk: openjdk7
+before_script:
+  - curl -O http://www.antlr.org/download/antlr-4.5-complete.jar
+  - export CLASSPATH="./antlr-4.5-complete.jar:$CLASSPATH"
+script: make test
