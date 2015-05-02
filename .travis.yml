@@ -4,7 +4,9 @@ before_script:
   - cd $TRAVIS_BUILD_DIR
   - JAR=antlr-4.5-complete.jar
   - curl -O http://www.antlr.org/download/$JAR
-  - echo -e "#!/bin/bash \n java -Xmx500M -cp ./$JAR:\"$CLASSPATH\" org.antlr.v4.Tool $*" >antlr4
-  - chmod u+x ./antlr4
+  - echo -e "#!/bin/bash \njava org.antlr.v4.Tool $*" >antlr4
+  - cat antlr4
+  - chmod +x ./antlr4
+  - export CLASSPATH=./$JAR:"$CLASSPATH"
   - export PATH=.:"$PATH"
 script: make test
