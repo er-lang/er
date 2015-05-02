@@ -1,4 +1,7 @@
-# er — [A modern non-Ruby syntax for Erlang](https://github.com/fenollp/Er)
+# er — [A modern non-Ruby syntax for Erlang](https://github.com/fenollp/er)
+
+[![Build Status](https://travis-ci.org/fenollp/er.svg?branch=master)](https://travis-ci.org/fenollp/er)
+
 
 The Er language: an attempt to improve Erlang's syntax quirks & horrible compile-time error reports.
 
