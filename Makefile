@@ -3,7 +3,7 @@ GRA = Er
 all: $(GRA).tokens
 
 $(GRA).tokens: $(GRA).g4 Lexer.g4
-	antlr4 $<
+	java org.antlr.v4.Tool $<
 	javac  $(GRA)*.java
 
 debug: $(GRA).tokens
