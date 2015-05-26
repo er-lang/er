@@ -134,6 +134,7 @@ expr : functionCall
      | expr  andalso expr
      | expr   orelse expr
      |          unOp expr
+     | expr   (pipeOp expr)+
      | matchable '=' expr
      | mc | lc | bc | tc // Comprehensions
      | begin
@@ -143,7 +144,6 @@ expr : functionCall
      | receive
      | fun
      | try_
-     | expr   (pipeOp expr)+
      | expr composeOp expr
      | exprMax ;
 
