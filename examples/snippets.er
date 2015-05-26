@@ -50,7 +50,7 @@ len (A) ->
 #10
 p (Str) ->
     F = fun io:format("~p\n")/1
-    F(Str)
+    (F(Str))
 
 b () ->
     begin
@@ -66,7 +66,7 @@ b () ->
         B when is_binary(B) -> [p(X) X | X <= B]
     end
 
-map (F, A) when is_tuple(A) -> {F(X) | X <~ A}
+map (F, A) when is_tuple(A) -> {(F(X)) | X <~ A}
 
 try…catch () ->
     try bla() Expression of
@@ -144,7 +144,7 @@ len (T) when is_tuple(T) -> size(T)
     end
 
 flat.map (Fun, List) ->
-    (fun append/1 . fun map/2) (Fun, List)
+    ((fun append/1 . fun map/2) (Fun, List))
 
 #30
 flatmap /2 ->
@@ -196,10 +196,11 @@ factorial /1 ->
   end
 
 #40
-f()->  fun io:format("~p\n")/1 (dg)/0  # fun declaration then division of (dg)
-f()-> (fun io:format("~p\n")/1)(dg)/0  # fun declaration then application to dg then division
+f()->   fun io:format("~p\n")/1 ([dg]) /1  # fun declaration then division of ([dg])
+f()-> ((fun io:format("~p\n")/1)([dg]))/1  # fun declaration then application to [dg] then division
 
-f()-> fun (fun io:format("~p\n")/1)(dg)/0  # 2 fun declarations, no division
+f()-> fun (fun io:format("~p\n")/1)([dg])/0  # 2 fun declarations, no division
+## Will fail at runtime as a <Fun….1.…> cannot describe a function's name
 
 import map/2 foreach/2 of lists
 
@@ -318,9 +319,9 @@ record_def_and_usage () ->
 
 #60
 f() -> # These lines are the same
-    a = a  :g()
-    a = (a):g()
-    a = a:g()
+    R = a  :g()
+    R = (a):g()
+    R = a:g()
 
 f() -> {"bla\nbla\"bla", “bla\nbla\”bla”}
       <<"Hello", $\s, "World!">> = “Hello World!”
@@ -350,7 +351,7 @@ normalizer (Word) ->
 processor :: (processor(), T) -> T when T::text()
 processor (Fun, Binary) ->
     << <<E>> = Element
-       <<Fun(E)>>
+       <<(Fun(E))>>
     | <<Element:1/binary>> <= Binary>>
 
 record conf
@@ -412,4 +413,12 @@ test_disjoint_union_matching (Thing) ->
 #       1 when Thing == 1; … end
 # 1. Allow usage of this **|** only inside `case`s or `cond`s!
 # 2. Cleverly warn on such usage: `… T | is_tuple(T) -> …`
+
+fcall_and_funs (F, B, N = 0) ->
+    a:B(c) (d)  ## fcall then atom `d`
+    _FCall = (F())  ## Erlang: just `F()`, no extra braces
+    _FunFCall = ((fun a/0) ()) ## `(fun a/0 ())` forbidden
+    _Fun = fun a:B(c)/N
+    A  B (1+2)  * (2+3)  ## No fcall `B(1+2)`
+    A (B (1+2)) * (2+3)  ## fcall to `B(1+2)`, none to `A`.
 

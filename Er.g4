@@ -165,8 +165,10 @@ matchable : matchable  mulOp matchable
 /// Detailed expressions
 
 params : '(' exprs? ')' ;
-functionCall : mf  params
-             | mf_ params ;
+functionCall :                    ':' params
+             |                   atom params
+             | (exprMax ':')+ exprMax params
+             | '('            exprMax params ')' ;
 
 term : char_
      | integer
@@ -229,10 +231,9 @@ receive : 'receive' clauses                'end'
         | 'receive'         'after' clause 'end'
         | 'receive' clauses 'after' clause 'end' ;
 
-fun : fun_ mf       '/' integer
-    | fun_ mf_      '/' (var|integer)
-    | fun_ mf  args '/' integer
-    | fun_ mf_ args '/' (var|integer)
+fun : fun_ (':' | (exprMax ':')* exprMax)      '/' (var|integer)
+    | fun_ (':' | (exprMax ':')* exprMax) args '/' (var|integer)
+ // | fun_ (':' | (atom    ':')* atom   ) args '/' (var|integer)
     | fun_ funClause+ 'end' ;
 
 try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
@@ -251,10 +252,6 @@ funClause : args       guard? lra seqExprs ;
 
 catchClauses: catchClause+ ;
 catchClause : (exprMax ':')? (clause|clauseGuard) ;
-
-mf :           ':'
-   |                 exprMax ;
-mf_ : (exprMax ':')+ exprMax ;
 
 gen_ : '|' gen ;
 gens: gen_ (gen_ | gen | expr)* ;
