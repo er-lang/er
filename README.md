@@ -8,10 +8,9 @@ The Er language: an attempt to improve Erlang's syntax quirks & horrible compile
 
 ```haskell
 zip :: ([A], [B]) -> [{A,B}]
-#    when A::B::term() added automatically
-zip ([X|Xs], [Y|Ys]) ->
-    [{X',Y'} | X' <- [X|Xs]
-             | Y' <- [Y|Ys]]
+zip ([_|_]=Xs, [_|_]=Ys) ->
+    [{X, Y} | X <- Xs
+            | Y <- Ys]
 # Uses EEP19's comprehension multigenerators
 ```
 
