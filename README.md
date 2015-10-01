@@ -119,7 +119,7 @@ This project is also **a compiler** from said grammar to Core Erlang and has to 
     * `MsgA[2]` | `MsgA[3..]` could be sugar for tuple match-assign as well. For maps? no ordering, so no.
     * Note: `s/,//g` prevented by `B = A, (B)`. `B = A (B)` is a function call! An intermediary var would solve that ambiguity.
     * Note: `s/,//g` prevented by `B = A, #{b=B}`. `B = A #{b=B}` is a record creation! New syntax for records hinders this.
-    * To counter EEP38-like problems, `--pedantic` would warn about funclauses appart from each other.
+    * To counter EEP38-like problems, `--pedantic` would warn about funclauses apart from each other.
     * Add last `receive…end` clause: `_ -> '$Er_ignored_message'` (or warn on debug)
     * Provide a word to common spec `ok | {error, err_type()}` like `?oe(err_type())`. (Just an included macro?)
     * `<:` as the maps generator
