@@ -399,11 +399,12 @@ code_change (_OldVsn, State, _Extra) ->
 
 count (Items) ->
     R = Items |> fun sum/1
-              |> fun (_1) -> io:format("~p\n", [_1]) end
-    ok = R
+              |> fun io:format("~p\n", [_])/1
+    ok = R ## Matches
 
 test_range_matching (Thing) ->
     case Thing of [1..6] -> coucou end
+    ## <=> case Thing of [1,2,3,4,5,6] -> ...
 
 #70
 test_disjoint_union_matching (Thing) ->
