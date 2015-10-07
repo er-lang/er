@@ -399,7 +399,8 @@ code_change (_OldVsn, State, _Extra) ->
 
 count (Items) ->
     R = Items |> fun sum/1
-              |> fun io:format("~p\n", [_])/1
+              |> fun [_]/1
+              |> fun io:format("~p\n")/1
     ok = R ## Matches
 
 test_range_matching (Thing) ->
