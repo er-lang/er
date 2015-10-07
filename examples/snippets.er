@@ -399,9 +399,58 @@ code_change (_OldVsn, State, _Extra) ->
 
 count (Items) ->
     R = Items |> fun sum/1
+        #     |> integer_to_list(^)  # (Just an old idea…)
               |> fun [_]/1
               |> fun io:format("~p\n")/1
     ok = R ## Matches
+#
+# This block is just leftover ideas on Function Holes
+#
+## str /1 ->
+##     io_lib:format("~p", [@]) |> lists:flatten(@)
+## # = io_lib:format("~p", [@]) |> fun lists:flatten/1
+## # = lists:flatten(fun (__1) -> io_lib:format("~p", [__1]) end)
+## # str (_1) ->
+## #   lists:flatten(io_lib:format("~p", [_1]))
+## #
+## funs () ->
+##     Print = io:format("~p\n", [⋅])
+##     #     = fun (X) -> io:format("~p\n", [X]) end
+##     #     = fun io:format("~p\n")/1 ◦ [⋅]
+##     #     = fun io:format("~p\n")/1 ◦ fun (X) -> [X] end
+##     Id = ⋅
+##     Incr = 1 + ⋅
+##     Mul2 = ⋅ * ⋅
+##   # Square ≠ ⋅ * ⋅
+##     Order = ⋅ + ⋅ * ⋅
+##     #     = fun (X) -> fun (Y) -> fun (Z) ->
+##                        Z + X * Y
+##             end        end        end
+#
+## stream (S) ->
+##     Qqch = c(b(a(S)))
+##     Qqch = S |> fun a/1
+##              |> fun b/1
+##              |> fun c/1
+##     Qqch = S |> a(.) # ie no nesting?
+##              |> b(.)
+##              |> c(.)
+##            # |> io:format("~p\n", [.])
+##            # |> fun lists:sum/1
+##     Sum = lists:foldl(fun erlang:'+'/2,
+##                       0,
+##                       lists:map(fun erlang:length/1, ["wef", "yo", "coucou"]))
+##     Sum =  ["wef", "yo", "coucou"]
+##         |> lists:map(fun erlang:length/1, ⋅)
+##         |> lists:foldl(⋅+⋅, 0, ⋅) # No issue: this is fun lists:foldl(…, …)/1
+##     Sum =  ["wef", "yo", "coucou"]
+##         |> lists:foldl(fun (Word, Acc) -> length(Word) + Acc end, 0, ⋅)
+##     AutreTruc = S |> bite(⋅, ⋅+1)
+##     AutreTruc = S |> bite(º, º+1)
+##     # ==        S |> fun (X) -> bite(X, .+1) end
+##     Precedence? = ( ⋅*(⋅+⋅) )(1, 2, 3)
+##         # == 1*(2+3) or == 3*(1+2) ?
+##         # Is ⋅-notation even allowed outside |>-pipes ?
 
 test_range_matching (Thing) ->
     case Thing of [1..6] -> coucou end

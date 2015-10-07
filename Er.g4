@@ -30,7 +30,7 @@ unOp : '+' | '-' | 'not' | 'bnot' | '\u00ac' ; // ¬
 etc : '...' | '\u2026' ; // …
 
 fun_ : 'fun' ;
-composeOp : '.' ;
+composeOp : '.' | '\u25e6' | '\u22c5' | '\u2022' ; // ◦ ⋅ •
 pipeOp : '|>' ;
 
 lra : '->' | '\u2192' ; // →
