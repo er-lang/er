@@ -473,3 +473,18 @@ fcall_and_funs (F, B, N = 0) ->
     A  B (1+2)  * (2+3)  ## No fcall `B(1+2)`
     A (B (1+2)) * (2+3)  ## fcall to `B(1+2)`, none to `A`.
 
+fmap_equivalent :: (#{session_context}) -> '':return(#{session_context})
+fmap_equivalent (Context) ->
+    case
+        Context |> fun maybe_resource_exists/1
+                -< fun maybe_validates/1
+                -< fun maybe_load_something/1
+                -< fun maybe_save_result/1
+    of
+        {ok, Context'} -> Context'
+        {error, Reason}=_E ->
+            lager:error("handling ~s failed: ~p"
+                       , [#{Context session_context request_id}, _E])
+            session:reply_failure(Reason, Context)
+    end
+
