@@ -31,7 +31,7 @@ etc : '...' | '\u2026' ; // …
 
 fun_ : 'fun' ;
 composeOp : '.' | '\u25e6' | '\u22c5' | '\u2022' ; // ◦ ⋅ •
-pipeOp : '|>' ;
+pipeOp : '|>' | '-<' | '\u2919' ; // ⤙
 
 lra : '->' | '\u2192' ; // →
 bil : '<<' | '\u00ab' ; // «
@@ -134,7 +134,6 @@ expr : functionCall
      | expr  andalso expr
      | expr   orelse expr
      |          unOp expr
-     | expr   (pipeOp expr)+
      | matchable '=' expr
      | mc | lc | bc | tc // Comprehensions
      | begin
@@ -144,6 +143,7 @@ expr : functionCall
      | receive
      | fun
      | try_
+     | piped
      | expr composeOp expr
      | exprMax ;
 
@@ -239,6 +239,8 @@ fun : fun_ (':' | (exprMax ':')* exprMax)      '/' (var|integer)
 try_ : 'try' seqExprs of? 'catch' catchClauses                  'end'
      | 'try' seqExprs of? 'catch' catchClauses 'after' seqExprs 'end'
      | 'try' seqExprs of?                      'after' seqExprs 'end' ;
+
+piped : exprMax (pipeOp fun)+ ;
 
 /// Utils | Exists mainly for compactness
 
