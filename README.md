@@ -57,7 +57,7 @@ This project is also **a compiler** from said grammar to Core Erlang and has to 
 ## Additions | Propositions | Ideas
 + Accepted
     + Keep lowercase as atoms, same for variables
-    + Module name is filename (still only one per file).
+    + Module name is filename (still only one per file) (only ASCII lowercase ∩ {non escape chars})
     + Get rid of `,` `.` `;` as terminators|separators. Guards are be combined with `orelse` & `andalso` (as they often are)
     + Shorter type spec (ie `-type new_name :: old_name`: rm `-type`)
     + `-export([Fun/N|…]).` -> `export Fun/N …`
