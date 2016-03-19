@@ -244,7 +244,7 @@ my_other_function :: (names(), places()) → atom()
 my_other_function (Names, Places) ->
   R1 = ø(Ø, Ça, Names)
   R2 = µ(Ð, Æ, Places)
-  if R1 ≥ R2 ok if not ko
+  if R1 ≥ R2 -> ok if not -> ko
 
 #50
 # There is only 1 (L)Comprehension here.
@@ -363,9 +363,10 @@ record conf
        }
 
 #65
-f()-> if if not a<b a if not b
-        "1"
-      if not 2*b
+f()-> if if not a<b -> a if not -> b
+        -> "1"
+      if not
+        -> 2*b
 
 w()-> #{ key => C = 1 + 2 }
 

@@ -220,7 +220,7 @@ tr :  '{' expr '..' expr '}' ;
 
 begin : 'begin' seqExprs 'end' ;
 
-if_ : 'if' expr expr 'if' 'not' expr ;
+if_ : 'if' expr lra expr 'if' 'not' lra expr ;
 
 cond : 'cond' (condClause)+ 'end' ;
 condClause : expr lra seqExprs ;
