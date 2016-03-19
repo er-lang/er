@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e -o pipefail
 
 # Looks for code separated by \n\n
 # , generates a PNG of the AST
