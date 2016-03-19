@@ -7,7 +7,7 @@ $(GRA).tokens: $(GRA).g4 Lexer.g4
 	javac  $(GRA)*.java
 
 debug: $(GRA).tokens
-	java org.antlr.v4.runtime.misc.TestRig $(GRA) root -encoding utf8 -gui
+	java org.antlr.v4.gui.TestRig $(GRA) root -encoding utf8 -gui
 
 distclean:
 	$(if $(wildcard $(GRA)*.tokens), \
