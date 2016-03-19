@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ## Add snippets at EoF
-## Separate them with \n\n; the last also.
+## Separate them with \n\n down to the last one.
 f()-> ok
 
 len (L) when is_list(L)  -> length(L)
