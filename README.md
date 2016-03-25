@@ -1,4 +1,4 @@
-# er — [A modern non-Ruby syntax for Erlang](https://github.com/fenollp/er)
+# [er](https://github.com/fenollp/er) — Erlang's semantics with a simpler syntax
 
 [![Build Status](https://travis-ci.org/fenollp/er.svg?branch=master)](https://travis-ci.org/fenollp/er)
 
