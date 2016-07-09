@@ -109,3 +109,7 @@ can throw, and the exceptions are usually uninformative (e.g.,
 "badmatch" when you have half a dozen pattern matches in the indicated
 function). Thus, _using_ the exit reason to recover from an error is
 difficult. In practice, you print, log or ignore an exit today.
+
+### https://medium.com/@elbrujohalcon/there-are-guards-and-guards-71e67d4975d7#.mb942l9z2
+#### Syntax
+surprising operator precedence
