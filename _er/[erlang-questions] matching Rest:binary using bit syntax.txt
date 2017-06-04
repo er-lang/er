@@ -1,0 +1,210 @@
+                                                                                                                                                                                                                                                               
+Delivered-To: pierrefenoll@gmail.com
+Received: by 10.60.17.195 with SMTP id q3csp191287oed;
+        Wed, 25 Jun 2014 00:33:48 -0700 (PDT)
+X-Received: by 10.153.7.74 with SMTP id da10mr4359966lad.27.1403681627663;
+        Wed, 25 Jun 2014 00:33:47 -0700 (PDT)
+Return-Path: <erlang-questions-bounces@erlang.org>
+Received: from hades.cslab.ericsson.net (hades.cslab.ericsson.net. [192.121.151.104])
+        by mx.google.com with ESMTP id ln3si2441265lac.12.2014.06.25.00.33.46
+        for <multiple recipients>;
+        Wed, 25 Jun 2014 00:33:47 -0700 (PDT)
+Received-SPF: pass (google.com: domain of erlang-questions-bounces@erlang.org designates 192.121.151.104 as permitted sender) client-ip=192.121.151.104;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of erlang-questions-bounces@erlang.org designates 192.121.151.104 as permitted sender) smtp.mail=erlang-questions-bounces@erlang.org
+Received: from hades.cslab.ericsson.net (hades [192.121.151.104])
+	by hades.cslab.ericsson.net (Postfix) with ESMTP id AD9565C1F0;
+	Wed, 25 Jun 2014 09:33:41 +0200 (CEST)
+X-Original-To: erlang-questions@erlang.org
+Delivered-To: erlang-questions@erlang.org
+Received: from mail.tpip.net (mail.tpip.net [92.43.49.48])
+ by hades.cslab.ericsson.net (Postfix) with ESMTP id 4769E5C005
+ for <erlang-questions@erlang.org>; Wed, 25 Jun 2014 09:33:40 +0200 (CEST)
+Received: from office.tpip.net (office.tpip.net [92.43.51.2])
+ by mail.tpip.net (Postfix) with ESMTP id D9DE54F403;
+ Wed, 25 Jun 2014 07:33:37 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by office.tpip.net (Postfix) with ESMTP id D37513138D6;
+ Wed, 25 Jun 2014 07:37:13 +0000 (UTC)
+Received: from office.tpip.net ([127.0.0.1])
+ by localhost (office.tpip.net [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id TOuBpYThwKjm; Wed, 25 Jun 2014 07:37:09 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by office.tpip.net (Postfix) with ESMTP id 31818313900;
+ Wed, 25 Jun 2014 07:37:09 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at tpip.net
+Received: from office.tpip.net ([127.0.0.1])
+ by localhost (office.tpip.net [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 2dgRVSZcypU4; Wed, 25 Jun 2014 07:37:09 +0000 (UTC)
+Received: from office.tpip.net (office.tpip.net [92.43.51.2])
+ by office.tpip.net (Postfix) with ESMTP id 077B23138FF;
+ Wed, 25 Jun 2014 07:37:09 +0000 (UTC)
+Date: Wed, 25 Jun 2014 07:37:08 +0000 (UTC)
+From: Andreas Schultz <aschultz@tpip.net>
+To: Dmitry Kolesnikov <dmkolesnikov@gmail.com>
+Message-ID: <635810529.61477.1403681828225.JavaMail.zimbra@tpip.net>
+In-Reply-To: <F912A33D-65E6-483F-A71F-CF662676B7A4@gmail.com>
+References: <3FBAF25A-F91F-4331-A9A8-3E3E54043D4C@bigpond.net.au>
+ <F912A33D-65E6-483F-A71F-CF662676B7A4@gmail.com>
+MIME-Version: 1.0
+X-Originating-IP: [217.92.147.146]
+X-Mailer: Zimbra 8.0.6_GA_5922 (ZimbraWebClient - GC37 (Linux)/8.0.6_GA_5922)
+Thread-Topic: matching Rest/binary using bit syntax - why does it have to be
+ the last element specified if all other elements are sized ?
+Thread-Index: VUkVZPEEWcMNBNKRTglC4EUrur8oBA==
+Cc: Richard McLean <rmcl2303@bigpond.net.au>, erlang-questions@erlang.org
+Subject: Re: [erlang-questions] matching Rest/binary using bit syntax -
+	why	does it have to be the last element specified if all
+	other	elements are sized ?
+X-BeenThere: erlang-questions@erlang.org
+X-Mailman-Version: 2.1.14
+Precedence: list
+List-Id: General Erlang/OTP discussions <erlang-questions.erlang.org>
+List-Unsubscribe: <http://erlang.org/mailman/options/erlang-questions>,
+ <mailto:erlang-questions-request@erlang.org?subject=unsubscribe>
+List-Archive: <http://erlang.org/pipermail/erlang-questions>
+List-Post: <mailto:erlang-questions@erlang.org>
+List-Help: <mailto:erlang-questions-request@erlang.org?subject=help>
+List-Subscribe: <http://erlang.org/mailman/listinfo/erlang-questions>,
+ <mailto:erlang-questions-request@erlang.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Errors-To: erlang-questions-bounces@erlang.org
+Sender: erlang-questions-bounces@erlang.org
+
+Hi,
+
+----- Original Message -----
+> Hello,
+> 
+> Here is one way to make it:
+> 
+> Head = byte_size(BinC) * 8 - 24.
+> <<H:Head, T:24>> = BinC.
+> 
+> The reverse operation for binary is expensive.
+
+As you demonstrated, no reverse operation is needed. The compiler
+could actually be smart enough to generate above code by itself
+when given a match like:
+
+  <<H/binary, T:24>> = BinC
+
+Even having the variable length part (as long as there is only
+one) somewhere in the middle, would still allow the compiler
+to construct the expression.
+
+Things would become a bit more complicated in case or guard
+matches.
+
+Question to experts of the Erlang internals: Is there a non trivial
+reason the compiler/runtime system can't handle such matches?
+
+Regards
+Andreas
+
+> 
+> Best Regards,
+> Dmitry >-|-|-(*>
+> 
+> 
+> On 25.6.2014, at 4.11, Richard McLean < rmcl2303@bigpond.net.au > wrote:
+> 
+> 
+> 
+> 
+> This is my first question to the mailing list so apologies if there are any
+> newbie errors.
+> 
+> Regarding bit syntax and pattern matching, you can match the remaining part
+> of the binary using the Rest/binary idiom as long as the element of
+> unspecified size (ie Rest/binary) is at the end of the pattern (ie. the very
+> last specified element)...
+> 
+> eg. suppose I have a binary of unknown size (here I'm using <<1,2,3,4>> as
+> the example) and I want to separate it into 2 binaries - one containing the
+> first 8 bits, and the other containing the remainder...
+> 
+> eg.
+> 1> BinA = <<1,2,3,4>>.
+> <<1,2,3,4>>
+> 2> <<BinB:8/binary-unit:1,BinC/binary>> = BinA.
+> <<1,2,3,4>>
+> 3> BinB.
+> <<1>>
+> 4> BinC.
+> <<2,3,4>>
+> 
+> So far so good...
+> 
+> Now suppose I want to take the same input binary (of unknown size) and this
+> time I want to separate it into 2 binaries - one containing the LAST 24 bits
+> (say some sort of footer), and the other containing the remainder (ie all
+> the PRECEDING data)...
+> 
+> This should still be possible from the the compiler/erlang VM point of view
+> as we are still specifying all the element sizes except one, but erlang
+> generates an error if the binary element of unspecified size is anything but
+> the last match element.
+> 
+> eg.
+> 1> BinA = <<1,2,3,4>>.
+> <<1,2,3,4>>
+> 2> <<BinB/binary, BinC:8/binary-unit:3>> = BinA.
+> * 1: a binary field without size is only allowed at the end of a binary
+> pattern
+> 
+> What is the easiest way to achieve this sort of thing ?
+> I'm supposing the binary could be reversed, the front X bits extracted, then
+> reversing the extracted binary and the remainder, but is there an easier way
+> ?
+> 
+> And if there are any of the erlang maintainers reading this, would it be
+> possible in a future release to change the rules on the Rest/binary idiom to
+> allow Rest/binary to be any element of the match pattern as long as all
+> other elements are size specified ?
+> 
+> I don't think it would be a big change to the implement but perhaps there are
+> hidden gotchas I'm not considering ?
+> 
+> Regards
+> 
+> Richard
+> 
+> 
+> 
+> 
+> _______________________________________________
+> erlang-questions mailing list
+> erlang-questions@erlang.org
+> http://erlang.org/mailman/listinfo/erlang-questions
+> 
+> _______________________________________________
+> erlang-questions mailing list
+> erlang-questions@erlang.org
+> http://erlang.org/mailman/listinfo/erlang-questions
+> 
+
+-- 
+-- 
+Dipl. Inform.
+Andreas Schultz
+
+email: as@travelping.com
+phone: +49-391-819099-224
+mobil: +49-170-2226073
+
+------------------- enabling your networks -------------------
+
+Travelping GmbH               phone:         +49-391-819099229
+Roentgenstr. 13               fax:           +49-391-819099299
+D-39108 Magdeburg             email:       info@travelping.com
+GERMANY                       web:   http://www.travelping.com
+
+Company Registration: Amtsgericht Stendal Reg No.:   HRB 10578
+Geschaeftsfuehrer: Holger Winkelmann | VAT ID No.: DE236673780
+--------------------------------------------------------------
+_______________________________________________
+erlang-questions mailing list
+erlang-questions@erlang.org
+http://erlang.org/mailman/listinfo/erlang-questions

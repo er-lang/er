@@ -1,0 +1,97 @@
+-type processor() :: fun (text()) -> text(). # Erlang wants fun(..)
+-spec analyze([#document{}], [processor()]) -> [#tokenized_document{}].
+
+#...
+
+-spec normalizer/1 :: processor(). # Erkang doesn't like it
+
+###
+
+1st/1 = fun element(1,º)
+
+###
+
+-spec m(Ls, Rs) -> Merged when Ls::R::Merged::[{text(),[path()]}]. # Erlang forbids A::B::C::t()
+
+###
+# The theme today: generics through metaprogramming…
+
+-spec m([text()], path(), path(), [text()]) -> index().
+m (Ls, UrlL, UrlR, Rs) ->
+    %% 1> tmln:m([a,b,c,e,g], uL, uR, [c,d,f,g]).
+    %% [{g,[uL,uR]},{f,uR},{e,uL},{d,uR},{c,[uL,uR]},{b,uL},{a,uL}]
+    m(lists:usort(Ls), UrlL, UrlR, lists:usort(Rs), []).
+%% Assumes usort-ed lists. Returns inv-usort-ed list. O(maxlen(Ls,Rs) + O(Rest++Acc)))
+m ([], _, _, [], Acc) -> Acc;
+m ([], _, UrlR, Rs, Acc) -> [{R,[UrlR]} || R <- Rs] ++ Acc;
+m (Ls, UrlL, _, [], Acc) -> [{L,[UrlL]} || L <- Ls] ++ Acc;
+
+m ([L|RestL], UrlL, UrlR, [R|RestR], Acc)
+  when L =:= R ->
+    m(RestL, UrlL, UrlR, RestR, [{L,lists:usort([UrlR,UrlL])}|Acc]);
+m ([L|RestL], UrlL, UrlR, [R|RestR], Acc)
+  when L  <  R ->
+    m(RestL, UrlL, UrlR, [R|RestR], [{L,[UrlL]}|Acc]);
+m ([L|RestL], UrlL, UrlR, [R|RestR], Acc)
+  when L  >  R ->
+    m([L|RestL], UrlL, UrlR, RestR, [{R,[UrlR]}|Acc]).
+
+
+-spec m(index(), index()) -> index().
+m (Ls, Rs) ->
+%% 1> tmln:m(tmln:m([a,b,c,e,g], uL,uR, [c,d,f,g]), tmln:m([c,d,f,g,h], uL1,uR1, [a,b,c,e,g])).
+%% [{a,[uL,uR1]},{b,[uL,uR1]},{c,[uL,uL1,uR,uR1]},{d,[uL1,uR]},{e,[uL,uR1]},{f,[uL1,uR]},{g,[uL,uL1,uR,uR1]},{h,uL1}]
+    m(Ls, Rs, []).
+%% Assumes u-key-sorted lists (also, usort-ed 2nd element). Returns inv-usorted list.
+m ([], [], Acc) -> Acc;
+m ([], Rs, Acc) -> lists:reverse(Rs,Acc); %not sure about this one
+m (Ls, [], Acc) -> lists:reverse(Ls,Acc);
+
+m ([{L,UrlsL}|RestL], [{R,UrlsR}|RestR], Acc)
+  when L =:= R ->
+    m(RestL, RestR, [{L,lists:umerge(UrlsR,UrlsL)}|Acc]);
+m ([{L,UrlsL}|RestL], [{R,UrlsR}|RestR], Acc)
+  when L  >  R ->
+    m(RestL, [{R,UrlsR}|RestR], [{L,UrlsL}|Acc]);
+m ([{L,UrlsL}|RestL], [{R,UrlsR}|RestR], Acc)
+  when L  <  R ->
+    m([{L,UrlsL}|RestL], RestR, [{R,UrlsR}|Acc]).
+
+###
+# --static code patches suggestions
+#    Note: replacing securely implies emiting the same exceptions…
+
+“Replace src/distrib_counter_bad1_sim.erl:73:”
+  NumCrashes = length([x || {process_crash,_,_,_,_,_} <- Trc]),
+with (call to new function) (gain: [mem] list not created)
+  NumCrashes = num_crashes000(Trc),
+and (code of new function)
+  num_crashes000 (Trc) ->
+      num_crashes000(Trc, 0).
+  num_crashes000 ([{process_crash,_,_,_,_,_}|Rest], Num) ->
+      num_crashes000(Rest, Num +1);
+  num_crashes000 ([_|Rest], Num) ->
+      num_crashes000(Rest, Num);
+  num_crashes000 ([], Num) -> Num.
+
+###
+# …and various stream fusion applications
+
+  element(1, lists:unzip(Bla))
+~> gain: [mem] 2nd list not created
+  [X || {X,_} <- Bla] %% I think that's called lifting
+
+###
+# Erlang's if…end extended by when…end
+#   (: creates nested case…of…end instead of using guards)
+
+when X >  Y -> a()
+     X =< Y -> b()
+end
+
+###
+
+2> try io:format("try\n") after io:format("after\n") end.
+try
+after
+ok

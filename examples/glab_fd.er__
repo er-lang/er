@@ -1,0 +1,80 @@
+# -*- coding: utf-8 -*-
+###-------------------------------------------------------------------
+## @copyright Geoff Cant
+## @author Geoff Cant <nem@erlang.geek.nz>
+## @doc Implements (slightly?) unreliable failure detectors for the
+##      async bully algorithm used in gl_async_bully.
+## @end
+###-------------------------------------------------------------------
+export
+            new/1
+          start/2
+           stop/2
+    filter_DOWN/2
+            set/2
+end
+
+record fd of
+    name  :: ‹atom›
+    nodes :: ‹orddict:orddict› = orddict:new()
+end
+
+opaque ‹fd_set› :: ‹fd›
+
+export ‹fd_set› 0 end
+
+##====================================================================
+## API
+##====================================================================
+
+new :: (‹atom›) -> ‹fd_set›
+new (Name) =  ## Note: ‘when is_atom(Name)’ is automatically added.
+    {fd name = Name}  ## Note: the ‘=’ desambiguates record/map.
+
+start :: (‹node›, ‹fd_set›) -> ‹fd_set›
+start (Node, FD = {fd name = Name, nodes = Nodes}) =
+    if orddict:is_key(Node, Nodes)
+    then FD
+    else
+        Ref = erlang:monitor(process, {Name, Node})
+        ‹fd FD nodes = orddict:store(Node, Ref, Nodes)>
+         ## Note: ‘FD#fd.nodes’ = ‘‹fd FD nodes>’
+    end
+
+filter_DOWN :: ({'DOWN', ‹reference›, _, _, Info}, ‹fd_set›)
+            -> {'down',   {‹atom›, ‹node›, Info}, ‹fd_set›}
+             | {'ignore', ‹atom Reason›,          ‹fd_set›}  ## Note: <=> ‘Reason::atom()’ ≠ ‘atom(Reason)’.
+filter_DOWN ({'DOWN', Ref, process, {Name, Node}, Info},
+             FD = ‹fd›{name = Name, nodes = Nodes}) =
+    case orddict:find(Node, Nodes)
+    | {ok, Ref} ->  ## Note: if ambiguity separating expressions is solved, ‘,’ useless in {} and []!
+        {down
+        , {Name, Node, Info}
+        , ‹fd FD›{nodes = orddict:erase(Node, Nodes)}}  ## Note: FD is already known to be ‹fd›…
+    | {ok, WrongRef} when ‹reference WrongRef› ->  ## Note: <=> ‘when is_reference(WrongRef)’
+        {ignore, stale, FD}
+    | error ->
+        {ignore, not_monitored, FD}
+    end
+filter_DOWN ({'DOWN', _Ref, Type, _Obj, _Info}, FD) =
+    {ignore, other_monitor, FD}
+
+stop :: (‹node›, ‹fd_set›) -> ‹fd_set›
+stop (Node, FD = ‹fd›{nodes = Nodes}) =
+    case orddict:find(Node, Nodes) of
+    {ok, Ref} ->
+        erlang:demonitor(Ref, [flush])
+        ‹fd FD›{nodes = orddict:erase(Node, Nodes)}
+    error ->
+        FD
+    end
+
+set :: ([‹node›], ‹fd_set›) -> ‹fd_set›
+set (NewNodes, FD = ‹fd›{nodes = Nodes}) =
+    orddict:fetch_keys(Nodes)
+    |> lists:foldl(fun :stop/2, FD, ·)
+    |> lists:foldl(fun :start/2, ·, NewNodes)
+
+##====================================================================
+## Internal functions
+##====================================================================

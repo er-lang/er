@@ -1,0 +1,50 @@
+Good er snippet!
+ 239 ⊦                                                                                                                | 184 ⊦ make_and_store_chunk(KamailioIP, Counter, Callid, Data) ->
+ 240 ⊦ timestamp(<<YYYY:4/binary, "-", MM:2/binary, "-", DD:2/binary, "T"                                             | 185 ⊦     Apply = fun (Fun, Arg) -> Fun(Arg) end,
+ 241 ⊦             ,HH:2/binary, ":", MMM:2/binary, ":", SS:2/binary, "."                                             | 186 ⊦     Setters = [fun (C) -> ci_chunk:set_data(C, Data) end
+ 242 ⊦             ,Micro:6/binary, "+", _H:2/binary, ":", _M:2/binary, " ", _/binary>>) ->                           | 187 ⊦               ,fun (C) -> ci_chunk:set_call_id(C, Callid) end
+ 243 ⊦     1.0e-6 * wh_util:to_integer(Micro) +                                                                       | 188 ⊦               ,fun (C) -> ci_chunk:set_timestamp(C, Counter) end
+ 244 ⊦         calendar:datetime_to_gregorian_seconds(                                                                | 189 ⊦               ,fun (C) -> ci_chunk:set_parser(C, ?MODULE) end
+ 245 ⊦           { {wh_util:to_integer(YYYY), wh_util:to_integer(MM), wh_util:to_integer(DD)}                         | 190 ⊦               ,fun (C) -> ci_chunk:set_label(C, label(hd(Data))) end
+ 246 ⊦           , {wh_util:to_integer(HH), wh_util:to_integer(MMM), wh_util:to_integer(SS)} });                      | 191 ⊦               ,fun (C) -> ci_chunk:set_from(C, source(Data)) end
+ 247 ⊦ timestamp(_) -> 'undefined'.                                                                                   | 192 ⊦               ,fun (C) -> ci_chunk:set_to(C, KamailioIP) end
+ 248 ⊦
+
+
+Prelude defines OTP_* macros such as
+ 124 ⊦ %% Helper macro for declaring children of supervisor
+ 125 ⊦ -define(WORKER(I), {I, {I, 'start_link', []}, 'permanent', 5000, 'worker', [I]}).
+ 126 ⊦ -define(WORKER_ARGS(I, Args), {I, {I, 'start_link', Args}, 'permanent', 5000, 'worker', [I]}).
+ 127 ⊦ -define(WORKER_TYPE(I, Type), {I, {I, 'start_link', []}, Type, 5000, 'worker', [I]}).
+ 128 ⊦ -define(WORKER_ARGS_TYPE(I, Args, Type), {I, {I, 'start_link', Args}, Type, 5000, 'worker', [I]}).
+ 129 ⊦ -define(WORKER_NAME_ARGS(I, N, Args), {N, {I, 'start_link', Args}, 'permanent', 5000, 'worker', [I]}).
+ 130 ⊦ -define(WORKER_NAME_ARGS_TYPE(N, I, Args, Type), {N, {I, 'start_link', Args}, Type, 5000, 'worker', [I]}).
+ 131 ⊦
+ 132 ⊦ -define(SUPER(I), {I, {I, 'start_link', []}, 'permanent', 'infinity', 'supervisor', [I]}).
+ 133 ⊦ -define(SUPER_TYPE(I, Type), {I, {I, 'start_link', []}, Type, 'infinity', 'supervisor', [I]}).
+ 134 ⊦ -define(SUPER_ARGS(I, Args), {I, {I, 'start_link', Args}, 'permanent', 'infinity', 'supervisor', [I]}).
+ 135 ⊦ -define(SUPER_ARGS_TYPE(I, Args, Type), {I, {I, 'start_link', Args}, Type, 'infinity', 'supervisor', [I]}).
+ 136 ⊦ -define(SUPER_NAME_ARGS_TYPE(N, I, Args, Type), {N, {I, 'start_link', Args}, Type, 'infinity', 'supervisor', [I]}).
+
+Add support for a VM-wide definition of the ‘undefined’ atom
+* It now is either undefined or undef, god knows what else
+* emu args should have a --nil=undefined to return undefined when it returned undef
+* is this THE_NON_VALUE? don't think so.
+
+Color differently exported functions
+
+--static should say something about better ordering of pure calls to move code lower:
+getCommand(MsgBody) ->
+    PrefixIndex = string:str(MsgBody,?cmdprefix),
+    FirstSpace = string:str(MsgBody," "),
+    if
+        PrefixIndex == 0 ->
+            "";
+        PrefixIndex > 1 ->
+            "";
+        (PrefixIndex == 1) and (FirstSpace == 0) ->
+            string:substr(MsgBody,2);
+        (PrefixIndex == 1) and (FirstSpace > 0) ->
+            string:substr(MsgBody,2,FirstSpace-2)
+    end.
+
