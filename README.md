@@ -102,6 +102,12 @@ This project is also **a compiler** from said grammar to Core Erlang and has to 
     + `--static` should suggest to use `lists:flatmap/2` when it finds `lists:foldr(F,[])/1 ◊ lists:append/2`, …
     + `case Fun of fun M:F/N -> {M,F,N}  _Lambda -> error end` should be allowed given matching exceptions is
 * Not rejected yet
+    * define fun args invocation order (ltr?) so maps matching can be ellegant
+    * new type: `pure(...)` which takes a `fun(...)` for docs & some warnings (Crashing can be a side effect...)
+    * test system that uses func guards as a target when generating test data
+    * JIT-like watchdog that collects metrics & attempts some optimization by hot swapping your modules
+    * `try...after Timeout` that "ends your computation" if `Timeout`ms went by
+    * `receive...after Node:Timeout` to timeout receiving from a pattern matchable `Node` (parts of *@*, as strings?)
     * `=` instead of `->` when defining a function (bad: dramatically slows parser down)
     * Explicit language support for behaviors and other OTP principles
     * A look-alike syntax for named & λ functions. More important: Haskell's λ functions.
