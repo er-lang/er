@@ -134,6 +134,7 @@ This project is also **a compiler** from said grammar to Core Erlang and has to 
     * Look into embedded specs to display terms. Eg: `f :: () -> ‹string› f()=[]`, `> f() #=> ""`
     * Grammar issues regarding record/maps and no `,`?: scan for 'Var#name'.
     * `a | b | c` as match-multiple notation.
+    * Use typed record fields as in this illegal Erlang: `post_conditions(#output.schema_id) -> shall_tests()`
 - Rejected
     - Differenciate Erlang's multiple meanings of `=` with other shape-like tokens.
     - `'` instead of `$` for chars: `'a, 'b, '\', '\\, '\ `. It'd be nice to allow `$` at ^ of atoms.
